@@ -10,21 +10,18 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        $admin = User::firstOrNew(['email' => 'admin@partyrentalpro.com']);
-        $admin->name = 'Admin';
-        $admin->role = 'admin';
+        $email = env('ADMIN_EMAIL', 'admin@partyrentalpro.com');
+        $password = env('ADMIN_DEFAULT_PASSWORD', env('ADMIN_PASSWORD'));
 
-        if (!$admin->exists) {
-            $password = env('ADMIN_PASSWORD');
-
-            if (!$password) {
-                $this->command?->warn('Set ADMIN_PASSWORD sebelum membuat akun admin.');
-                return;
-            }
-
-            $admin->password = Hash::make($password);
+        if (!$password) {
+            $this->command?->warn('Set ADMIN_EMAIL dan ADMIN_DEFAULT_PASSWORD (atau ADMIN_PASSWORD) sebelum membuat akun admin.');
+            return;
         }
 
+        $admin = User::firstOrNew(['email' => $email]);
+        $admin->name = 'Admin';
+        $admin->role = 'admin';
+        $admin->password = Hash::make($password);
         $admin->save();
     }
 }
