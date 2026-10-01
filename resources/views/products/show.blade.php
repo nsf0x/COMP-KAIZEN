@@ -141,7 +141,6 @@
                     </div>
                     <div class="card-body p-3">
                         <h6 class="fw-600 small mb-1">{{ $item->name }}</h6>
-                        <div class="small fw-700 mb-2" style="color:var(--primary);">{{ $item->price ?? 'Hubungi Kami' }}</div>
                         <a href="{{ route('products.show', $item) }}" class="btn btn-sm btn-outline-secondary rounded-pill w-100">Lihat</a>
                     </div>
                 </div>

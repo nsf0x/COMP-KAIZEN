@@ -1,0 +1,366 @@
+{
+  "info_umum": [
+    "Layanan untuk wilayah JABODETABEK",
+    "Tarif pemakaian per hari",
+    "Sudah termasuk instalasi (pasang dan bongkar)"
+  ],
+  "products": [
+    {
+      "category": "Tenda",
+      "name": "Tenda Roder",
+      "unit": "per m²",
+      "description": "Tenda roder untuk berbagai kebutuhan acara.",
+      "sort_order": 1
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Roder + Dekorasi",
+      "unit": "per m²",
+      "description": "Tenda roder dilengkapi dekorasi.",
+      "sort_order": 2
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Sarnafil 3x3m",
+      "unit": "per unit",
+      "description": "Ukuran 3x3 meter.",
+      "sort_order": 3
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Sarnafil 5x5m",
+      "unit": "per unit",
+      "description": "Ukuran 5x5 meter.",
+      "sort_order": 4
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Sarnafil + Flooring + Karpet Layak 3x3m",
+      "unit": "per unit",
+      "description": "Ukuran 3x3 meter, sudah termasuk flooring dan karpet layak.",
+      "sort_order": 5
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Sarnafil + Flooring + Karpet Layak 5x5m",
+      "unit": "per unit",
+      "description": "Ukuran 5x5 meter, sudah termasuk flooring dan karpet layak.",
+      "sort_order": 6
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Konvensional",
+      "unit": "per m²",
+      "description": "Tenda konvensional untuk berbagai kebutuhan acara.",
+      "sort_order": 7
+    },
+    {
+      "category": "Tenda",
+      "name": "Tenda Set Parasol",
+      "unit": "per set",
+      "description": "Satu set tenda parasol.",
+      "sort_order": 8
+    },
+    {
+      "category": "Flooring & Karpet",
+      "name": "Flooring + Karpet Layak",
+      "unit": "per m²",
+      "description": "Tinggi maksimal 10cm.",
+      "sort_order": 9
+    },
+    {
+      "category": "Flooring & Karpet",
+      "name": "Flooring + Karpet Baru",
+      "unit": "per m²",
+      "description": "Tinggi maksimal 10cm.",
+      "sort_order": 10
+    },
+    {
+      "category": "Toilet Portable",
+      "name": "Toilet Portable (Toilet Kering)",
+      "unit": "per unit",
+      "description": "Toilet portable tipe kering.",
+      "sort_order": 11
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 150 kVA",
+      "unit": "per unit",
+      "description": "Kapasitas 150 kVA, pemakaian maksimal 120.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "sort_order": 12
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 100 kVA",
+      "unit": "per unit",
+      "description": "Kapasitas 100 kVA, pemakaian maksimal 80.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "sort_order": 13
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 80 kVA",
+      "unit": "per unit",
+      "description": "Kapasitas 80 kVA, pemakaian maksimal 60.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "sort_order": 14
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 60 kVA",
+      "unit": "per unit",
+      "description": "Kapasitas 60 kVA, pemakaian maksimal 40.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "sort_order": 15
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 5000 Watt",
+      "unit": "per unit",
+      "description": "Kapasitas 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "sort_order": 16
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P3.9 Indoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P3.9 untuk dalam ruangan.",
+      "sort_order": 17
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P3.9 Outdoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P3.9 untuk luar ruangan.",
+      "sort_order": 18
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P2.6 Indoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P2.6 untuk dalam ruangan.",
+      "sort_order": 19
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P2.6 Outdoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P2.6 untuk luar ruangan.",
+      "sort_order": 20
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P2.6 Curve Indoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P2.6 model lengkung untuk dalam ruangan.",
+      "sort_order": 21
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Screen P2.6 Curve Outdoor",
+      "unit": "per m²",
+      "description": "Tipe pixel pitch P2.6 model lengkung untuk luar ruangan.",
+      "sort_order": 22
+    },
+    {
+      "category": "LED Screen",
+      "name": "LED Cube",
+      "unit": "per m²",
+      "description": "LED model kubus.",
+      "sort_order": 23
+    },
+    {
+      "category": "LED Screen",
+      "name": "Operator LED (Biasa)",
+      "unit": "per paket",
+      "description": "Layanan operator LED biasa.",
+      "sort_order": 24
+    },
+    {
+      "category": "LED Screen",
+      "name": "VJ (Video Jockey)",
+      "unit": "per paket",
+      "description": "Layanan VJ untuk LED screen.",
+      "sort_order": 25
+    },
+    {
+      "category": "LED Screen",
+      "name": "Dudukan LED",
+      "unit": "per m²",
+      "description": "Dudukan atau rangka penyangga LED screen.",
+      "sort_order": 26
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 75 Inch",
+      "unit": "per unit",
+      "description": "Sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 27
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 65 Inch",
+      "unit": "per unit",
+      "description": "Sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 28
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 55 Inch",
+      "unit": "per unit",
+      "description": "Sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 29
+    },
+    {
+      "category": "Sound System, Lighting & Pendingin",
+      "name": "Sound System",
+      "unit": "per 1000 watt",
+      "description": "Kapasitas dihitung per 1000 watt.",
+      "sort_order": 30
+    },
+    {
+      "category": "Sound System, Lighting & Pendingin",
+      "name": "Lighting",
+      "unit": "sesuai kebutuhan",
+      "description": "Paket lighting menyesuaikan kebutuhan acara.",
+      "sort_order": 31
+    },
+    {
+      "category": "Sound System, Lighting & Pendingin",
+      "name": "AC",
+      "unit": "per unit",
+      "description": "Pendingin ruangan untuk acara.",
+      "sort_order": 32
+    },
+    {
+      "category": "Sound System, Lighting & Pendingin",
+      "name": "Misty Fan",
+      "unit": "per unit",
+      "description": "Kipas pengabut untuk area terbuka.",
+      "sort_order": 33
+    },
+    {
+      "category": "Stage & Backdrop",
+      "name": "Stage Biasa (Triplek + Karpet)",
+      "unit": "per m²",
+      "description": "Panggung triplek dengan karpet.",
+      "sort_order": 34
+    },
+    {
+      "category": "Stage & Backdrop",
+      "name": "Stage Finishing Melaminto",
+      "unit": "per m²",
+      "description": "Panggung dengan finishing melaminto.",
+      "sort_order": 35
+    },
+    {
+      "category": "Stage & Backdrop",
+      "name": "Backdrop",
+      "unit": "per m²",
+      "description": "Backdrop untuk panggung atau area foto.",
+      "sort_order": 36
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Futura",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 37
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Futura Cover",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 38
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Futura Cover + Pita",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 39
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Taman Kayu",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 40
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Barstool",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 41
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi Curvy Black",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 42
+    },
+    {
+      "category": "Furniture",
+      "name": "Bean Bag",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 43
+    },
+    {
+      "category": "Furniture",
+      "name": "Puff Chair Kotak",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 44
+    },
+    {
+      "category": "Furniture",
+      "name": "Puff Chair Bulat Hitam",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 45
+    },
+    {
+      "category": "Furniture",
+      "name": "Round Table + Cover",
+      "unit": "per unit",
+      "description": "",
+      "sort_order": 46
+    },
+    {
+      "category": "Partisi",
+      "name": "Partisi R8 Ruang 2 x 2m",
+      "unit": "per ruang",
+      "description": "Ruang berukuran 2 x 2 meter.",
+      "sort_order": 47
+    },
+    {
+      "category": "Partisi",
+      "name": "Partisi R8 Ruang 2 x 3m",
+      "unit": "per ruang",
+      "description": "Ruang berukuran 2 x 3 meter.",
+      "sort_order": 48
+    },
+    {
+      "category": "Partisi",
+      "name": "Partisi R8 Ruang 3 x 3m",
+      "unit": "per ruang",
+      "description": "Ruang berukuran 3 x 3 meter.",
+      "sort_order": 49
+    },
+    {
+      "category": "Partisi",
+      "name": "Partisi R8 Ruang 3 x 4m",
+      "unit": "per ruang",
+      "description": "Ruang berukuran 3 x 4 meter.",
+      "sort_order": 50
+    },
+    {
+      "category": "Perangkat Komunikasi",
+      "name": "Handy Talkie BAOFENG",
+      "unit": "per unit",
+      "description": "Handy talkie untuk koordinasi tim di lapangan.",
+      "sort_order": 51
+    }
+  ]
+}
