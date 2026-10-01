@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "photos": [
+    {
+      "file": "beanbag.jpg",
+      "original_name": "beanbag.jpg",
+      "products": [{"slug": "bean-bag"}]
+    },
+    {
+      "file": "flooring.jpg",
+      "original_name": "flooring.jpg",
+      "products": [
+        {"slug": "flooring-karpet-layak"},
+        {"slug": "flooring-karpet-baru"}
+      ]
+    },
+    {
+      "file": "genset-150kva-100kva-80kva-60kva.jpg",
+      "original_name": "genset 150kva,100kva,80kva,60kva.jpg",
+      "products": [
+        {"slug": "genset-150-kva"},
+        {"slug": "genset-100-kva"},
+        {"slug": "genset-80-kva"},
+        {"slug": "genset-60-kva"}
+      ]
+    },
+    {
+      "file": "grand-stand.jpg",
+      "original_name": "grand-stand.jpg",
+      "products": [{"slug": "grandstand", "name": "Grandstand", "category": "Stage & Backdrop"}]
+    },
+    {
+      "file": "grandstand.jpg",
+      "original_name": "grandstand.jpg",
+      "products": [{"slug": "grandstand", "name": "Grandstand", "category": "Stage & Backdrop"}]
+    },
+    {
+      "file": "handy-talkie.jpg",
+      "original_name": "handy-talkie.jpg",
+      "products": [
+        {"slug": "handy-talkie-baofeng"},
+        {"slug": "ht-baofeng"}
+      ]
+    },
+    {
+      "file": "karpet.jpg",
+      "original_name": "karpet.jpg",
+      "products": [
+        {"slug": "flooring-karpet-layak"},
+        {"slug": "flooring-karpet-baru"},
+        {"slug": "karpet-layak-dan-karpet-baru"}
+      ]
+    },
+    {
+      "file": "kursi-barstool.jpg",
+      "original_name": "kursi-barstool.jpg",
+      "products": [{"slug": "kursi-barstool"}]
+    },
+    {
+      "file": "kursi-curvy-dining-chair.jpg",
+      "original_name": "kursi-curvy,dining-chair.jpg",
+      "products": [{"slug": "kursi-curvy-black"}]
+    },
+    {
+      "file": "kursi-dan-meja-kantin.jpg",
+      "original_name": "kursi-dan-meja-kantin.jpg",
+      "products": [{"slug": "kursi-dan-meja-kantin", "name": "Kursi dan Meja Kantin", "category": "Furniture"}]
+    },
+    {
+      "file": "kursi-futura-cover-pita.jpg",
+      "original_name": "kursi-futura-cover+pita.jpg",
+      "products": [{"slug": "kursi-futura-cover-pita"}]
+    },
+    {
+      "file": "kursi-futura-cover.jpg",
+      "original_name": "kursi-futura-cover.jpg",
+      "products": [{"slug": "kursi-futura-cover"}]
+    },
+    {
+      "file": "kursi-futura.png",
+      "original_name": "kursi-futura.png",
+      "products": [{"slug": "kursi-futura"}]
+    },
+    {
+      "file": "led-cube-p2-5-indoor.jpg",
+      "original_name": "led-cube p2.5, indoor.jpg",
+      "products": [
+        {"slug": "led-cube"},
+        {"slug": "led-cube-p25-48x48cm"}
+      ]
+    },
+    {
+      "file": "led-display-p2-6-straight-indoor-outdoor.jpg",
+      "original_name": "led-display p2.6, straight, indoor&outdoor.jpg",
+      "products": [
+        {"slug": "led-screen-p26-indoor"},
+        {"slug": "led-screen-p26-outdoor"},
+        {"slug": "led-screen-p26-indoor-dan-outdoor"}
+      ]
+    },
+    {
+      "file": "led-display-p2-6-curved-indoor-outdoor.jpg",
+      "original_name": "led-display p2.6,curved indoor&outdoor.jpg",
+      "products": [
+        {"slug": "led-screen-p26-curve-indoor"},
+        {"slug": "led-screen-p26-curve-outdoor"},
+        {"slug": "led-screen-p26-indoor-dan-outdoor"}
+      ]
+    },
+    {
+      "file": "led-display-p3-9-straight-indoor-outdoor.jpg",
+      "original_name": "led-display p3.9, straight, indoor&outdoor.jpg",
+      "products": [
+        {"slug": "led-screen-p39-indoor"},
+        {"slug": "led-screen-p39-outdoor"},
+        {"slug": "led-screen-p39-indoor-dan-outdoor"}
+      ]
+    },
+    {
+      "file": "meja-barstool.jpg",
+      "original_name": "meja-barstool.jpg",
+      "products": [{"slug": "meja-barstool", "name": "Meja Barstool", "category": "Furniture"}]
+    },
+    {
+      "file": "misty-fan.jpg",
+      "original_name": "misty-fan.jpg",
+      "products": [{"slug": "misty-fan"}]
+    },
+    {
+      "file": "partisi-r8-dan-rowing.jpg",
+      "original_name": "partisi-r8-dan-rowing.jpg",
+      "products": [
+        {"slug": "partisi-r8-ruang-2-x-2m"},
+        {"slug": "partisi-r8-ruang-2-x-3m"},
+        {"slug": "partisi-r8-ruang-3-x-3m"},
+        {"slug": "partisi-r8-ruang-3-x-4m"}
+      ]
+    },
+    {
+      "file": "processor-vx16s-vx400-vx600.jpg",
+      "original_name": "procesor vx16s,vx400,vx600.jpg",
+      "products": [{"slug": "processor-novastar-vx16s-vx600-vx400"}]
+    },
+    {
+      "file": "produksi-gate-dan-branding.jpg",
+      "original_name": "produksi-gate-dan-branding.jpg",
+      "products": [
+        {"slug": "produksi-gate-dan-branding", "name": "Produksi Gate dan Branding", "category": "Produksi & Branding"},
+        {"slug": "produksi-booth-backdrop-dan-branding"}
+      ]
+    },
+    {
+      "file": "produksian-gate.jpg",
+      "original_name": "produksian-gate.jpg",
+      "products": [
+        {"slug": "produksian-gate", "name": "Produksian Gate", "category": "Produksi & Branding"},
+        {"slug": "produksi-booth-backdrop-dan-branding"}
+      ]
+    },
+    {
+      "file": "puff-chair-bulat.jpg",
+      "original_name": "puff-chair-bulat.jpg",
+      "products": [{"slug": "puff-chair-bulat-hitam"}]
+    },
+    {
+      "file": "puff-chair-kotak.png",
+      "original_name": "puff-chair-kotak.png",
+      "products": [{"slug": "puff-chair-kotak"}]
+    },
+    {
+      "file": "q-line.jpg",
+      "original_name": "q-line.jpg",
+      "products": [
+        {"slug": "q-line", "name": "Q-Line", "category": "Sound System, Lighting & Pendingin"},
+        {"slug": "paket-sound-system-large"}
+      ]
+    },
+    {
+      "file": "ringlock-sistem.jpg",
+      "original_name": "ringlock-sistem.jpg",
+      "products": [{"slug": "ringlock-system"}]
+    },
+    {
+      "file": "round-table.jpg",
+      "original_name": "round-table.jpg",
+      "products": [{"slug": "round-table-cover"}]
+    },
+    {
+      "file": "set-kursi-dan-meja-dining-table.jpg",
+      "original_name": "set-kursi-dan-meja-dining-table.jpg",
+      "products": [{"slug": "set-kursi-dan-meja-dining-table", "name": "Set Kursi dan Meja Dining Table", "category": "Furniture"}]
+    },
+    {
+      "file": "set-kursi-dan-meja-kayu-kotak.jpg",
+      "original_name": "set-kursi-dan-meja-kayu-kotak.jpg",
+      "products": [{"slug": "set-kursi-dan-meja-kayu-kotak", "name": "Set Kursi dan Meja Kayu Kotak", "category": "Furniture"}]
+    },
+    {
+      "file": "soffa-2-seater.jpg",
+      "original_name": "soffa-2-seater.jpg",
+      "products": [
+        {"slug": "soffa-2-seater", "name": "Soffa 2 Seater", "category": "Furniture"},
+        {"slug": "furniture-dan-seating-event"}
+      ]
+    },
+    {
+      "file": "sound-system.jpg",
+      "original_name": "sound-system.jpg",
+      "products": [
+        {"slug": "sound-system"},
+        {"slug": "sound-system-event"},
+        {"slug": "paket-sound-system-medium"}
+      ]
+    },
+    {
+      "file": "stage.jpg",
+      "original_name": "stage.jpg",
+      "products": [
+        {"slug": "stage-biasa-triplek-karpet"},
+        {"slug": "stage-finishing-melaminto"},
+        {"slug": "stage-dan-rigging"}
+      ]
+    },
+    {
+      "file": "standing-ac.jpg",
+      "original_name": "standing-ac.jpg",
+      "products": [
+        {"slug": "ac"},
+        {"slug": "toilet-portable-dan-standing-ac"}
+      ]
+    },
+    {
+      "file": "tenda-konvensional.jpg",
+      "original_name": "tenda-konvensional.jpg",
+      "products": [{"slug": "tenda-konvensional"}]
+    },
+    {
+      "file": "tenda-parasol.jpg",
+      "original_name": "tenda-parasol.jpg",
+      "products": [{"slug": "tenda-set-parasol"}]
+    },
+    {
+      "file": "tenda-roder-span-10m-15m-20m.jpg",
+      "original_name": "tenda-roder span 10m,15m,20m.jpg",
+      "products": [
+        {"slug": "tenda-roder"},
+        {"slug": "tenda-roder-dekorasi"},
+        {"slug": "tenda-roder-span-10m-15m-20m"}
+      ]
+    },
+    {
+      "file": "tenda-sarnafil-3x3m.jpg",
+      "original_name": "tenda-sarnafil 3x3m.jpg",
+      "products": [
+        {"slug": "tenda-sarnafil-3x3m"},
+        {"slug": "tenda-sarnafil-flooring-karpet-layak-3x3m"},
+        {"slug": "tenda-sarnafil-3x3m-dan-5x5m"}
+      ]
+    },
+    {
+      "file": "tenda-sarnafil-5x5m.jpg",
+      "original_name": "tenda-sarnafil 5x5m.jpg",
+      "products": [
+        {"slug": "tenda-sarnafil-5x5m"},
+        {"slug": "tenda-sarnafil-flooring-karpet-layak-5x5m"},
+        {"slug": "tenda-sarnafil-3x3m-dan-5x5m"}
+      ]
+    },
+    {
+      "file": "toilet-portable.jpg",
+      "original_name": "toilet-portable.jpg",
+      "products": [
+        {"slug": "toilet-portable-toilet-kering"},
+        {"slug": "toilet-portable-dan-standing-ac"}
+      ]
+    }
+  ]
+}

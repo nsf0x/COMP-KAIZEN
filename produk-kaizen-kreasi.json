@@ -356,6 +356,83 @@
       "unit": "per unit",
       "description": "Handy talkie untuk koordinasi tim di lapangan.",
       "sort_order": 51
+    },
+    {
+      "category": "LED Screen",
+      "name": "Processor Novastar VX16S, VX600, VX400",
+      "unit": "",
+      "description": "Video processor profesional untuk pengelolaan tampilan LED screen.",
+      "sort_order": 52
+    },
+    {
+      "category": "Stage & Backdrop",
+      "name": "Grandstand",
+      "unit": "",
+      "description": "",
+      "sort_order": 53
+    },
+    {
+      "category": "Stage & Backdrop",
+      "name": "Ringlock System",
+      "unit": "",
+      "description": "Sistem struktur vertical dan horizontal untuk kebutuhan konstruksi event.",
+      "sort_order": 54
+    },
+    {
+      "category": "Sound System, Lighting & Pendingin",
+      "name": "Q-Line",
+      "unit": "",
+      "description": "",
+      "sort_order": 55
+    },
+    {
+      "category": "Furniture",
+      "name": "Soffa 2 Seater",
+      "unit": "",
+      "description": "",
+      "sort_order": 56
+    },
+    {
+      "category": "Furniture",
+      "name": "Kursi dan Meja Kantin",
+      "unit": "",
+      "description": "",
+      "sort_order": 57
+    },
+    {
+      "category": "Furniture",
+      "name": "Meja Barstool",
+      "unit": "",
+      "description": "",
+      "sort_order": 58
+    },
+    {
+      "category": "Furniture",
+      "name": "Set Kursi dan Meja Dining Table",
+      "unit": "",
+      "description": "",
+      "sort_order": 59
+    },
+    {
+      "category": "Furniture",
+      "name": "Set Kursi dan Meja Kayu Kotak",
+      "unit": "",
+      "description": "",
+      "sort_order": 60
+    },
+    {
+      "category": "Produksi & Branding",
+      "name": "Produksi Gate dan Branding",
+      "unit": "",
+      "description": "",
+      "sort_order": 61
+    },
+    {
+      "category": "Produksi & Branding",
+      "name": "Produksian Gate",
+      "unit": "",
+      "description": "",
+      "sort_order": 62
     }
   ]
 }
