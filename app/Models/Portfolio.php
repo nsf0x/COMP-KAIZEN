@@ -27,6 +27,41 @@ class Portfolio extends Model {
         preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/', $this->video_url, $matches);
         return $matches[1] ?? null;
     }
+
+    public function getVideoEmbedUrlAttribute(): ?string
+    {
+        if (!$this->video_url) {
+            return null;
+        }
+
+        $host = strtolower(parse_url($this->video_url, PHP_URL_HOST) ?? '');
+        $path = trim(parse_url($this->video_url, PHP_URL_PATH) ?? '', '/');
+
+        if (in_array($host, ['youtu.be', 'www.youtu.be'], true)) {
+            $videoId = explode('/', $path)[0] ?? '';
+        } elseif (in_array($host, ['youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtube-nocookie.com', 'www.youtube-nocookie.com'], true)) {
+            parse_str(parse_url($this->video_url, PHP_URL_QUERY) ?? '', $query);
+            $videoId = $query['v'] ?? (preg_match('~^(?:embed|shorts)/([^/]+)~', $path, $matches) ? $matches[1] : '');
+        } elseif (in_array($host, ['vimeo.com', 'www.vimeo.com', 'player.vimeo.com'], true)) {
+            preg_match('~(?:video/)?(\d+)~', $path, $matches);
+            $videoId = $matches[1] ?? '';
+
+            return $videoId !== '' ? "https://player.vimeo.com/video/{$videoId}" : null;
+        } else {
+            return null;
+        }
+
+        return preg_match('/^[a-zA-Z0-9_-]+$/', $videoId)
+            ? 'https://www.youtube-nocookie.com/embed/' . $videoId
+            : null;
+    }
+
+    public function getVideoIsFileAttribute(): bool
+    {
+        $path = parse_url($this->video_url ?? '', PHP_URL_PATH) ?? '';
+
+        return in_array(strtolower(pathinfo($path, PATHINFO_EXTENSION)), ['mp4', 'webm', 'ogg'], true);
+    }
     
     public function getYoutubeThumbnailAttribute() {
         if ($id = $this->youtube_id) {

@@ -40,6 +40,25 @@
             <div class="text-muted" style="line-height:1.9;">{{ $portfolio->description }}</div>
             @endif
 
+            @if($portfolio->video_embed_url)
+            <section class="mt-4" aria-label="Video portofolio">
+                <h5 class="fw-700 mb-3">Video</h5>
+                <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                    <iframe src="{{ $portfolio->video_embed_url }}" title="Video {{ $portfolio->title }}"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+            @elseif($portfolio->video_is_file)
+            <section class="mt-4" aria-label="Video portofolio">
+                <h5 class="fw-700 mb-3">Video</h5>
+                <video class="w-100 rounded-3" controls preload="metadata">
+                    <source src="{{ $portfolio->video_url }}">
+                    Browser Anda tidak mendukung pemutar video.
+                </video>
+            </section>
+            @endif
+
             @php
                 $galleryImages = [];
                 if ($portfolio->images && $portfolio->images->isNotEmpty()) {

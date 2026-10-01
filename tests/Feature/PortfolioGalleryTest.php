@@ -32,4 +32,37 @@ class PortfolioGalleryTest extends TestCase
         $this->assertCount(1, $portfolio->fresh()->images);
         $this->assertEquals('portfolio/test-1.jpg', $portfolio->fresh()->images->first()->image_path);
     }
+
+    public function test_portfolio_supports_custom_types_and_displays_youtube_video(): void
+    {
+        $portfolio = Portfolio::create([
+            'title' => 'Dokumentasi Acara',
+            'slug' => 'dokumentasi-acara',
+            'type' => 'Dokumentasi',
+            'video_url' => 'https://youtu.be/abc123xyz_0',
+        ]);
+
+        $this->assertSame('Dokumentasi', $portfolio->type);
+        $this->assertSame('https://www.youtube-nocookie.com/embed/abc123xyz_0', $portfolio->video_embed_url);
+
+        $this->get(route('portfolio.show', $portfolio))
+            ->assertOk()
+            ->assertSee('https://www.youtube-nocookie.com/embed/abc123xyz_0')
+            ->assertSee('Video Dokumentasi Acara');
+    }
+
+    public function test_portfolio_displays_direct_video_files(): void
+    {
+        $portfolio = Portfolio::create([
+            'title' => 'Video Acara',
+            'slug' => 'video-acara',
+            'type' => 'Acara',
+            'video_url' => 'https://cdn.example.com/event.mp4',
+        ]);
+
+        $this->get(route('portfolio.show', $portfolio))
+            ->assertOk()
+            ->assertSee('<video', false)
+            ->assertSee('https://cdn.example.com/event.mp4');
+    }
 }

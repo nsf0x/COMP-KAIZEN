@@ -52,15 +52,12 @@ class PortfolioResource extends Resource
                             ->preload()
                             ->nullable(),
 
-                        Forms\Components\Select::make('type')
-                            ->label('Tipe')
-                            ->options([
-                                'event' => 'Event',
-                                'video' => 'Video',
-                                'produk' => 'Produk',
-                            ])
+                        Forms\Components\TextInput::make('type')
+                            ->label('Tipe portofolio')
+                            ->maxLength(100)
                             ->default('event')
-                            ->required(),
+                            ->required()
+                            ->helperText('Isi tipe sesuai karya, misalnya Event, Dekorasi, atau Dokumentasi.'),
 
                         Forms\Components\DatePicker::make('event_date')
                             ->label('Tanggal acara'),
@@ -72,7 +69,8 @@ class PortfolioResource extends Resource
                         Forms\Components\TextInput::make('video_url')
                             ->label('URL video')
                             ->url()
-                            ->nullable(),
+                            ->nullable()
+                            ->helperText('Mendukung YouTube, Vimeo, atau URL file MP4, WebM, dan OGG.'),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi')
@@ -160,11 +158,7 @@ class PortfolioResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
-                    ->options([
-                        'event' => 'Event',
-                        'video' => 'Video',
-                        'produk' => 'Produk',
-                    ]),
+                    ->options(fn () => Portfolio::query()->whereNotNull('type')->distinct()->orderBy('type')->pluck('type', 'type')->all()),
                 Tables\Filters\TernaryFilter::make('is_featured')
                     ->label('Unggulan'),
             ])
