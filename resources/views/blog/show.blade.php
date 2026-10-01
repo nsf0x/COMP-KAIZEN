@@ -32,6 +32,28 @@
                 {!! nl2br(e($blogPost->content)) !!}
             </div>
 
+            @php
+                $galleryImages = [];
+                if ($blogPost->images && $blogPost->images->isNotEmpty()) {
+                    $galleryImages = $blogPost->images->pluck('image_path')->all();
+                } elseif (!empty($blogPost->gallery)) {
+                    $galleryImages = is_array($blogPost->gallery) ? $blogPost->gallery : json_decode($blogPost->gallery, true);
+                }
+            @endphp
+
+            @if(!empty($galleryImages))
+            <h5 class="fw-700 mt-5 mb-3">Galeri Foto</h5>
+            <div class="row g-3">
+                @foreach($galleryImages as $img)
+                <div class="col-6 col-md-4">
+                    <div class="rounded-3 overflow-hidden" style="height:180px;">
+                        <img src="{{ asset('storage/' . $img) }}" alt="Gallery" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endif
+
             <!-- Share -->
             <div class="mt-5 p-4 rounded-4" style="background:#fdf6fb;">
                 <h6 class="fw-700 mb-3">Bagikan Artikel Ini</h6>
