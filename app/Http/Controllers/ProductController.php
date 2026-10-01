@@ -18,9 +18,10 @@ class ProductController extends Controller
             $infoUmum = collect($decoded['info_umum'] ?? [])->filter(fn ($item) => is_string($item) && trim($item) !== '')->values()->all();
         }
 
-        $categories = Category::where('is_active', true)
-            ->whereHas('products', fn ($query) => $query->where('status', true))
+        $categories = Category::query()
+            ->availableForCatalog()
             ->orderBy('order')
+            ->orderBy('id')
             ->get();
 
         $query = Product::where('status', true)

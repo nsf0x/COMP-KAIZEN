@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
+use App\Support\CategoryIcon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
@@ -55,10 +56,13 @@ class CategoryResource extends Resource
                             ->default('produk')
                             ->required(),
 
-                        Forms\Components\TextInput::make('icon')
-                            ->label('Icon key')
-                            ->placeholder('tent, display, speaker, ...')
-                            ->maxLength(50),
+                        Forms\Components\Select::make('icon')
+                            ->label('Ikon')
+                            ->options(CategoryIcon::selectOptions())
+                            ->searchable()
+                            ->allowHtml()
+                            ->default('auto')
+                            ->getOptionLabelUsing(fn (?string $value): string => CategoryIcon::optionLabel($value)),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi')
@@ -94,6 +98,10 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->label('Tipe')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('icon')
+                    ->label('Ikon')
+                    ->state(fn (Category $record): string => CategoryIcon::tableLabel($record))
+                    ->html(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label('Aktif')
                     ->boolean(),

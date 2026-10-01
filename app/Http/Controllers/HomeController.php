@@ -19,10 +19,10 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        $categories = Category::where('is_active', true)
-            ->whereHas('products', fn ($query) => $query->where('status', true)->whereNotNull('thumbnail'))
+        $categories = Category::query()
+            ->availableForCatalog()
             ->orderBy('order')
-            ->take(8)
+            ->orderBy('id')
             ->get();
 
         $portfolios = Portfolio::where('is_featured', true)

@@ -61,23 +61,11 @@
         </div>
         <div class="row g-3 justify-content-center">
             @foreach($categories as $category)
-            @php
-                $categoryIcons = [
-                    'tent' => 'bi-house-door-fill',
-                    'display' => 'bi-display',
-                    'bolt' => 'bi-lightning-charge-fill',
-                    'speaker' => 'bi-speaker-fill',
-                    'lightbulb' => 'bi-lightbulb-fill',
-                    'chair' => 'bi-grid-1x2-fill',
-                    'booth' => 'bi-shop-window',
-                    'support' => 'bi-headset',
-                ];
-            @endphp
             <div class="col-6 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 50 }}">
                 <a href="{{ route('products.index', ['category' => $category->slug]) }}"
                    class="card category-card border-0 h-100 text-decoration-none shadow-sm">
                     <div class="category-card-icon" aria-hidden="true">
-                        <i class="bi {{ $categoryIcons[$category->icon] ?? 'bi-box-seam' }}"></i>
+                        <i class="{{ \App\Support\CategoryIcon::classFor($category) }}"></i>
                     </div>
                     <div class="px-2 py-3 text-center fw-600 small" style="color:#25283a;">{{ $category->name }}</div>
                 </a>
