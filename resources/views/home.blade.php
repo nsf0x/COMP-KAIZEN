@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center" data-aos="fade-left">
-                <img src="{{ asset('images/kaizen-kreasi-indonesia.svg') }}" alt="Logo Kaizen Kreasi Indonesia" class="hero-logo">
+                <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen" class="hero-logo">
             </div>
         </div>
     </div>

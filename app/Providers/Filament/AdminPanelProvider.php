@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandLogo(asset('images/kaizen-kreasi-indonesia.svg'))
+            ->brandLogo(asset('images/kaizen-logo-color.png'))
             ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Blue,

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="@yield('meta_description', config('company.description'))">
     <title>@yield('title', config('company.name')) | {{ config('company.name') }}</title>
-    <link rel="icon" type="image/svg+xml" href="{{ asset('images/kaizen-kreasi-indonesia.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -90,7 +90,7 @@
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('images/kaizen-kreasi-indonesia.svg') }}" alt="" class="brand-logo">
+            <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="" class="brand-logo">
             <span>{{ config('company.name') }}</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -135,7 +135,7 @@
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="footer-brand mb-2">
-                    <img src="{{ asset('images/kaizen-kreasi-indonesia.svg') }}" alt="" class="brand-logo brand-logo-footer">
+                    <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="" class="brand-logo brand-logo-footer">
                     <span>{{ config('company.name') }}</span>
                 </div>
                 <p class="small">{{ config('company.description') }}</p>
