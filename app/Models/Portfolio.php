@@ -9,11 +9,17 @@ class Portfolio extends Model {
     protected $casts = ['is_featured' => 'boolean', 'event_date' => 'date'];
     
     public function category() { return $this->belongsTo(Category::class); }
+    public function images() { return $this->hasMany(PortfolioImage::class)->orderBy('order'); }
     public function getRouteKeyName() { return 'slug'; }
     
     public function getThumbnailUrlAttribute() {
         if ($this->thumbnail) return asset('storage/' . $this->thumbnail);
         return asset('images/placeholder.jpg');
+    }
+
+    public function getGalleryAttribute()
+    {
+        return $this->images()->pluck('image_path')->all();
     }
     
     public function getYoutubeIdAttribute() {

@@ -22,8 +22,8 @@
             @endif
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                @if($portfolio->event_type)
-                <span class="badge px-3 py-2" style="background:#ffe4f5; color:var(--primary);">{{ $portfolio->event_type }}</span>
+                @if($portfolio->type)
+                <span class="badge px-3 py-2" style="background:#ffe4f5; color:var(--primary);">{{ ucfirst($portfolio->type) }}</span>
                 @endif
                 @if($portfolio->is_featured)
                 <span class="badge px-3 py-2" style="background:var(--primary);">⭐ Unggulan</span>
@@ -40,8 +40,15 @@
             <div class="text-muted" style="line-height:1.9;">{{ $portfolio->description }}</div>
             @endif
 
-            <!-- Gallery -->
-            @php $galleryImages = $portfolio->gallery ? json_decode($portfolio->gallery, true) : []; @endphp
+            @php
+                $galleryImages = [];
+                if ($portfolio->images && $portfolio->images->isNotEmpty()) {
+                    $galleryImages = $portfolio->images->pluck('image_path')->all();
+                } elseif (!empty($portfolio->gallery)) {
+                    $galleryImages = is_array($portfolio->gallery) ? $portfolio->gallery : json_decode($portfolio->gallery, true);
+                }
+            @endphp
+
             @if(!empty($galleryImages))
             <h5 class="fw-700 mt-5 mb-3">Galeri Foto</h5>
             <div class="row g-3">
@@ -86,8 +93,8 @@
                 </div>
                 <div>
                     <div class="fw-600 small">{{ $item->title }}</div>
-                    @if($item->event_type)
-                    <div class="text-muted" style="font-size:.75rem;">{{ $item->event_type }}</div>
+                    @if($item->type)
+                    <div class="text-muted" style="font-size:.75rem;">{{ ucfirst($item->type) }}</div>
                     @endif
                 </div>
             </a>
