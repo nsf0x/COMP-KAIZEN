@@ -10,13 +10,20 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $jsonPath = base_path('produk-kaizen-kreasi.json');
+        $infoUmum = [];
+
+        if (is_file($jsonPath)) {
+            $decoded = json_decode((string) file_get_contents($jsonPath), true);
+            $infoUmum = collect($decoded['info_umum'] ?? [])->filter(fn ($item) => is_string($item) && trim($item) !== '')->values()->all();
+        }
+
         $categories = Category::where('is_active', true)
-            ->whereHas('products', fn ($query) => $query->where('status', true)->whereNotNull('thumbnail'))
+            ->whereHas('products', fn ($query) => $query->where('status', true))
             ->orderBy('order')
             ->get();
 
         $query = Product::where('status', true)
-            ->whereNotNull('thumbnail')
             ->with(['category', 'images']);
 
         if ($request->filled('category')) {
@@ -35,7 +42,7 @@ class ProductController extends Controller
 
         $selectedCategory = $request->category;
 
-        return view('products.index', compact('products', 'categories', 'selectedCategory'));
+        return view('products.index', compact('products', 'categories', 'selectedCategory', 'infoUmum'));
     }
 
     public function show(Product $product)

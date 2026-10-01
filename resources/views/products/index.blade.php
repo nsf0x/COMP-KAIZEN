@@ -54,6 +54,19 @@
 
         <!-- Products Grid -->
         <div class="col-lg-9">
+            @if(!empty($infoUmum))
+            <div class="card border-0 shadow-sm mb-4" style="border-radius:16px; background:linear-gradient(120deg, #f5f7ff 0%, #fff 100%);">
+                <div class="card-body">
+                    <div class="fw-700 mb-3" style="color:var(--primary);">Informasi Umum</div>
+                    <ul class="mb-0 ps-3 text-muted small">
+                        @foreach($infoUmum as $item)
+                        <li class="mb-1">{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            @endif
+
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="fw-700 mb-0">
                     @if($selectedCategory)

@@ -82,7 +82,7 @@ class ProductResource extends Resource
                             ->disk('public')
                             ->directory('products')
                             ->imageEditor()
-                            ->required(fn (string $operation): bool => $operation === 'create'),
+                            ->helperText('Biarkan kosong jika foto belum tersedia.'),
                         Forms\Components\Repeater::make('images')
                             ->label('Galeri foto')
                             ->relationship()
