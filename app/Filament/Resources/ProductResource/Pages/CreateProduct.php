@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ProductResource\Pages;
 
+use App\Filament\Resources\Pages\Concerns\HasResourceIndexNavigation;
 use App\Filament\Resources\ProductResource;
 use App\Models\Category;
 use Filament\Resources\Pages\CreateRecord;
@@ -9,7 +10,14 @@ use Illuminate\Support\Str;
 
 class CreateProduct extends CreateRecord
 {
+    use HasResourceIndexNavigation;
+
     protected static string $resource = ProductResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [$this->getBackToIndexAction()];
+    }
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
