@@ -76,8 +76,8 @@
 
             <h1 class="fw-700 fs-2 mb-2">{{ $product->name }}</h1>
 
-            <div class="fs-3 fw-700 mb-4" style="color:var(--primary);">
-                {{ $product->price ?? 'Hubungi Kami untuk Harga' }}
+            <div class="fw-600 mb-4 text-muted">
+                Informasi lebih lanjut via WhatsApp atau telepon
             </div>
 
             @if($product->description)

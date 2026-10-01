@@ -97,8 +97,8 @@
                             </span>
                             <h6 class="fw-700 mb-1">{{ $product->name }}</h6>
                             <p class="text-muted small mb-2 flex-grow-1">{{ Str::limit($product->description, 70) }}</p>
-                            <div class="fw-700 mb-3" style="color:var(--primary);">
-                                {{ $product->price ?? 'Hubungi Kami' }}
+                            <div class="fw-600 mb-3 text-muted small">
+                                Informasi lebih lanjut
                             </div>
                             <div class="d-flex gap-2">
                                 <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill flex-fill">Detail</a>
