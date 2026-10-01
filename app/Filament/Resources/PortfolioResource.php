@@ -45,13 +45,6 @@ class PortfolioResource extends Resource
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
 
-                        Forms\Components\Select::make('category_id')
-                            ->label('Kategori')
-                            ->relationship('category', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->nullable(),
-
                         Forms\Components\TextInput::make('type')
                             ->label('Tipe portofolio')
                             ->maxLength(100)
@@ -144,9 +137,6 @@ class PortfolioResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Tipe')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('Kategori')
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_featured')
                     ->label('Unggulan')

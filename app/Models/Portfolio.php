@@ -5,10 +5,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model {
     use HasFactory;
-    protected $fillable = ['category_id','title','slug','type','thumbnail','video_url','description','client_name','event_date','is_featured','order'];
+    protected $fillable = ['title','slug','type','thumbnail','video_url','description','client_name','event_date','is_featured','order'];
     protected $casts = ['is_featured' => 'boolean', 'event_date' => 'date'];
     
-    public function category() { return $this->belongsTo(Category::class); }
     public function images() { return $this->hasMany(PortfolioImage::class)->orderBy('order'); }
     public function getRouteKeyName() { return 'slug'; }
     

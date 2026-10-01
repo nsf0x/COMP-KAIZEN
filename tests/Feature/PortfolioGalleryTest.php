@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Portfolio;
 use App\Models\PortfolioImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class PortfolioGalleryTest extends TestCase
@@ -31,6 +32,11 @@ class PortfolioGalleryTest extends TestCase
 
         $this->assertCount(1, $portfolio->fresh()->images);
         $this->assertEquals('portfolio/test-1.jpg', $portfolio->fresh()->images->first()->image_path);
+    }
+
+    public function test_portfolio_table_has_no_category_column(): void
+    {
+        $this->assertFalse(Schema::hasColumn('portfolios', 'category_id'));
     }
 
     public function test_portfolio_supports_custom_types_and_displays_youtube_video(): void
