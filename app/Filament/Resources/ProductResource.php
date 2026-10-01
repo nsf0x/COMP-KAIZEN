@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -43,11 +44,18 @@ class ProductResource extends Resource
                             ->maxLength(255)
                             ->unique(ignoreRecord: true),
                         Forms\Components\Select::make('category_id')
-                            ->label('Kategori')
+                            ->label('Kategori yang tersedia')
                             ->relationship('category', 'name')
                             ->searchable()
                             ->preload()
-                            ->required(),
+                            ->placeholder('Pilih kategori yang sudah ada')
+                            ->helperText('Pilih kategori yang sudah tersedia atau buat kategori baru di bawah ini.')
+                            ->required(fn (Get $get) => blank($get('custom_category'))),
+                        Forms\Components\TextInput::make('custom_category')
+                            ->label('Kategori baru (opsional)')
+                            ->placeholder('Contoh: Sound System Premium')
+                            ->helperText('Jika kategori belum ada, masukkan nama baru di sini. Sistem akan membuat kategori otomatis.')
+                            ->required(fn (Get $get) => blank($get('category_id'))),
                         Forms\Components\TextInput::make('price')
                             ->label('Harga')
                             ->placeholder('Hubungi Kami')
