@@ -7,7 +7,7 @@
 {{-- Hero Section --}}
 <section class="home-hero">
     <div class="container py-5">
-        <div class="row align-items-center g-5">
+        <div class="row align-items-center g-4 g-lg-5">
             <div class="col-lg-6" data-aos="fade-right">
                 <span class="badge rounded-pill px-3 py-2 mb-3 brand-badge" style="font-size:.85rem;">
                     EVENT EQUIPMENT RENTAL
