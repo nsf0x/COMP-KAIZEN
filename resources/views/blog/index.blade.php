@@ -57,7 +57,7 @@
                 </div>
                 <div class="card-body d-flex flex-column">
                     <div class="text-muted small mb-2">
-                        <i class="bi bi-calendar3 me-1"></i>{{ $post->published_at->format('d M Y') }}
+                        <i class="bi bi-calendar3 me-1"></i>{{ ($post->published_at ?? $post->created_at)->format('d M Y') }}
                         <span class="mx-2">·</span>
                         <i class="bi bi-person me-1"></i>{{ $post->author ?? 'Admin' }}
                     </div>

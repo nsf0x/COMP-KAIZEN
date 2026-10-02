@@ -270,7 +270,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <div class="text-muted small mb-2">{{ $post->published_at->format('d M Y') }}</div>
+                        <div class="text-muted small mb-2">{{ ($post->published_at ?? $post->created_at)->format('d M Y') }}</div>
                         <h6 class="fw-700 mb-2">{{ $post->title }}</h6>
                         <p class="text-muted small mb-3">{{ $post->excerpt }}</p>
                         <a href="{{ route('blog.show', $post) }}" class="btn btn-sm btn-outline-secondary rounded-pill">Baca Selengkapnya</a>

@@ -45,4 +45,26 @@ class BlogGalleryTest extends TestCase
 
         $this->assertCount(1, BlogPost::published()->get());
     }
+
+    public function test_public_blog_listing_renders_published_posts_without_published_at(): void
+    {
+        BlogPost::create([
+            'title' => 'Artikel Tanpa Tanggal',
+            'slug' => 'artikel-tanpa-tanggal',
+            'content' => 'Isi artikel',
+            'is_published' => true,
+        ]);
+
+        $this->get(route('blog.index'))
+            ->assertOk()
+            ->assertSee('Artikel Tanpa Tanggal');
+
+        $this->get(route('blog.show', 'artikel-tanpa-tanggal'))
+            ->assertOk()
+            ->assertSee('Artikel Tanpa Tanggal');
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Artikel Tanpa Tanggal');
+    }
 }

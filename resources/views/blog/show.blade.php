@@ -24,7 +24,7 @@
 
             <h1 class="fw-700 fs-2 mb-3">{{ $blogPost->title }}</h1>
             <div class="d-flex align-items-center gap-3 text-muted small mb-4">
-                <span><i class="bi bi-calendar3 me-1"></i>{{ $blogPost->published_at->format('d F Y') }}</span>
+                <span><i class="bi bi-calendar3 me-1"></i>{{ ($blogPost->published_at ?? $blogPost->created_at)->format('d F Y') }}</span>
                 <span><i class="bi bi-person me-1"></i>{{ $blogPost->author ?? 'Admin' }}</span>
             </div>
 
@@ -102,7 +102,7 @@
                 </div>
                 <div>
                     <div class="fw-600 small">{{ Str::limit($item->title, 50) }}</div>
-                    <div class="text-muted" style="font-size:.75rem;">{{ $item->published_at->format('d M Y') }}</div>
+                    <div class="text-muted" style="font-size:.75rem;">{{ ($item->published_at ?? $item->created_at)->format('d M Y') }}</div>
                 </div>
             </a>
             @endforeach
