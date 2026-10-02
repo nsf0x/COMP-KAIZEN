@@ -108,7 +108,8 @@ class BlogPostResource extends Resource
                     ->schema([
                         Forms\Components\Toggle::make('is_published')
                             ->label('Publish artikel')
-                            ->default(true),
+                            ->default(true)
+                            ->helperText('Artikel langsung tampil di halaman publik saat status ini aktif.'),
                     ])
                     ->columns(1),
             ]);

@@ -67,4 +67,27 @@ class BlogGalleryTest extends TestCase
             ->assertOk()
             ->assertSee('Artikel Tanpa Tanggal');
     }
+
+    public function test_published_posts_with_future_publish_time_are_visible(): void
+    {
+        BlogPost::create([
+            'title' => 'Artikel Publish WIB',
+            'slug' => 'artikel-publish-wib',
+            'content' => 'Isi artikel',
+            'published_at' => now()->addHours(7),
+            'is_published' => true,
+        ]);
+
+        $this->get(route('blog.index'))
+            ->assertOk()
+            ->assertSee('Artikel Publish WIB');
+
+        $this->get(route('blog.show', 'artikel-publish-wib'))
+            ->assertOk()
+            ->assertSee('Artikel Publish WIB');
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Artikel Publish WIB');
+    }
 }
