@@ -74,6 +74,12 @@
         .divider-pink { width: 60px; height: 4px; background: var(--brand-gradient); border-radius: 2px; }
         .hero-logo { display:block; width:min(360px, 80vw); aspect-ratio:1; margin:auto; object-fit:contain; filter:drop-shadow(0 18px 30px rgba(23,54,232,.12)); }
         .home-hero { background:var(--brand-wash); min-height:90vh; display:flex; align-items:center; }
+        @media (max-width: 767.98px) {
+            [data-aos="fade-left"], [data-aos="fade-right"] {
+                transform: translate3d(0, 0, 0) !important;
+                transition-property: opacity !important;
+            }
+        }
         .category-card { overflow:hidden; border-radius:12px; transition:transform .2s, box-shadow .2s; }
         .category-card-icon { height:112px; display:grid; place-items:center; color:var(--primary); background:var(--brand-wash); font-size:2.5rem; }
         .category-card-icon i { color:transparent; background:var(--brand-gradient); background-clip:text; -webkit-background-clip:text; }
