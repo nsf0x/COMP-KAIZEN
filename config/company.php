@@ -15,6 +15,7 @@ return [
     'description' => env('COMPANY_DESCRIPTION', 'Penyedia layanan event organizer dan penyewaan perlengkapan event profesional untuk acara skala kecil hingga besar di seluruh Indonesia.'),
     'whatsapp'    => env('COMPANY_WHATSAPP', '6281119998629'),
     'phone'       => env('COMPANY_PHONE', '0811-1999-8629'),
+    'additional_phones' => ['0812-3456-7890', '0813-4567-8901'],
     'email'       => env('COMPANY_EMAIL', 'info@kaizenkreasiindonesia.com'),
     'address'     => env('COMPANY_ADDRESS', 'Ruko Grand Galaxy City, Jl. Boulevard Raya Timur RSNB 009, Kota Bekasi, Jawa Barat 17147'),
     'maps_embed'  => env('COMPANY_MAPS_EMBED', 'https://maps.google.com/maps?q=Ruko+Grand+Galaxy+City+Bekasi&output=embed'),

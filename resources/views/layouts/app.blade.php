@@ -204,10 +204,61 @@
     <i class="bi bi-whatsapp"></i>
 </a>
 
+<div class="modal fade" id="whatsappNumberModal" tabindex="-1" aria-labelledby="whatsappNumberModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="whatsappNumberModalLabel">Pilih Nomor WhatsApp</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small mb-3">Pilih nomor yang ingin Anda hubungi.</p>
+                @foreach (array_merge([config('company.phone')], config('company.additional_phones', [])) as $phone)
+                    <button type="button" class="btn btn-outline-success w-100 d-flex justify-content-between align-items-center mb-2" data-whatsapp-phone="{{ preg_replace('/\D+/', '', $phone) }}">
+                        <span>{{ $phone }}</span>
+                        <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                    </button>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init({ duration: 700, once: true });</script>
+<script>
+    (() => {
+        const modalElement = document.getElementById('whatsappNumberModal');
+        const numberModal = new bootstrap.Modal(modalElement);
+        let pendingWhatsAppUrl = null;
+
+        document.addEventListener('click', (event) => {
+            const link = event.target.closest('a[href]');
+            if (!link) return;
+
+            const destination = new URL(link.href, window.location.href);
+            if (destination.hostname !== 'wa.me' || !/^\/\d+$/.test(destination.pathname)) return;
+
+            event.preventDefault();
+            pendingWhatsAppUrl = destination;
+            numberModal.show();
+        });
+
+        modalElement.addEventListener('click', (event) => {
+            const numberButton = event.target.closest('[data-whatsapp-phone]');
+            if (!numberButton || !pendingWhatsAppUrl) return;
+
+            const phone = numberButton.dataset.whatsappPhone;
+            const internationalPhone = phone.startsWith('0') ? `62${phone.slice(1)}` : phone;
+            pendingWhatsAppUrl.pathname = `/${internationalPhone}`;
+            window.open(pendingWhatsAppUrl.href, '_blank', 'noopener,noreferrer');
+            numberModal.hide();
+            pendingWhatsAppUrl = null;
+        });
+    })();
+</script>
 @stack('scripts')
 </body>
 </html>
