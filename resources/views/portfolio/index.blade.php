@@ -38,7 +38,7 @@
                     <div style="font-size:5rem;">🎉</div>
                     @endif
                 </div>
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     @if($portfolio->type)
                     <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ ucfirst($portfolio->type) }}</span>
                     @endif
@@ -47,7 +47,7 @@
                     <div class="text-muted small mb-2"><i class="bi bi-calendar3 me-1"></i>{{ \Carbon\Carbon::parse($portfolio->event_date)->format('d M Y') }}</div>
                     @endif
                     <p class="text-muted small mb-3">{{ Str::limit($portfolio->description, 100) }}</p>
-                    <a href="{{ route('portfolio.show', $portfolio) }}" class="btn btn-sm btn-primary-custom rounded-pill">
+                    <a href="{{ route('portfolio.show', $portfolio) }}" class="btn btn-sm btn-primary-custom rounded-pill mt-auto align-self-start">
                         Lihat Detail <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
