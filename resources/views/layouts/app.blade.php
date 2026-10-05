@@ -201,7 +201,9 @@
             <div class="col-lg-3">
                 <h6 class="text-white fw-600 mb-3">Kontak</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><i class="bi bi-telephone me-2"></i>{{ config('company.phone') }}</li>
+                    @foreach (array_merge([config('company.phone')], config('company.additional_phones', [])) as $phone)
+                    <li class="mb-2"><i class="bi bi-whatsapp me-2"></i>{{ $phone }}</li>
+                    @endforeach
                     <li class="mb-2"><i class="bi bi-envelope me-2"></i>{{ config('company.email') }}</li>
                     <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>{{ config('company.address') }}</li>
                 </ul>
