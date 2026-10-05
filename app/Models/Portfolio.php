@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model {
     use HasFactory;
-    protected $fillable = ['title','slug','type','thumbnail','video_url','description','client_name','event_date','is_featured','order'];
+    protected $fillable = ['title','slug','type','thumbnail','video_url','video_path','description','client_name','event_date','is_featured','order'];
     protected $casts = ['is_featured' => 'boolean', 'event_date' => 'date'];
     
     public function images() { return $this->hasMany(PortfolioImage::class)->orderBy('order'); }
@@ -19,6 +19,11 @@ class Portfolio extends Model {
     public function getGalleryAttribute()
     {
         return $this->images()->pluck('image_path')->all();
+    }
+
+    public function getVideoFileUrlAttribute(): ?string
+    {
+        return $this->video_path ? asset('storage/' . $this->video_path) : null;
     }
     
     public function getYoutubeIdAttribute() {

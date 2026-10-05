@@ -71,4 +71,21 @@ class PortfolioGalleryTest extends TestCase
             ->assertSee('<video', false)
             ->assertSee('https://cdn.example.com/event.mp4');
     }
+
+    public function test_portfolio_displays_uploaded_video_files(): void
+    {
+        $portfolio = Portfolio::create([
+            'title' => 'Video Upload',
+            'slug' => 'video-upload',
+            'type' => 'Dokumentasi',
+            'video_url' => 'https://youtu.be/abc123xyz_0',
+            'video_path' => 'portfolio/videos/event.mp4',
+        ]);
+
+        $this->get(route('portfolio.show', $portfolio))
+            ->assertOk()
+            ->assertSee('<video', false)
+            ->assertSee('storage/portfolio/videos/event.mp4')
+            ->assertSee('https://www.youtube-nocookie.com/embed/abc123xyz_0');
+    }
 }

@@ -29,6 +29,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && printf '\n<Directory /var/www/html/public>\n    AllowOverride All\n    Require all granted\n</Directory>\n' >> /etc/apache2/apache2.conf \
     && rm -rf /var/lib/apt/lists/*
 
+RUN printf 'upload_max_filesize=100M\npost_max_size=105M\nmax_execution_time=300\nmax_input_time=300\n' \
+    > /usr/local/etc/php/conf.d/uploads.ini
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html

@@ -40,6 +40,18 @@
             <div class="text-muted" style="line-height:1.9;">{{ $portfolio->description }}</div>
             @endif
 
+            @if($portfolio->video_file_url)
+            <section class="mt-4" aria-label="Video portofolio">
+                <h5 class="fw-700 mb-3">Video Upload</h5>
+                <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                    <video controls preload="metadata">
+                        <source src="{{ $portfolio->video_file_url }}">
+                        Browser Anda tidak mendukung pemutar video.
+                    </video>
+                </div>
+            </section>
+            @endif
+
             @if($portfolio->video_embed_url)
             <section class="mt-4" aria-label="Video portofolio">
                 <h5 class="fw-700 mb-3">Video</h5>

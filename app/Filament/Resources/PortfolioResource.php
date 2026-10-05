@@ -63,7 +63,16 @@ class PortfolioResource extends Resource
                             ->label('URL video')
                             ->url()
                             ->nullable()
-                            ->helperText('Mendukung YouTube, Vimeo, atau URL file MP4, WebM, dan OGG.'),
+                            ->dehydrated(fn (?string $state): bool => filled($state))
+                            ->helperText('Mendukung YouTube, Vimeo, atau URL file MP4, WebM, dan OGG. URL video yang sudah tersimpan tidak akan dihapus jika field dibiarkan kosong.'),
+
+                        Forms\Components\FileUpload::make('video_path')
+                            ->label('Upload video')
+                            ->disk('public')
+                            ->directory('portfolio/videos')
+                            ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/ogg'])
+                            ->maxSize(102400)
+                            ->helperText('Format MP4, WebM, atau OGG. Maksimal 100 MB. URL video di atas tetap tersedia.'),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi')
