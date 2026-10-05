@@ -68,6 +68,25 @@
             font-size: 1.6rem; color: #fff; transition: transform .2s; }
         .wa-float:hover { transform: scale(1.1); color: #fff; }
 
+        /* WhatsApp number picker */
+        .wa-picker-dialog { max-width: 380px; }
+        .wa-picker-content { overflow: hidden; border: 0; border-radius: 18px; box-shadow: 0 24px 70px rgba(23,25,43,.24); }
+        .wa-picker-header { display: flex; align-items: center; gap: .85rem; padding: 1.15rem 1.25rem; color: #fff; background: var(--brand-gradient); border: 0; }
+        .wa-picker-mark { display: grid; width: 44px; height: 44px; flex: none; place-items: center; border: 1px solid rgba(255,255,255,.42); border-radius: 14px; background: rgba(255,255,255,.18); font-size: 1.35rem; }
+        .wa-picker-title { margin: 0; color: inherit; font-size: 1.05rem; font-weight: 700; }
+        .wa-picker-subtitle { margin: .15rem 0 0; color: rgba(255,255,255,.84); font-size: .76rem; }
+        .wa-picker-close { filter: invert(1); opacity: .9; }
+        .wa-picker-body { padding: 1.15rem; background: linear-gradient(145deg, #f5f7ff 0%, #fff 55%, #fff5f6 100%); }
+        .wa-picker-intro { margin: 0 0 .85rem; color: #687087; font-size: .82rem; }
+        .wa-number-option { display: flex; width: 100%; align-items: center; gap: .8rem; margin-bottom: .6rem; padding: .72rem .8rem; border: 1px solid #e3e7f3; border-radius: 12px; background: #fff; color: var(--dark); text-align: left; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+        .wa-number-option:last-child { margin-bottom: 0; }
+        .wa-number-option:hover, .wa-number-option:focus-visible { transform: translateY(-2px); border-color: rgba(23,54,232,.42); box-shadow: 0 8px 20px rgba(23,54,232,.11); outline: none; }
+        .wa-number-index { display: grid; width: 38px; height: 38px; flex: none; place-items: center; border-radius: 11px; background: var(--brand-wash); color: var(--primary); font-size: .78rem; font-weight: 700; }
+        .wa-number-details { min-width: 0; flex: 1; }
+        .wa-number-value { display: block; font-size: .91rem; font-weight: 600; }
+        .wa-number-label { display: block; margin-top: .08rem; color: #7a8194; font-size: .7rem; }
+        .wa-number-action { display: grid; width: 34px; height: 34px; flex: none; place-items: center; border-radius: 10px; background: var(--brand-gradient); color: #fff; font-size: 1rem; }
+
         /* Section headings */
         .section-title { font-size: 2rem; font-weight: 700; color: var(--dark); }
         .section-subtitle { color: #888; font-size: 1rem; }
@@ -205,18 +224,26 @@
 </a>
 
 <div class="modal fade" id="whatsappNumberModal" tabindex="-1" aria-labelledby="whatsappNumberModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="whatsappNumberModalLabel">Pilih Nomor WhatsApp</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+    <div class="modal-dialog modal-dialog-centered wa-picker-dialog">
+        <div class="modal-content wa-picker-content">
+            <div class="modal-header wa-picker-header">
+                <div class="wa-picker-mark"><i class="bi bi-whatsapp" aria-hidden="true"></i></div>
+                <div class="flex-grow-1">
+                    <h5 class="wa-picker-title" id="whatsappNumberModalLabel">Pilih Nomor WhatsApp</h5>
+                    <p class="wa-picker-subtitle">Kaizen Kreasi Indonesia</p>
+                </div>
+                <button type="button" class="btn-close wa-picker-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
-            <div class="modal-body">
-                <p class="text-muted small mb-3">Pilih nomor yang ingin Anda hubungi.</p>
+            <div class="modal-body wa-picker-body">
+                <p class="wa-picker-intro">Pilih nomor yang ingin Anda hubungi.</p>
                 @foreach (array_merge([config('company.phone')], config('company.additional_phones', [])) as $phone)
-                    <button type="button" class="btn btn-outline-success w-100 d-flex justify-content-between align-items-center mb-2" data-whatsapp-phone="{{ preg_replace('/\D+/', '', $phone) }}">
-                        <span>{{ $phone }}</span>
-                        <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                    <button type="button" class="wa-number-option" data-whatsapp-phone="{{ preg_replace('/\D+/', '', $phone) }}">
+                        <span class="wa-number-index">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                        <span class="wa-number-details">
+                            <span class="wa-number-value">{{ $phone }}</span>
+                            <span class="wa-number-label">Nomor WhatsApp</span>
+                        </span>
+                        <span class="wa-number-action"><i class="bi bi-arrow-up-right" aria-hidden="true"></i></span>
                     </button>
                 @endforeach
             </div>
