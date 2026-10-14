@@ -79,6 +79,7 @@
 
         /* Footer */
         footer { background: var(--dark); color: #ccc; }
+        html.dark footer { background: #17192b; color: #ccc; }
         footer a { color: #ccc; text-decoration: none; }
         footer a:hover { color: var(--secondary); }
         footer .footer-brand { display:flex; align-items:center; gap:.5rem; color:#fff; font-weight:700; font-size:1.15rem; }
