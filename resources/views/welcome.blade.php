@@ -10,6 +10,120 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+        <script>
+            try {
+                const savedTheme = localStorage.getItem('theme-mode');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+                document.documentElement.classList.toggle('dark', isDark);
+            } catch (e) {}
+        </script>
+
+        <style>
+            :root {
+                color-scheme: light;
+                --shell-bg: #f7f4ef;
+                --shell-bg-2: #f2e4d4;
+                --panel-bg: rgba(255, 255, 255, 0.72);
+                --panel-border: rgba(27, 27, 24, 0.10);
+                --text: #1b1b18;
+                --muted: #6d6964;
+                --brand: #f53003;
+                --brand-strong: #ff7a3d;
+            }
+
+            html.dark {
+                color-scheme: dark;
+                --shell-bg: #0d0d0c;
+                --shell-bg-2: #1a100d;
+                --panel-bg: rgba(22, 22, 21, 0.75);
+                --panel-border: rgba(255, 255, 255, 0.10);
+                --text: #f3f2ef;
+                --muted: #bcb8b3;
+                --brand: #ff6f5a;
+                --brand-strong: #ffb067;
+            }
+
+            body {
+                background:
+                    radial-gradient(circle at top left, rgba(255, 160, 91, 0.28), transparent 32%),
+                    radial-gradient(circle at bottom right, rgba(255, 74, 38, 0.16), transparent 28%),
+                    linear-gradient(135deg, var(--shell-bg), var(--shell-bg-2));
+                color: var(--text);
+            }
+
+            .premium-shell {
+                position: relative;
+                isolation: isolate;
+            }
+
+            .premium-shell::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(120deg, rgba(255,255,255,0.25), transparent 35%, rgba(255,255,255,0.18));
+                pointer-events: none;
+                z-index: -1;
+            }
+
+            .premium-panel {
+                background: var(--panel-bg);
+                border: 1px solid var(--panel-border);
+                box-shadow: 0 24px 60px rgba(24, 18, 10, 0.12);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+            }
+
+            .premium-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                border-radius: 9999px;
+                border: 1px solid rgba(255, 125, 82, 0.35);
+                background: rgba(255, 124, 82, 0.08);
+                color: var(--brand);
+                font-size: 0.72rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 0.45rem 0.8rem;
+            }
+
+            .premium-link {
+                color: var(--brand);
+                transition: color 0.2s ease;
+            }
+
+            .premium-link:hover {
+                color: var(--brand-strong);
+            }
+
+            .premium-cta {
+                background: linear-gradient(135deg, #1b1b18, #0f0f0d);
+                color: white;
+                box-shadow: 0 10px 24px rgba(27, 27, 24, 0.24);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .premium-cta:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 18px 28px rgba(27, 27, 24, 0.25);
+            }
+
+            html.dark .premium-cta {
+                background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+                border-color: rgba(255,255,255,0.12);
+            }
+
+            .theme-toggle {
+                transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+            }
+
+            .theme-toggle:hover {
+                transform: translateY(-1px);
+            }
+        </style>
+
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,21 +133,36 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+    <body class="premium-shell flex min-h-screen flex-col items-center p-6 lg:justify-center lg:p-8">
+        <header class="mb-6 w-full max-w-[335px] text-sm lg:max-w-4xl not-has-[nav]:hidden">
             @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
+                <nav class="flex items-center justify-end gap-3">
+                    <button
+                        id="theme-toggle"
+                        type="button"
+                        aria-label="Toggle dark mode"
+                        class="theme-toggle inline-flex h-9 w-9 items-center justify-center rounded-sm border border-[#19140035] bg-white/80 text-[#1b1b18] shadow-sm backdrop-blur-sm dark:border-[#3E3E3A] dark:bg-[#161615]/80 dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                    >
+                        <svg class="h-4 w-4 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="4.5"></circle>
+                            <path d="M12 2.75v1.5M12 19.75v1.5M21.25 12h-1.5M4.25 12h-1.5M18.1 5.9l-1.06-1.06M7.96 16.04 6.9 17.1M18.1 18.1l-1.06 1.06M7.96 7.96 6.9 6.9"></path>
+                        </svg>
+                        <svg class="hidden h-4 w-4 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.8A8.8 8.8 0 0 1 11.2 3a9 9 0 1 0 9.8 9.8Z"></path>
+                        </svg>
+                    </button>
+
                     @auth
                         <a
                             href="{{ url('/dashboard') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] transition hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                         >
                             Dashboard
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                            class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] transition hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                         >
                             Log in
                         </a>
@@ -41,7 +170,8 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] transition hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
+                            >
                                 Register
                             </a>
                         @endif
@@ -49,11 +179,12 @@
                 </nav>
             @endif
         </header>
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow-[inset_0px_0px_0px_1px_rgba(26,26,0,0.16)] dark:shadow-[inset_0px_0px_0px_1px_#fffaed2d] rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
-                    <h1 class="mb-1 font-medium">Let's get started</h1>
-                    <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.</p>
+        <div class="flex w-full items-center justify-center opacity-100 transition-opacity duration-750 starting:opacity-0 lg:grow">
+            <main class="premium-panel flex w-full max-w-[335px] flex-col-reverse overflow-hidden rounded-[1.5rem] lg:max-w-4xl lg:flex-row">
+                <div class="flex-1 bg-white/75 p-6 pb-12 text-[13px] leading-[20px] text-[#1b1b18] dark:bg-[#161615]/80 dark:text-[#EDEDEC] lg:p-20">
+                    <span class="premium-badge mb-5">Premium Starter</span>
+                    <h1 class="mb-2 text-3xl font-semibold tracking-[-0.04em] text-[#181816] dark:text-[#F7F4F1]">Let's get started</h1>
+                    <p class="mb-5 max-w-md text-[#706f6c] dark:text-[#A1A09A]">Laravel has an incredibly rich ecosystem. <br>We suggest starting with the following.</p>
                     <ul class="flex flex-col mb-4 lg:mb-6">
                         <li class="flex items-center gap-4 py-2 relative before:border-l before:border-[#e3e3e0] dark:before:border-[#3E3E3A] before:top-1/2 before:bottom-0 before:left-[0.4rem] before:absolute">
                             <span class="relative py-1 bg-white dark:bg-[#161615]">
@@ -63,7 +194,7 @@
                             </span>
                             <span>
                                 Read the
-                                <a href="https://laravel.com/docs" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="https://laravel.com/docs" target="_blank" class="premium-link ml-1 inline-flex items-center space-x-1 font-medium underline underline-offset-4">
                                     <span>Documentation</span>
                                     <svg
                                         width="10"
@@ -90,7 +221,7 @@
                             </span>
                             <span>
                                 Watch video tutorials at
-                                <a href="https://laracasts.com" target="_blank" class="inline-flex items-center space-x-1 font-medium underline underline-offset-4 text-[#f53003] dark:text-[#FF4433] ml-1">
+                                <a href="https://laracasts.com" target="_blank" class="premium-link ml-1 inline-flex items-center space-x-1 font-medium underline underline-offset-4">
                                     <span>Laracasts</span>
                                     <svg
                                         width="10"
@@ -112,7 +243,7 @@
                     </ul>
                     <ul class="flex gap-3 text-sm leading-normal">
                         <li>
-                            <a href="https://cloud.laravel.com" target="_blank" class="inline-block dark:bg-[#eeeeec] dark:border-[#eeeeec] dark:text-[#1C1C1A] dark:hover:bg-white dark:hover:border-white hover:bg-black hover:border-black px-5 py-1.5 bg-[#1b1b18] rounded-sm border border-black text-white text-sm leading-normal">
+                            <a href="https://cloud.laravel.com" target="_blank" class="premium-cta inline-block rounded-sm border border-black/10 px-5 py-1.5 text-sm leading-normal text-white shadow-sm dark:border-white/15">
                                 Deploy now
                             </a>
                         </li>
@@ -273,5 +404,32 @@
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif
+    <script>
+        (function () {
+            const root = document.documentElement;
+            const toggle = document.getElementById('theme-toggle');
+
+            const applyTheme = (isDark) => {
+                root.classList.toggle('dark', isDark);
+
+                if (toggle) {
+                    toggle.setAttribute('aria-pressed', String(isDark));
+                    toggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+                }
+            };
+
+            const storedTheme = localStorage.getItem('theme-mode');
+            const initialTheme = storedTheme ? storedTheme : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(initialTheme === 'dark');
+
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    const nextTheme = root.classList.contains('dark') ? 'light' : 'dark';
+                    localStorage.setItem('theme-mode', nextTheme);
+                    applyTheme(nextTheme === 'dark');
+                });
+            }
+        })();
+    </script>
     </body>
 </html>
