@@ -3,6 +3,16 @@
 @section('title', $product->name)
 @section('meta_description', $product->meta_description ?? Str::limit(strip_tags($product->description), 160))
 
+@push('styles')
+<style>
+    .product-detail-copy {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+</style>
+@endpush
+
 @section('content')
 
 <div class="container py-5">
@@ -66,7 +76,7 @@
         </div>
 
         <!-- Details -->
-        <div class="col-lg-6">
+        <div class="col-lg-6 product-detail-copy">
             @if($product->category)
             <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->name }}</span>
             @endif
