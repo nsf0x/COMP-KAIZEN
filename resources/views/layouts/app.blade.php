@@ -6,6 +6,15 @@
     <meta name="description" content="@yield('meta_description', config('company.description'))">
     <title>@yield('title', config('company.name')) | {{ config('company.name') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
+    <script>
+        try {
+            const savedTheme = localStorage.getItem('theme-mode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', savedTheme ? savedTheme === 'dark' : prefersDark);
+        } catch (error) {
+            document.documentElement.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+        }
+    </script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,17 +41,36 @@
             --dark: #17192b;
             --light-bg: #f3f5ff;
         }
+        html.dark {
+            color-scheme: dark;
+            --brand-wash: linear-gradient(120deg, #11172f 0%, #171821 58%, #28171c 100%);
+            --dark: #f1f2f7;
+            --light-bg: #171821;
+        }
         * { font-family: 'Poppins', sans-serif; }
         body { background: #fff; color: #333; }
+        html.dark body { background: #101116; color: #e5e6ec; }
 
         /* Navbar */
         .navbar { background: rgba(255,255,255,0.97); box-shadow: 0 2px 20px rgba(14,28,95,0.1); }
+        html.dark .navbar { background: rgba(20,21,28,0.96); box-shadow: 0 2px 24px rgba(0,0,0,0.28); }
         .navbar-brand { display:flex; align-items:center; gap:.55rem; font-weight:700; font-size:1.15rem; }
         .navbar-brand span { color:transparent; background:var(--brand-gradient); background-clip:text; -webkit-background-clip:text; }
         .brand-logo { width:48px; height:48px; object-fit:contain; flex:none; }
         .brand-logo-footer { width:38px; height:38px; }
         .nav-link { font-weight: 500; color: #444 !important; transition: color .2s; }
+        html.dark .nav-link { color: #d4d5dc !important; }
         .nav-link:hover, .nav-link.active { color: var(--primary) !important; }
+        html.dark .nav-link:hover, html.dark .nav-link.active { color: #899bff !important; }
+        html.dark .navbar-toggler { border-color: rgba(255,255,255,.2); }
+        html.dark .navbar-toggler-icon { filter: invert(1); }
+        .theme-toggle { display:inline-grid; width:40px; height:40px; place-items:center; border:1px solid rgba(23,54,232,.16); border-radius:50%; background:rgba(23,54,232,.06); color:var(--primary); transition:transform .2s, background .2s, border-color .2s; }
+        .theme-toggle:hover { transform:translateY(-1px); background:rgba(23,54,232,.12); }
+        html.dark .theme-toggle { border-color:rgba(255,255,255,.16); background:rgba(255,255,255,.07); color:#dce1ff; }
+        html.dark .theme-toggle:hover { background:rgba(255,255,255,.13); }
+        .theme-toggle .bi-moon-stars-fill { display:none; }
+        html.dark .theme-toggle .bi-sun-fill { display:none; }
+        html.dark .theme-toggle .bi-moon-stars-fill { display:inline; }
         .btn-wa { background: #25d366; color: #fff; border-radius: 50px; padding: 8px 20px; font-weight: 600; }
         .btn-wa:hover { background: #128c7e; color: #fff; }
         .btn-primary-custom { background: var(--brand-gradient); color: #fff; border-radius: 50px; padding: 10px 28px; font-weight: 600; border: none; }
@@ -86,6 +114,11 @@
         .wa-number-value { display: block; font-size: .91rem; font-weight: 600; }
         .wa-number-label { display: block; margin-top: .08rem; color: #7a8194; font-size: .7rem; }
         .wa-number-action { display: grid; width: 34px; height: 34px; flex: none; place-items: center; border-radius: 10px; background: var(--brand-gradient); color: #fff; font-size: 1rem; }
+        html.dark .wa-picker-content { background:#191a22; color:#e5e6ec; }
+        html.dark .wa-picker-body { background:linear-gradient(145deg,#171a27 0%,#1c1c22 55%,#24191d 100%); }
+        html.dark .wa-picker-intro { color:#aeb2c2; }
+        html.dark .wa-number-option { border-color:#383a47; background:#20212b; color:#ececf2; }
+        html.dark .wa-number-label { color:#aeb2c2; }
 
         /* Section headings */
         .section-title { font-size: 2rem; font-weight: 700; color: var(--dark); }
@@ -107,6 +140,35 @@
         [style*="#ffe4f5"] { background-color:#e8eeff !important; }
         [style*="#ffd4ee"] { background:linear-gradient(110deg,#edf2ff,#fff0f1) !important; }
         [style*="rgba(233,30,140"] { box-shadow:0 12px 30px rgba(23,54,232,.12) !important; }
+        html.dark .home-hero { background:var(--brand-wash); }
+        html.dark .home-hero h1,
+        html.dark [style*="color:#1a1a2e"],
+        html.dark [style*="color: #1a1a2e"],
+        html.dark [style*="color:#25283a"],
+        html.dark [style*="color: #25283a"] { color:#f1f2f7 !important; }
+        html.dark .text-muted,
+        html.dark .section-subtitle { color:#aaadba !important; }
+        html.dark .card,
+        html.dark .modal-content,
+        html.dark .dropdown-menu { border-color:#343642; background-color:#1a1b23; color:#e5e6ec; }
+        html.dark .card-body,
+        html.dark .card-footer { color:#e5e6ec; }
+        html.dark .category-card-icon,
+        html.dark [style*="#ffeef9"],
+        html.dark [style*="#fdf6fb"],
+        html.dark [style*="#ffe4f5"],
+        html.dark [style*="#ffd4ee"] { background:#202230 !important; }
+        html.dark .form-control,
+        html.dark .form-select { border-color:#454754; background-color:#1a1b23; color:#e5e6ec; }
+        html.dark .form-control::placeholder { color:#9a9daa; }
+        html.dark .border,
+        html.dark .table { border-color:#343642 !important; }
+        html.dark .table { --bs-table-color:#e5e6ec; --bs-table-bg:#171821; --bs-table-striped-bg:#1d1f29; --bs-table-hover-bg:#252733; }
+        html.dark .btn-outline-success { color:#57d991; border-color:#57d991; }
+        html.dark .btn-outline-success:hover { color:#101116; background:#57d991; }
+        @media (prefers-reduced-motion: no-preference) {
+            body, .navbar, .card, .modal-content { transition:background-color .25s ease, color .25s ease, border-color .25s ease; }
+        }
     </style>
 
     @stack('styles')
@@ -142,6 +204,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Kontak</a>
+                </li>
+                <li class="nav-item ms-lg-2">
+                    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Ganti ke mode gelap" aria-pressed="false" title="Ganti ke mode gelap">
+                        <i class="bi bi-sun-fill" aria-hidden="true"></i>
+                        <i class="bi bi-moon-stars-fill" aria-hidden="true"></i>
+                    </button>
                 </li>
                 <li class="nav-item ms-lg-2">
                     <a href="https://wa.me/{{ config('company.whatsapp') }}" class="btn btn-wa" target="_blank">
@@ -257,6 +325,32 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init({ duration: 700, once: true });</script>
+<script>
+    (() => {
+        const root = document.documentElement;
+        const toggle = document.getElementById('theme-toggle');
+        if (!toggle) return;
+
+        const applyTheme = (isDark) => {
+            root.classList.toggle('dark', isDark);
+            const label = isDark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap';
+            toggle.setAttribute('aria-label', label);
+            toggle.setAttribute('title', label);
+            toggle.setAttribute('aria-pressed', String(isDark));
+        };
+
+        applyTheme(root.classList.contains('dark'));
+        toggle.addEventListener('click', () => {
+            const isDark = !root.classList.contains('dark');
+            applyTheme(isDark);
+            try {
+                localStorage.setItem('theme-mode', isDark ? 'dark' : 'light');
+            } catch (error) {
+                console.warn('Theme preference could not be saved in this browser.', error);
+            }
+        });
+    })();
+</script>
 <script>
     (() => {
         const modalElement = document.getElementById('whatsappNumberModal');
