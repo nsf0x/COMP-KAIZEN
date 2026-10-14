@@ -79,10 +79,11 @@ class ProductResource extends Resource
                         Forms\Components\FileUpload::make('thumbnail')
                             ->label('Foto utama')
                             ->image()
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->disk('public')
                             ->directory('products')
                             ->imageEditor()
-                            ->helperText('Biarkan kosong jika foto belum tersedia.'),
+                            ->helperText('Format yang didukung: JPG, PNG, dan WebP. Biarkan kosong jika foto belum tersedia.'),
                         Forms\Components\Repeater::make('images')
                             ->label('Galeri foto')
                             ->relationship()
@@ -90,6 +91,7 @@ class ProductResource extends Resource
                                 Forms\Components\FileUpload::make('image_path')
                                     ->label('Foto')
                                     ->image()
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->disk('public')
                                     ->directory('products/gallery')
                                     ->required(),
