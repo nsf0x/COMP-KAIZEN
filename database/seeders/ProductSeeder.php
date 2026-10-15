@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
             ['category' => 'led-screen-processor', 'name' => 'LED Screen P3.9 Indoor dan Outdoor', 'description' => 'LED screen modular untuk konser, exhibition, corporate event, dan wedding.', 'featured' => true],
             ['category' => 'led-screen-processor', 'name' => 'LED Cube P2.5 48x48cm', 'description' => 'LED cube modular untuk instalasi visual kreatif dan kebutuhan event experience.', 'featured' => false],
             ['category' => 'led-screen-processor', 'name' => 'Processor Novastar VX16S, VX600, VX400', 'description' => 'Video processor profesional untuk pengelolaan tampilan LED screen.', 'featured' => false],
-            ['category' => 'genset-power', 'name' => 'Genset 5.000 Watt sampai 150 KVA', 'description' => 'Dukungan daya untuk event dengan kapasitas 5.000 watt, 60, 80, 100, hingga 150 KVA.', 'featured' => true],
+            ['category' => 'genset-power', 'name' => 'Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt', 'description' => 'Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt.', 'featured' => true],
             ['category' => 'sound-system', 'name' => 'Sound System Event', 'description' => 'Sistem tata suara profesional untuk seminar, konser, golf tournament, dan corporate event.', 'featured' => true],
             ['category' => 'lighting-stage', 'name' => 'Lighting System', 'description' => 'Pencahayaan panggung dan area event untuk menghasilkan suasana serta visual yang maksimal.', 'featured' => true],
             ['category' => 'lighting-stage', 'name' => 'Stage dan Rigging', 'description' => 'Panggung, grand stand, dan struktur rigging untuk event skala kecil hingga besar.', 'featured' => true],

@@ -1,6 +1,7 @@
 <?php
 
 use App\Console\Commands\ImportKaizenProductsCommand;
+use App\Console\Commands\ConsolidateGensetProductsCommand;
 use App\Console\Commands\SyncKaizenProductPhotosCommand;
 use App\Models\Product;
 use Database\Seeders\AdminUserSeeder;
@@ -34,12 +35,16 @@ Artisan::command('kaizen:bootstrap-production', function () {
     }
 
     if (Product::query()->doesntExist()) {
-        return $this->call('kaizen:import-products', [
+        $importExitCode = $this->call('kaizen:import-products', [
             '--file' => 'produk-kaizen-kreasi.json',
         ]);
+
+        if ($importExitCode !== 0) {
+            return $importExitCode;
+        }
     }
 
-    return 0;
+    return $this->call(ConsolidateGensetProductsCommand::class);
 })->purpose('Seed the admin user and import the Kaizen catalog when the products table is empty');
 
 Artisan::command('kaizen:production-startup {--manifest=database/data/product-photos/manifest.json : Photo mapping manifest}', function () {

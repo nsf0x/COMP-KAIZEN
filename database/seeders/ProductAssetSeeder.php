@@ -23,7 +23,7 @@ class ProductAssetSeeder extends Seeder
             'led-screen-p26-indoor-dan-outdoor' => 'products/led-screen-p26-indoor-outdoor-all-curve-straight.jpeg',
             'led-screen-p39-indoor-dan-outdoor' => 'products/led-screen-p39-indoor-dan-outdoor.jpeg',
             'led-cube-p25-48x48cm' => 'products/led-cube-p25-48x48cm.jpeg',
-            'genset-5000-watt-sampai-150-kva' => 'products/genset-5000-watt-sampai-150-kva.jpeg',
+            'genset-kapasitas-150-kva-100-kva-80-kva-60-kva-dan-5000-watt' => 'products/genset-5000-watt-sampai-150-kva.jpeg',
             'sound-system-event' => 'products/sound-system.jpeg',
             'lighting-system' => 'products/led-par-light.jpeg',
             'stage-dan-rigging' => 'products/panggung-lighting-event.jpeg',

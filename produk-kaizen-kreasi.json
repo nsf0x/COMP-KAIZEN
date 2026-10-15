@@ -79,9 +79,9 @@
     },
     {
       "category": "Genset",
-      "name": "Genset 5.000 Watt sampai 150 KVA",
+      "name": "Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt",
       "unit": "per unit",
-      "description": "Pilihan kapasitas 5.000 watt, 60 kVA, 80 kVA, 100 kVA, hingga 150 kVA. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "description": "Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
       "sort_order": 12
     },
     {
