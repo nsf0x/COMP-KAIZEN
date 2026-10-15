@@ -79,38 +79,10 @@
     },
     {
       "category": "Genset",
-      "name": "Genset 150 kVA",
+      "name": "Genset 5.000 Watt sampai 150 KVA",
       "unit": "per unit",
-      "description": "Kapasitas 150 kVA, pemakaian maksimal 120.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
+      "description": "Pilihan kapasitas 5.000 watt, 60 kVA, 80 kVA, 100 kVA, hingga 150 kVA. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
       "sort_order": 12
-    },
-    {
-      "category": "Genset",
-      "name": "Genset 100 kVA",
-      "unit": "per unit",
-      "description": "Kapasitas 100 kVA, pemakaian maksimal 80.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
-      "sort_order": 13
-    },
-    {
-      "category": "Genset",
-      "name": "Genset 80 kVA",
-      "unit": "per unit",
-      "description": "Kapasitas 80 kVA, pemakaian maksimal 60.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
-      "sort_order": 14
-    },
-    {
-      "category": "Genset",
-      "name": "Genset 60 kVA",
-      "unit": "per unit",
-      "description": "Kapasitas 60 kVA, pemakaian maksimal 40.000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
-      "sort_order": 15
-    },
-    {
-      "category": "Genset",
-      "name": "Genset 5000 Watt",
-      "unit": "per unit",
-      "description": "Kapasitas 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
-      "sort_order": 16
     },
     {
       "category": "LED Screen",

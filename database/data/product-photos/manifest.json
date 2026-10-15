@@ -17,12 +17,7 @@
     {
       "file": "genset-150kva-100kva-80kva-60kva.jpg",
       "original_name": "genset 150kva,100kva,80kva,60kva.jpg",
-      "products": [
-        {"slug": "genset-150-kva"},
-        {"slug": "genset-100-kva"},
-        {"slug": "genset-80-kva"},
-        {"slug": "genset-60-kva"}
-      ]
+      "products": [{"slug": "genset-5000-watt-sampai-150-kva"}]
     },
     {
       "file": "grand-stand.jpg",
