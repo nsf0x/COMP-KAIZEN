@@ -113,7 +113,7 @@
                             <div class="fw-600 mb-3 text-muted small">
                                 Informasi lebih lanjut
                             </div>
-                            <div class="d-flex gap-2">
+                            <div class="d-flex gap-2 mt-auto">
                                 <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill flex-fill">Detail</a>
                                 <a href="{{ $product->whatsapp_url }}" class="btn btn-sm btn-success rounded-pill flex-fill" target="_blank">
                                     <i class="bi bi-whatsapp me-1"></i>Pesan

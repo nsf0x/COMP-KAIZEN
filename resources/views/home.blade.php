@@ -97,14 +97,14 @@
                         <div style="font-size:5rem;">🎁</div>
                         @endif
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->name ?? '' }}</span>
                         <h5 class="fw-600 mb-1">{{ $product->name }}</h5>
                         <p class="text-muted small mb-2">{{ Str::limit($product->description, 80) }}</p>
                         <div class="fw-600 mb-3 text-muted small">
                             Informasi lebih lanjut
                         </div>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 mt-auto">
                             <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill flex-fill">Detail</a>
                             <a href="{{ $product->whatsapp_url }}" class="btn btn-sm btn-success rounded-pill flex-fill" target="_blank">
                                 <i class="bi bi-whatsapp me-1"></i>Pesan
