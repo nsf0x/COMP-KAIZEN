@@ -274,7 +274,14 @@
                         </div>
                         <div>
                             <div class="fw-600 small">{{ $testimonial->client_name }}</div>
-                            <div class="text-muted" style="font-size:.75rem;">{{ $testimonial->company ?? 'Pelanggan' }}</div>
+                            @if($testimonial->event_type || $testimonial->rented_product || $testimonial->location || $testimonial->event_date)
+                            <div class="text-muted" style="font-size:.75rem;">
+                                @if($testimonial->event_type){{ $testimonial->event_type }}@endif
+                                @if($testimonial->rented_product){{ $testimonial->event_type ? ' · ' : '' }}{{ $testimonial->rented_product }}@endif
+                                @if($testimonial->location){{ ' · ' . $testimonial->location }}@endif
+                                @if($testimonial->event_date){{ ' · ' . $testimonial->event_date->format('d M Y') }}@endif
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
