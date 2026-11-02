@@ -21,10 +21,6 @@ class CategorySeeder extends Seeder
             ['name' => 'Event Support', 'icon' => 'support', 'order' => 8],
         ];
 
-        $slugs = collect($categories)->map(fn (array $category): string => Str::slug($category['name']));
-
-        Category::whereNotIn('slug', $slugs)->delete();
-
         foreach ($categories as $cat) {
             Category::updateOrCreate(
                 ['slug' => Str::slug($cat['name'])],
