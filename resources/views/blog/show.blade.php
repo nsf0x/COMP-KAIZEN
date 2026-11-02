@@ -51,8 +51,8 @@
 
             @if($blogPost->thumbnail)
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="max-height:420px;">
-                <img src="{{ $blogPost->thumbnail_url }}" alt="{{ $blogPost->title }}"
-                     style="width:100%; height:420px; object-fit:cover;">
+                <x-optimized-image src="{{ $blogPost->thumbnail_url }}" alt="Gambar artikel: {{ $blogPost->title }}"
+                                   width="840" height="560" loading="eager" style="width:100%; height:420px; object-fit:cover;" />
             </div>
             @endif
 
@@ -96,7 +96,8 @@
                 @foreach($galleryImages as $img)
                 <div class="col-6 col-md-4">
                     <div class="rounded-3 overflow-hidden" style="height:180px;">
-                        <img src="{{ asset('storage/' . $img) }}" alt="Gallery" style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ asset('storage/' . $img) }}" alt="Galeri artikel {{ $blogPost->title }} nomor {{ $loop->iteration }}"
+                                           width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                     </div>
                 </div>
                 @endforeach
@@ -144,7 +145,8 @@
                onmouseover="this.style.background='#ffe4f5'" onmouseout="this.style.background='#fdf6fb'">
                 <div style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;background:#ffeef9;display:flex;align-items:center;justify-content:center;">
                     @if($item->thumbnail)
-                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}" style="width:100%;height:100%;object-fit:cover;">
+                    <x-optimized-image src="{{ $item->thumbnail_url }}" alt="Gambar artikel: {{ $item->title }}"
+                                       width="160" height="160" style="width:100%;height:100%;object-fit:cover;" />
                     @else
                     <div style="font-size:2rem;">📝</div>
                     @endif

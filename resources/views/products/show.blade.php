@@ -76,7 +76,8 @@
                     <div class="carousel-item active" style="height:380px;">
                         <div style="width:100%;height:100%;background:#ffeef9;display:flex;align-items:center;justify-content:center;">
                             @if($product->thumbnail)
-                            <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover;">
+                            <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                               width="900" height="600" loading="eager" style="width:100%;height:100%;object-fit:cover;" />
                             @else
                             <div style="font-size:8rem;">🎁</div>
                             @endif
@@ -84,8 +85,8 @@
                     </div>
                     @foreach($images as $img)
                     <div class="carousel-item" style="height:380px;">
-                        <img src="{{ asset('storage/' . $img->image_path) }}" alt="{{ $product->name }}"
-                             style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ asset('storage/' . $img->image_path) }}" alt="Foto produk {{ $product->name }} nomor {{ $loop->iteration }}"
+                                           width="900" height="600" style="width:100%;height:100%;object-fit:cover;" />
                     </div>
                     @endforeach
                 </div>
@@ -101,7 +102,8 @@
             @else
             <div class="rounded-4 overflow-hidden shadow-sm" style="height:380px; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                 @if($product->thumbnail)
-                <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover;">
+                <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                   width="900" height="600" loading="eager" style="width:100%;height:100%;object-fit:cover;" />
                 @else
                 <div style="font-size:8rem;">🎁</div>
                 @endif
@@ -178,7 +180,8 @@
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                     <div style="height:160px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                         @if($item->thumbnail)
-                        <img src="{{ $item->thumbnail_url }}" alt="{{ $item->name }}" style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ $item->thumbnail_url }}" alt="Perlengkapan event: {{ $item->name }}"
+                                           width="480" height="320" style="width:100%;height:100%;object-fit:cover;" />
                         @else
                         <div style="font-size:3rem;">🎁</div>
                         @endif

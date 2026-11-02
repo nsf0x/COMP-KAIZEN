@@ -101,7 +101,8 @@
                          onmouseout="this.style.transform='';this.style.boxShadow=''">
                         <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                             @if($product->thumbnail)
-                            <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover;">
+                            <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                               width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                             @else
                             <div style="font-size:5rem;">🎁</div>
                             @endif

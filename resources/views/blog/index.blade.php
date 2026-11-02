@@ -54,10 +54,10 @@
             <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                 <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                     @if($post->thumbnail)
-                    <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}"
-                         style="width:100%;height:100%;object-fit:cover; transition:transform .3s;"
-                         onmouseover="this.style.transform='scale(1.05)'"
-                         onmouseout="this.style.transform=''">
+                    <x-optimized-image src="{{ $post->thumbnail_url }}" alt="Gambar artikel: {{ $post->title }}"
+                                       width="600" height="400" style="width:100%;height:100%;object-fit:cover; transition:transform .3s;"
+                                       onmouseover="this.style.transform='scale(1.05)'"
+                                       onmouseout="this.style.transform=''" />
                     @else
                     <div style="font-size:4rem;">📝</div>
                     @endif

@@ -54,8 +54,8 @@
                 @endif
             </div>
             <div class="col-lg-6 text-center" data-aos="fade-left">
-                <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia" class="hero-logo"
-                     width="512" height="512" fetchpriority="high">
+                <x-optimized-image src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia"
+                                   width="512" height="512" loading="eager" fetchpriority="high" class="hero-logo" />
             </div>
         </div>
     </div>
@@ -149,8 +149,8 @@
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                     <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex; align-items:center; justify-content:center;">
                         @if($product->thumbnail)
-                        <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}"
-                             style="width:100%; height:100%; object-fit:cover;">
+                        <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                           width="600" height="400" style="width:100%; height:100%; object-fit:cover;" />
                         @else
                         <div style="font-size:5rem;">🎁</div>
                         @endif
@@ -229,10 +229,10 @@
             <div class="col-6 col-md-4" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 60 }}">
                 <a href="{{ route('portfolio.show', $portfolio) }}" class="d-block rounded-4 overflow-hidden position-relative" style="height:220px;">
                     @if($portfolio->thumbnail)
-                    <img src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="{{ $portfolio->title }}"
-                         style="width:100%; height:100%; object-fit:cover; transition: transform .3s;"
-                         onmouseover="this.style.transform='scale(1.05)'"
-                         onmouseout="this.style.transform=''">
+                    <x-optimized-image src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="Dokumentasi event: {{ $portfolio->title }}"
+                                       width="600" height="340" style="width:100%; height:100%; object-fit:cover; transition: transform .3s;"
+                                       onmouseover="this.style.transform='scale(1.05)'"
+                                       onmouseout="this.style.transform=''" />
                     @else
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#ffe4f5,#ffd4ee);display:flex;align-items:center;justify-content:center;font-size:4rem;">🎉</div>
                     @endif
@@ -296,8 +296,9 @@
             @foreach($clients as $client)
             <div data-aos="zoom-in" data-aos-delay="{{ $loop->index * 40 }}" style="opacity:.7; transition: opacity .2s;"
                  onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'">
-                @if($client->logo)
-                <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name }}" style="height:48px; object-fit:contain; filter:grayscale(50%);">
+                @if($client->logo_path)
+                <x-optimized-image src="{{ $client->logo_url }}" alt="Logo {{ $client->name }}" width="180" height="48"
+                                   style="height:48px; object-fit:contain; filter:grayscale(50%);" />
                 @else
                 <span class="fw-600 text-muted">{{ $client->name }}</span>
                 @endif
@@ -322,7 +323,8 @@
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                     <div style="height:180px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                         @if($post->thumbnail)
-                        <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ $post->thumbnail_url }}" alt="Gambar artikel: {{ $post->title }}"
+                                           width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                         @else
                         <div style="font-size:4rem;">📝</div>
                         @endif

@@ -77,8 +77,8 @@
             <div class="col-6 col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
                 <div class="card border-0 shadow-sm text-center p-4 h-100" style="border-radius:16px;">
                     @if($member->photo)
-                    <img src="{{ asset('storage/' . $member->photo) }}" alt="{{ $member->name }}"
-                         class="rounded-circle mx-auto mb-3" style="width:96px;height:96px;object-fit:cover;">
+                    <x-optimized-image src="{{ asset('storage/' . $member->photo) }}" alt="Anggota tim: {{ $member->name }}"
+                                       width="96" height="96" class="rounded-circle mx-auto mb-3" style="width:96px;height:96px;object-fit:cover;" />
                     @else
                     <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center fw-700 fs-2 text-white"
                          style="width:96px;height:96px;background:linear-gradient(135deg,var(--primary),var(--secondary));">
@@ -141,8 +141,9 @@
         <div class="d-flex flex-wrap justify-content-center align-items-center gap-5">
             @foreach($clients as $client)
             <div style="opacity:.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'">
-                @if($client->logo)
-                <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name }}" style="height:50px;object-fit:contain;filter:grayscale(40%);">
+                @if($client->logo_path)
+                <x-optimized-image src="{{ $client->logo_url }}" alt="Logo {{ $client->name }}" width="180" height="50"
+                                   style="height:50px;object-fit:contain;filter:grayscale(40%);" />
                 @else
                 <span class="fw-600 text-muted fs-5">{{ $client->name }}</span>
                 @endif

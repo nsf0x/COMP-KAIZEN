@@ -62,6 +62,7 @@ class SeoMetadataTest extends TestCase
             'slug' => 'sewa-tenda-roder',
             'description' => 'Tenda untuk kebutuhan pameran dan acara perusahaan.',
             'meta_description' => 'Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.',
+            'thumbnail' => 'products/tenda-roder.jpg',
             'status' => true,
         ]);
 
@@ -73,7 +74,10 @@ class SeoMetadataTest extends TestCase
             ->assertSee('"@type":"Service"', false)
             ->assertSee('"serviceType":"Tenda"', false)
             ->assertSee('"@type":"BreadcrumbList"', false)
-            ->assertSee('"name":"Sewa Tenda Roder"', false);
+            ->assertSee('"name":"Sewa Tenda Roder"', false)
+            ->assertSee('<source srcset="http://localhost/storage/products/tenda-roder.webp" type="image/webp">', false)
+            ->assertSee('alt="Perlengkapan event: Sewa Tenda Roder" width="900" height="600"', false)
+            ->assertSee('loading="eager"', false);
 
         preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonLd);
         $schemas = array_map(fn (string $json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR), $jsonLd[1]);
