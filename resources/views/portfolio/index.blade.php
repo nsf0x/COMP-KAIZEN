@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Event Portofolio')
-@section('meta_description', 'Galeri event portofolio dan pesta yang telah kami tangani. Lihat karya terbaik kami.')
+@section('meta_description', 'Lihat dokumentasi event, pameran, wedding, konser, dan acara perusahaan yang ditangani oleh ' . config('company.name') . '.')
 
 @section('content')
 

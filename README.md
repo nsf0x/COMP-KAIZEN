@@ -47,6 +47,14 @@ The admin seeder creates `admin@partyrentalpro.com` using `ADMIN_PASSWORD`. It d
 
 Product images committed in `storage/app/public/products` ship with the Docker image. Railway's filesystem is ephemeral unless you attach a volume; attach one at `/var/www/html/storage/app/public` if admin-uploaded images must survive redeploys.
 
+## Search engine setup
+
+For the Rumahweb deployment, set `APP_URL=https://kaizenkreasi.com` after enabling SSL. SEO metadata and structured company data use this URL to generate canonical links, social sharing images, `robots.txt`, and `sitemap.xml`. Point the `www` hostname to the primary domain with a permanent redirect so Google sees one canonical domain. Update the company name, description, street address, city, region, phone, email, and social links in `config/company.php` or their matching environment variables.
+
+Each public page has a page-specific title and description; product pages use the product's SEO description when provided, otherwise they derive one from its name and description. After deployment, open `/robots.txt` and `/sitemap.xml`, then submit the sitemap in Google Search Console. Indexing and ranking are determined by Google and are not immediate or guaranteed.
+
+Before uploading to Rumahweb, confirm the hosting package supports PHP 8.2 or newer and Laravel's required PHP extensions. Configure the web document root to Laravel's `public` directory, keep `.env` outside public access, and use the exact HTTPS domain in `APP_URL`.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

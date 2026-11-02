@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Beranda')
+@section('meta_description', config('company.name') . ' menyediakan penyewaan perlengkapan dan produksi event profesional untuk pameran, wedding, konser, dan acara perusahaan. Hubungi tim kami untuk konsultasi.')
 
 @section('content')
 

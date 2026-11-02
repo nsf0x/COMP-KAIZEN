@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    @php
+        $seoTitle = trim($__env->yieldContent('title', config('company.name')));
+        $seoDescription = trim($__env->yieldContent('meta_description', config('company.description')));
+        $seoCanonicalUrl = rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/');
+        $seoImage = trim($__env->yieldContent('meta_image', rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png'));
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('meta_description', config('company.description'))">
-    <title>@yield('title', config('company.name')) | {{ config('company.name') }}</title>
+    <meta name="description" content="{{ $seoDescription }}">
+    <meta name="robots" content="{{ request()->query() ? 'noindex,follow' : 'index,follow' }}">
+    <link rel="canonical" href="{{ $seoCanonicalUrl }}">
+    <title>{{ $seoTitle }} | {{ config('company.name') }}</title>
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:site_name" content="{{ config('company.name') }}">
+    <meta property="og:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta property="og:description" content="{{ $seoDescription }}">
+    <meta property="og:url" content="{{ $seoCanonicalUrl }}">
+    <meta property="og:image" content="{{ $seoImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta name="twitter:description" content="{{ $seoDescription }}">
+    <meta name="twitter:image" content="{{ $seoImage }}">
     <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
+    <script type="application/ld+json">
+        {!! json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'LocalBusiness',
+            '@id' => rtrim(config('app.url'), '/') . '/#organization',
+            'name' => config('company.name'),
+            'description' => config('company.description'),
+            'url' => rtrim(config('app.url'), '/') . '/',
+            'logo' => rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png',
+            'image' => rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png',
+            'telephone' => config('company.phone'),
+            'email' => config('company.email'),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'streetAddress' => config('company.street_address'),
+                'addressLocality' => config('company.city'),
+                'addressRegion' => config('company.region'),
+                'addressCountry' => config('company.country'),
+            ],
+            'sameAs' => array_values(array_filter([
+                config('company.instagram'),
+                config('company.facebook'),
+                config('company.youtube'),
+                config('company.tiktok'),
+            ])),
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
+    </script>
+    @stack('structured_data')
     <script>
         try {
             const savedTheme = localStorage.getItem('theme-mode');
@@ -32,12 +78,12 @@
     <style>
         :root {
             --brand-blue: #1736e8;
-            --brand-red: #f10c28;
-            --brand-gradient: linear-gradient(105deg, #1736e8 8%, #8d0d86 52%, #f10c28 100%);
+            --brand-red: #ff0000;
+            --brand-gradient: linear-gradient(105deg, #1736e8 8%, #8d0d86 52%, #ff0000 100%);
             --brand-wash: linear-gradient(120deg, #f0f4ff 0%, #fff 58%, #fff0f1 100%);
             --primary: #1736e8;
             --primary-dark: #1026a8;
-            --secondary: #f10c28;
+            --secondary: #ff0000;
             --dark: #17192b;
             --light-bg: #f3f5ff;
         }

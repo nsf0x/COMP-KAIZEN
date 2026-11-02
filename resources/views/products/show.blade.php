@@ -1,7 +1,27 @@
 @extends('layouts.app')
 
 @section('title', $product->name)
-@section('meta_description', $product->meta_description ?? Str::limit(strip_tags($product->description), 160))
+@section('meta_description', Str::limit(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))), 160))
+@section('meta_image', $product->thumbnail ? $product->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
+@section('og_type', 'product')
+
+@push('structured_data')
+<script type="application/ld+json">
+    {!! json_encode(array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'Product',
+        'name' => $product->name,
+        'description' => trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))),
+        'image' => $product->thumbnail ? $product->thumbnail_url : null,
+        'category' => $product->category?->name,
+        'brand' => [
+            '@type' => 'Brand',
+            'name' => config('company.name'),
+        ],
+        'url' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/'),
+    ], fn ($value) => $value !== null && $value !== ''), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
+</script>
+@endpush
 
 @push('styles')
 <style>

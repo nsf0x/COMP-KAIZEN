@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Tentang Kami')
-@section('meta_description', 'Kenali lebih dekat ' . config('company.name') . ' - penyedia perlengkapan pesta terpercaya.')
+@section('meta_description', 'Kenali ' . config('company.name') . ', penyedia perlengkapan dan produksi event profesional dari Bekasi untuk acara perusahaan, pameran, wedding, konser, dan festival.')
 
 @section('content')
 

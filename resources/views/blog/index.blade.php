@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Blog & Artikel')
-@section('meta_description', 'Tips dan inspirasi seputar dekorasi pesta, pernikahan, dan event dari Party Rental Pro.')
+@section('meta_description', 'Tips dan inspirasi seputar perlengkapan event, pameran, pernikahan, dan produksi acara dari ' . config('company.name') . '.')
 
 @section('content')
 <div class="container py-5">

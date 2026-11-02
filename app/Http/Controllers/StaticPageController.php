@@ -19,29 +19,38 @@ class StaticPageController extends Controller
         return view('terms');
     }
 
+    public function robots(): Response
+    {
+        $sitemapUrl = rtrim(config('app.url'), '/') . route('sitemap', absolute: false);
+
+        return response("User-agent: *\nDisallow:\nSitemap: {$sitemapUrl}\n")
+            ->header('Content-Type', 'text/plain');
+    }
+
     public function sitemap(): Response
     {
+        $absoluteUrl = fn (string $name, mixed $parameters = []) => rtrim(config('app.url'), '/') . route($name, $parameters, false);
         $urls = collect([
-            ['loc' => route('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['loc' => route('products.index'), 'changefreq' => 'daily', 'priority' => '0.9'],
-            ['loc' => route('portfolio.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
-            ['loc' => route('blog.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
-            ['loc' => route('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
-            ['loc' => route('contact'), 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['loc' => route('privacy'), 'changefreq' => 'yearly', 'priority' => '0.3'],
-            ['loc' => route('terms'), 'changefreq' => 'yearly', 'priority' => '0.3'],
+            ['loc' => $absoluteUrl('home'), 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['loc' => $absoluteUrl('products.index'), 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => $absoluteUrl('portfolio.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
+            ['loc' => $absoluteUrl('blog.index'), 'changefreq' => 'weekly', 'priority' => '0.8'],
+            ['loc' => $absoluteUrl('about'), 'changefreq' => 'monthly', 'priority' => '0.6'],
+            ['loc' => $absoluteUrl('contact'), 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['loc' => $absoluteUrl('privacy'), 'changefreq' => 'yearly', 'priority' => '0.3'],
+            ['loc' => $absoluteUrl('terms'), 'changefreq' => 'yearly', 'priority' => '0.3'],
         ]);
 
         foreach (Product::where('status', true)->get() as $product) {
-            $urls->push(['loc' => route('products.show', $product), 'changefreq' => 'weekly', 'priority' => '0.7']);
+            $urls->push(['loc' => $absoluteUrl('products.show', $product), 'changefreq' => 'weekly', 'priority' => '0.7']);
         }
 
         foreach (Portfolio::all() as $portfolio) {
-            $urls->push(['loc' => route('portfolio.show', $portfolio), 'changefreq' => 'monthly', 'priority' => '0.6']);
+            $urls->push(['loc' => $absoluteUrl('portfolio.show', $portfolio), 'changefreq' => 'monthly', 'priority' => '0.6']);
         }
 
         foreach (BlogPost::published()->get() as $post) {
-            $urls->push(['loc' => route('blog.show', $post), 'changefreq' => 'monthly', 'priority' => '0.6']);
+            $urls->push(['loc' => $absoluteUrl('blog.show', $post), 'changefreq' => 'monthly', 'priority' => '0.6']);
         }
 
         return response()->view('sitemap', compact('urls'))->header('Content-Type', 'application/xml');

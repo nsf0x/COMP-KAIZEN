@@ -2,6 +2,35 @@
 
 @section('title', $blogPost->title)
 @section('meta_description', $blogPost->meta_description ?? $blogPost->excerpt)
+@section('meta_image', $blogPost->thumbnail ? $blogPost->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
+@section('og_type', 'article')
+
+@push('structured_data')
+<script type="application/ld+json">
+    {!! json_encode(array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'BlogPosting',
+        'headline' => $blogPost->title,
+        'description' => $blogPost->meta_description ?? $blogPost->excerpt,
+        'image' => $blogPost->thumbnail ? $blogPost->thumbnail_url : null,
+        'datePublished' => ($blogPost->published_at ?? $blogPost->created_at)->toAtomString(),
+        'dateModified' => $blogPost->updated_at->toAtomString(),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $blogPost->author ?? 'Admin',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => config('company.name'),
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png',
+            ],
+        ],
+        'mainEntityOfPage' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/'),
+    ], fn ($value) => $value !== null && $value !== ''), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
+</script>
+@endpush
 
 @section('content')
 <div class="container py-5">

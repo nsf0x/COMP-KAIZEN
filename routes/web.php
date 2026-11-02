@@ -27,4 +27,5 @@ Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store
 
 Route::get('/kebijakan-privasi', [StaticPageController::class, 'privacy'])->name('privacy');
 Route::get('/syarat-layanan', [StaticPageController::class, 'terms'])->name('terms');
+Route::get('/robots.txt', [StaticPageController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [StaticPageController::class, 'sitemap'])->name('sitemap');

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Kontak Kami')
-@section('meta_description', 'Hubungi ' . config('company.name') . ' untuk konsultasi dan pemesanan perlengkapan pesta.')
+@section('meta_description', 'Hubungi ' . config('company.name') . ' di ' . config('company.city') . ' untuk konsultasi dan pemesanan perlengkapan event, wedding, pameran, dan acara perusahaan.')
 
 @section('content')
 <div class="container py-5">

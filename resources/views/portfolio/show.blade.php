@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('title', $portfolio->title)
+@section('meta_description', Str::limit(trim(strip_tags($portfolio->description ?: ('Dokumentasi event ' . $portfolio->title . ' yang ditangani oleh ' . config('company.name') . '.'))), 160))
+@section('meta_image', $portfolio->thumbnail ? $portfolio->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
 
 @push('styles')
 <style>
