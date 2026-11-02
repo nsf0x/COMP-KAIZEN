@@ -16,7 +16,7 @@ return [
     'whatsapp'    => env('COMPANY_WHATSAPP', '6281119998630'),
     'phone'       => env('COMPANY_PHONE', '0811-1999-8630'),
     'additional_phones' => [],
-    'email'       => env('COMPANY_EMAIL', 'info@kaizenkreasiindonesia.com'),
+    'email'       => env('COMPANY_EMAIL', 'kaizenkreasi@gmail.com'),
     'address'     => env('COMPANY_ADDRESS', 'Ruko Grand Galaxy City, Jl. Boulevard Raya Timur RSNB 009, Kota Bekasi, Jawa Barat 17147'),
     'street_address'    => env('COMPANY_STREET_ADDRESS', 'Ruko Grand Galaxy City, Jl. Boulevard Raya Timur RSNB 009'),
     'city'        => env('COMPANY_CITY', 'Bekasi'),
