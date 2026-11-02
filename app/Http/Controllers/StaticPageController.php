@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\AreaPage;
 use App\Models\Category;
 use App\Models\Portfolio;
 use App\Models\Product;
@@ -51,6 +52,12 @@ class StaticPageController extends Controller
         foreach (Category::availableForCatalog()->get() as $category) {
             if (filled($category->slug)) {
                 $urls->push(['loc' => $baseUrl.'/sewa-'.rawurlencode($category->slug).'-jabodetabek', 'changefreq' => 'weekly', 'priority' => '0.8']);
+            }
+        }
+
+        foreach (AreaPage::query()->where('is_published', true)->get() as $areaPage) {
+            if ($areaPage->isReadyForPublication()) {
+                $urls->push(['loc' => $baseUrl.'/sewa-perlengkapan-event-'.$areaPage->slug, 'changefreq' => 'monthly', 'priority' => '0.6']);
             }
         }
 

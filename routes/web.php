@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AreaPageController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -10,6 +11,9 @@ use App\Http\Controllers\StaticPageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/sewa-perlengkapan-event-{slug}', [AreaPageController::class, 'show'])
+    ->where('slug', 'jakarta|bekasi|depok|bogor|tangerang|indonesia')
+    ->name('areas.show');
 
 Route::get('/produk', [ProductController::class, 'index'])->name('products.index');
 Route::get('/sewa-{slug}-jabodetabek', [ProductController::class, 'categoryBySeoSlug'])
