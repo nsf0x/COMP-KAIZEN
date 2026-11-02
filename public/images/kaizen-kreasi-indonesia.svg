@@ -22,6 +22,6 @@
   <path d="M274 48h120L278 219l153 175H310L163 219 274 48Z" fill="url(#mark)"/>
   <path d="M434 48h27L309 219l128 175h-27L264 219 434 48Z" fill="#ff0000"/>
   <text x="88" y="436" fill="#1736e8" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">KAIZEN</text>
-  <text x="274" y="436" fill="#e20c36" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">KREASI</text>
+  <text x="274" y="436" fill="#ff0000" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">KREASI</text>
   <text x="88" y="474" fill="url(#wordmark)" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="7">INDONESIA</text>
 </svg>

@@ -79,7 +79,7 @@
         :root {
             --brand-blue: #1736e8;
             --brand-red: #ff0000;
-            --brand-gradient: linear-gradient(105deg, #1736e8 8%, #8d0d86 52%, #ff0000 100%);
+            --brand-gradient: linear-gradient(105deg, #1736e8 8%, #8d0d86 48%, #ff0000 82%, #ff0000 100%);
             --brand-wash: linear-gradient(120deg, #f0f4ff 0%, #fff 58%, #fff0f1 100%);
             --primary: #1736e8;
             --primary-dark: #1026a8;
