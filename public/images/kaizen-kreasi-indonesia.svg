@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" role="img" aria-labelledby="title">
+  <title id="title">Kaizen Kreasi Indonesia</title>
+  <defs>
+    <linearGradient id="frame" x1="10" y1="250" x2="490" y2="250" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1736e8"/>
+      <stop offset=".48" stop-color="#8d0d86"/>
+      <stop offset="1" stop-color="#ff0000"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="88" y1="210" x2="435" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123be8"/>
+      <stop offset=".42" stop-color="#5017b6"/>
+      <stop offset="1" stop-color="#ff0000"/>
+    </linearGradient>
+    <linearGradient id="wordmark" x1="88" y1="0" x2="445" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1736e8"/>
+      <stop offset=".53" stop-color="#8d0d86"/>
+      <stop offset="1" stop-color="#ff0000"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="480" height="480" rx="43" fill="none" stroke="url(#frame)" stroke-width="8"/>
+  <path d="M88 48h125v128l-81 43 81 108v67H88V48Z" fill="url(#mark)"/>
+  <path d="M274 48h120L278 219l153 175H310L163 219 274 48Z" fill="url(#mark)"/>
+  <path d="M434 48h27L309 219l128 175h-27L264 219 434 48Z" fill="#ff0000"/>
+  <text x="88" y="436" fill="#1736e8" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">KAIZEN</text>
+  <text x="274" y="436" fill="#ff0000" font-family="Arial, Helvetica, sans-serif" font-size="40" font-weight="800">KREASI</text>
+  <text x="88" y="474" fill="url(#wordmark)" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" letter-spacing="7">INDONESIA</text>
+</svg>

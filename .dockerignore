@@ -1,0 +1,21 @@
+.env
+.env.*
+!.env.example
+.git
+.github
+.phpunit.cache
+.phpunit.result.cache
+auth.json
+compro kaizen.pdf
+gambar product.zip
+gambar product/
+node_modules/
+public/hot
+public/storage
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/testing/
+storage/framework/views/
+storage/logs/
+tests/
+vendor/
