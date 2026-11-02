@@ -3,6 +3,13 @@
 @section('title', 'Kebijakan Privasi')
 @section('meta_description', 'Kebijakan privasi ' . config('company.name') . '.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Kebijakan Privasi', 'url' => route('privacy', [], true)],
+    ]])
+@endpush
+
 @section('content')
 <section class="py-5">
     <div class="container" style="max-width:860px;">

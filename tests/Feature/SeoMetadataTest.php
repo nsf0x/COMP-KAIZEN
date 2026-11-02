@@ -34,7 +34,15 @@ class SeoMetadataTest extends TestCase
             ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/kontak">', false)
             ->assertSee('<meta property="og:site_name" content="Kaizen Kreasi Indonesia">', false)
             ->assertSee('"@type":"LocalBusiness"', false)
+            ->assertSee('"@type":"ContactPoint"', false)
+            ->assertSee('"description":"Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari."', false)
+            ->assertSee('"opens":"08:00","closes":"17:00"', false)
+            ->assertSee('"opens":"08:00","closes":"14:00"', false)
             ->assertSee('https://kaizenkreasi.com/#organization', false);
+
+        $this->get(route('blog.index'))
+            ->assertOk()
+            ->assertSee('"@type":"BreadcrumbList"', false);
     }
 
     public function test_product_pages_render_product_specific_metadata_and_structured_data(): void
@@ -113,7 +121,9 @@ class SeoMetadataTest extends TestCase
             ->assertOk()
             ->assertSee('<title>Sewa Tenda | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/sewa-tenda-jabodetabek">', false)
-            ->assertSee('Tenda Roder');
+            ->assertSee('"@type":"FAQPage"', false)
+            ->assertSee('Tenda Roder')
+            ->assertDontSee('Rp ');
 
         $this->get('/produk?category=tenda')
             ->assertMovedPermanently()
@@ -154,8 +164,10 @@ class SeoMetadataTest extends TestCase
         preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonLd);
         $schemas = array_map(fn (string $json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR), $jsonLd[1]);
 
-        $this->assertCount(2, $schemas);
-        $this->assertSame('BlogPosting', $schemas[1]['@type']);
-        $this->assertSame('Tips Persiapan Event Perusahaan', $schemas[1]['headline']);
+        $this->assertCount(3, $schemas);
+        $article = collect($schemas)->firstWhere('@type', 'BlogPosting');
+        $this->assertSame('BreadcrumbList', collect($schemas)->firstWhere('@type', 'BreadcrumbList')['@type']);
+        $this->assertSame('https://schema.org', $article['@context']);
+        $this->assertSame('Tips Persiapan Event Perusahaan', $article['headline']);
     }
 }

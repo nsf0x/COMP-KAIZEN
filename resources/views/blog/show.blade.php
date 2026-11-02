@@ -6,9 +6,14 @@
 @section('og_type', 'article')
 
 @push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Blog', 'url' => route('blog.index', [], true)],
+        ['name' => $blogPost->title, 'url' => route('blog.show', $blogPost, true)],
+    ]])
 <script type="application/ld+json">
     {!! json_encode(array_filter([
-        '@context' => 'https://schema.org',
+        '@@context' => 'https://schema.org',
         '@type' => 'BlogPosting',
         'headline' => $blogPost->title,
         'description' => $blogPost->meta_description ?? $blogPost->excerpt,

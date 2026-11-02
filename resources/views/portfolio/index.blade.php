@@ -3,6 +3,13 @@
 @section('title', 'Event Portofolio')
 @section('meta_description', 'Lihat dokumentasi event, pameran, wedding, konser, dan acara perusahaan yang ditangani oleh ' . config('company.name') . '.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Event Portofolio', 'url' => route('portfolio.index', [], true)],
+    ]])
+@endpush
+
 @section('content')
 
 <div class="container py-5">

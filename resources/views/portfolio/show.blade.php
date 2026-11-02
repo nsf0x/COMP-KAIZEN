@@ -4,6 +4,14 @@
 @section('meta_description', Str::limit(trim(strip_tags($portfolio->description ?: ('Dokumentasi event ' . $portfolio->title . ' yang ditangani oleh ' . config('company.name') . '.'))), 160))
 @section('meta_image', $portfolio->thumbnail ? $portfolio->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Event Portofolio', 'url' => route('portfolio.index', [], true)],
+        ['name' => $portfolio->title, 'url' => route('portfolio.show', $portfolio, true)],
+    ]])
+@endpush
+
 @push('styles')
 <style>
     .portfolio-related-heading { color: #25283a; }

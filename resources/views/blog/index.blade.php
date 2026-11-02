@@ -3,6 +3,13 @@
 @section('title', 'Blog & Artikel')
 @section('meta_description', 'Tips dan inspirasi seputar perlengkapan event, pameran, pernikahan, dan produksi acara dari ' . config('company.name') . '.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Blog', 'url' => route('blog.index', [], true)],
+    ]])
+@endpush
+
 @section('content')
 <div class="container py-5">
     <div class="text-center mb-5" data-aos="fade-up">

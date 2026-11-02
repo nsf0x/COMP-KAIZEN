@@ -6,12 +6,36 @@
 @push('structured_data')
 <script type="application/ld+json">
     {!! json_encode([
-        '@context' => 'https://schema.org',
+        '@@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => [
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Produk', 'item' => route('products.index', [], true)],
             ['@type' => 'ListItem', 'position' => 3, 'name' => $category->name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+    {!! json_encode([
+        '@@context' => 'https://schema.org',
+        '@type' => 'FAQPage',
+        'mainEntity' => [
+            [
+                '@type' => 'Question',
+                'name' => 'Produk apa saja yang tersedia dalam kategori ' . $category->name . '?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Produk yang tercantum di kategori ini adalah: ' . $products->getCollection()->pluck('name')->implode(', ') . '. Ketersediaan produk dikonfirmasi untuk tanggal dan lokasi acara.',
+                ],
+            ],
+            [
+                '@type' => 'Question',
+                'name' => 'Bagaimana cara meminta penawaran perlengkapan ' . $category->name . '?',
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text' => 'Hubungi Kaizen Kreasi Indonesia melalui WhatsApp dan sampaikan tanggal acara, lokasi, serta perlengkapan yang dibutuhkan. Ketersediaan dan rincian penawaran dikonfirmasi berdasarkan kebutuhan acara.',
+                ],
+            ],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>

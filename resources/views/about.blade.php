@@ -3,6 +3,13 @@
 @section('title', 'Tentang Kami')
 @section('meta_description', 'Kenali ' . config('company.name') . ', penyedia perlengkapan event berbasis di Bekasi untuk wilayah Jabodetabek dan pengiriman luar kota bagi event skala besar.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Tentang Kami', 'url' => route('about', [], true)],
+    ]])
+@endpush
+
 @section('content')
 
 <!-- Hero -->

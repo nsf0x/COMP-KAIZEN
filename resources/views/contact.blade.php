@@ -3,6 +3,13 @@
 @section('title', 'Kontak Kami')
 @section('meta_description', 'Hubungi ' . config('company.name') . ' di ' . config('company.city') . ' untuk konsultasi dan pemesanan perlengkapan event, wedding, pameran, dan acara perusahaan.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Kontak', 'url' => route('contact', [], true)],
+    ]])
+@endpush
+
 @section('content')
 <div class="container py-5">
     <div class="text-center mb-5" data-aos="fade-up">

@@ -30,7 +30,7 @@
     <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
     <script type="application/ld+json">
         {!! json_encode([
-            '@context' => 'https://schema.org',
+            '@@context' => 'https://schema.org',
             '@type' => 'LocalBusiness',
             '@id' => rtrim(config('app.url'), '/') . '/#organization',
             'name' => config('company.name'),
@@ -72,6 +72,15 @@
                 'telephone' => config('company.phone'),
                 'contactType' => 'customer service',
                 'availableLanguage' => 'Indonesian',
+                'description' => 'Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari.',
+                'hoursAvailable' => [
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        'opens' => '00:00',
+                        'closes' => '23:59',
+                    ],
+                ],
             ],
             'areaServed' => 'Jabodetabek',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}

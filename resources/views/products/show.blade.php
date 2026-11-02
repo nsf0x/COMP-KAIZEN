@@ -8,7 +8,7 @@
 @push('structured_data')
 <script type="application/ld+json">
     {!! json_encode(array_filter([
-        '@context' => 'https://schema.org',
+        '@@context' => 'https://schema.org',
         '@type' => 'Service',
         'name' => $product->name,
         'description' => trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))),
@@ -25,7 +25,7 @@
 </script>
 <script type="application/ld+json">
     {!! json_encode([
-        '@context' => 'https://schema.org',
+        '@@context' => 'https://schema.org',
         '@type' => 'BreadcrumbList',
         'itemListElement' => array_values(array_filter([
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],

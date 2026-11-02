@@ -3,6 +3,13 @@
 @section('title', 'Sewa Perlengkapan Event Jabodetabek')
 @section('meta_description', 'Katalog perlengkapan event dari ' . config('company.name') . ' untuk area Jabodetabek. Pengiriman luar kota untuk event skala besar dapat dikonsultasikan via WhatsApp.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Produk', 'url' => route('products.index', [], true)],
+    ]])
+@endpush
+
 @section('content')
 
 <div class="container py-5">
