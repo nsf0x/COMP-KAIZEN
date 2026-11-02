@@ -9,17 +9,31 @@
 <script type="application/ld+json">
     {!! json_encode(array_filter([
         '@context' => 'https://schema.org',
-        '@type' => 'Product',
+        '@type' => 'Service',
         'name' => $product->name,
         'description' => trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))),
         'image' => $product->thumbnail ? $product->thumbnail_url : null,
-        'category' => $product->category?->name,
-        'brand' => [
-            '@type' => 'Brand',
+        'serviceType' => $product->category?->name,
+        'provider' => [
+            '@type' => 'LocalBusiness',
+            '@id' => rtrim(config('app.url'), '/') . '/#organization',
             'name' => config('company.name'),
         ],
+        'areaServed' => 'Jabodetabek',
         'url' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/'),
     ], fn ($value) => $value !== null && $value !== ''), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
+</script>
+<script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => array_values(array_filter([
+            ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => 'Produk', 'item' => route('products.index', [], true)],
+            $product->category?->is_active ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('products.category', $product->category, true)] : null,
+            ['@type' => 'ListItem', 'position' => $product->category?->is_active ? 4 : 3, 'name' => $product->name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
+        ])),
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>
 @endpush
 
@@ -41,9 +55,9 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:var(--primary);">Beranda</a></li>
             <li class="breadcrumb-item"><a href="{{ route('products.index') }}" style="color:var(--primary);">Produk</a></li>
-            @if($product->category)
+            @if($product->category?->is_active)
             <li class="breadcrumb-item">
-                <a href="{{ route('products.index', ['category' => $product->category->slug]) }}" style="color:var(--primary);">
+                <a href="{{ route('products.category', $product->category) }}" style="color:var(--primary);">
                     {{ $product->category->name }}
                 </a>
             </li>
@@ -143,11 +157,11 @@
                     </div>
                     <div class="col-4">
                         <div style="font-size:1.5rem;">✅</div>
-                        <div class="small text-muted">Kualitas Terjamin</div>
+                        <div class="small text-muted">Cek Ketersediaan</div>
                     </div>
                     <div class="col-4">
                         <div style="font-size:1.5rem;">💬</div>
-                        <div class="small text-muted">Respon Cepat</div>
+                        <div class="small text-muted">WhatsApp 24 Jam</div>
                     </div>
                 </div>
             </div>

@@ -57,9 +57,13 @@
                 </div>
                 <div class="card-body d-flex flex-column">
                     <div class="text-muted small mb-2">
-                        <i class="bi bi-calendar3 me-1"></i>{{ ($post->published_at ?? $post->created_at)->format('d M Y') }}
+                        @if($post->published_at)
+                        <i class="bi bi-calendar3 me-1"></i>{{ $post->published_at->format('d M Y') }}
+                        @endif
+                        @if(filled($post->author) && strtolower($post->author) !== 'admin')
                         <span class="mx-2">·</span>
-                        <i class="bi bi-person me-1"></i>{{ $post->author ?? 'Admin' }}
+                        <i class="bi bi-person me-1"></i>{{ $post->author }}
+                        @endif
                     </div>
                     <h5 class="fw-700 mb-2">{{ $post->title }}</h5>
                     <p class="text-muted small mb-3 flex-grow-1">{{ $post->excerpt }}</p>

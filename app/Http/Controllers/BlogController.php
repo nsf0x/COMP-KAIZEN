@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogPost;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
     public function index(Request $request)
     {
-        $query = BlogPost::published()->orderByDesc('published_at');
+        $query = BlogPost::published()->orderByRaw('COALESCE(published_at, created_at) DESC');
 
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
@@ -28,10 +29,30 @@ class BlogController extends Controller
 
         $related = BlogPost::published()
             ->where('id', '!=', $blogPost->id)
-            ->orderByDesc('published_at')
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
             ->take(3)
             ->get();
 
-        return view('blog.show', compact('blogPost', 'related'));
+        $productTerms = match ($blogPost->slug) {
+            'perlengkapan-event-pernikahan-checklist-tenda-peralatan' => ['Tenda', 'Kursi', 'Sound'],
+            'faktor-biaya-sewa-tenda-pernikahan' => ['Tenda', 'Flooring', 'Genset'],
+            'perlengkapan-event-ulang-tahun' => ['Tenda', 'Kursi', 'Sound'],
+            default => [],
+        };
+        $relatedProducts = collect();
+        if ($productTerms !== []) {
+            $relatedProducts = Product::query()
+                ->where('status', true)
+                ->where(function ($query) use ($productTerms) {
+                    foreach ($productTerms as $term) {
+                        $query->orWhere('name', 'like', '%' . $term . '%');
+                    }
+                })
+                ->orderBy('order')
+                ->take(3)
+                ->get();
+        }
+
+        return view('blog.show', compact('blogPost', 'related', 'relatedProducts'));
     }
 }

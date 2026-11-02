@@ -13,12 +13,12 @@
         'headline' => $blogPost->title,
         'description' => $blogPost->meta_description ?? $blogPost->excerpt,
         'image' => $blogPost->thumbnail ? $blogPost->thumbnail_url : null,
-        'datePublished' => ($blogPost->published_at ?? $blogPost->created_at)->toAtomString(),
+        'datePublished' => $blogPost->published_at?->toAtomString(),
         'dateModified' => $blogPost->updated_at->toAtomString(),
-        'author' => [
+        'author' => filled($blogPost->author) && strtolower($blogPost->author) !== 'admin' ? [
             '@type' => 'Person',
-            'name' => $blogPost->author ?? 'Admin',
-        ],
+            'name' => $blogPost->author,
+        ] : null,
         'publisher' => [
             '@type' => 'Organization',
             'name' => config('company.name'),
@@ -53,13 +53,28 @@
 
             <h1 class="fw-700 fs-2 mb-3">{{ $blogPost->title }}</h1>
             <div class="d-flex align-items-center gap-3 text-muted small mb-4">
-                <span><i class="bi bi-calendar3 me-1"></i>{{ ($blogPost->published_at ?? $blogPost->created_at)->format('d F Y') }}</span>
-                <span><i class="bi bi-person me-1"></i>{{ $blogPost->author ?? 'Admin' }}</span>
+                @if($blogPost->published_at)
+                <span><i class="bi bi-calendar3 me-1"></i>{{ $blogPost->published_at->format('d F Y') }}</span>
+                @endif
+                @if(filled($blogPost->author) && strtolower($blogPost->author) !== 'admin')
+                <span><i class="bi bi-person me-1"></i>{{ $blogPost->author }}</span>
+                @endif
             </div>
 
             <div class="prose lh-lg text-muted" style="font-size:1.05rem;">
                 {!! nl2br(e($blogPost->content)) !!}
             </div>
+
+            @if($relatedProducts->isNotEmpty())
+            <section class="mt-5" aria-labelledby="related-products-heading">
+                <h2 id="related-products-heading" class="h5 fw-700 mb-3">Perlengkapan terkait</h2>
+                <ul class="list-unstyled">
+                    @foreach($relatedProducts as $product)
+                    <li class="mb-2"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></li>
+                    @endforeach
+                </ul>
+            </section>
+            @endif
 
             @php
                 $galleryImages = [];
@@ -131,7 +146,9 @@
                 </div>
                 <div>
                     <div class="fw-600 small">{{ Str::limit($item->title, 50) }}</div>
-                    <div class="text-muted" style="font-size:.75rem;">{{ ($item->published_at ?? $item->created_at)->format('d M Y') }}</div>
+                    @if($item->published_at)
+                    <div class="text-muted" style="font-size:.75rem;">{{ $item->published_at->format('d M Y') }}</div>
+                    @endif
                 </div>
             </a>
             @endforeach

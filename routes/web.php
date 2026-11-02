@@ -12,12 +12,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/produk', [ProductController::class, 'index'])->name('products.index');
+Route::get('/produk/kategori/{category:slug}', [ProductController::class, 'category'])->name('products.category');
 Route::get('/produk/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/portofolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portofolio/{portfolio}', [PortfolioController::class, 'show'])->name('portfolio.show');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::redirect('/blog/10-tips-memilih-dekorasi-pernikahan-yang-berkesan', '/blog/perlengkapan-event-pernikahan-checklist-tenda-peralatan', 301);
+Route::redirect('/blog/berapa-biaya-sewa-tenda-pernikahan-ini-panduannya', '/blog/faktor-biaya-sewa-tenda-pernikahan', 301);
+Route::redirect('/blog/ide-dekorasi-ulang-tahun-anak-yang-kreatif-dan-murah', '/blog/perlengkapan-event-ulang-tahun', 301);
 Route::get('/blog/{blogPost:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about');

@@ -20,7 +20,7 @@ class SeoMetadataTest extends TestCase
             ->assertOk()
             ->assertSee('<title>Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<meta property="og:title" content="Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia">', false)
-            ->assertSee('Sewa Perlengkapan Event Profesional di Jabodetabek')
+            ->assertSee('Sewa Perlengkapan Event di Jabodetabek')
             ->assertSee('Area Layanan')
             ->assertSee('Cara Memesan Perlengkapan Event');
     }
@@ -62,15 +62,19 @@ class SeoMetadataTest extends TestCase
             ->assertSee('<title>Sewa Tenda Roder | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<meta name="description" content="Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.">', false)
             ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/sewa-tenda-roder">', false)
-            ->assertSee('"@type":"Product"', false)
+            ->assertSee('"@type":"Service"', false)
+            ->assertSee('"serviceType":"Tenda"', false)
+            ->assertSee('"@type":"BreadcrumbList"', false)
             ->assertSee('"name":"Sewa Tenda Roder"', false);
 
         preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonLd);
         $schemas = array_map(fn (string $json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR), $jsonLd[1]);
 
-        $this->assertCount(2, $schemas);
+        $this->assertCount(3, $schemas);
         $this->assertSame('LocalBusiness', $schemas[0]['@type']);
-        $this->assertSame('Product', $schemas[1]['@type']);
+        $this->assertSame('Service', $schemas[1]['@type']);
+        $this->assertSame('BreadcrumbList', $schemas[2]['@type']);
+        $this->assertArrayNotHasKey('offers', $schemas[1]);
     }
 
     public function test_robots_and_sitemap_use_the_configured_public_domain(): void
@@ -85,6 +89,44 @@ class SeoMetadataTest extends TestCase
             ->assertOk()
             ->assertSee('<loc>https://kaizenkreasi.com/</loc>', false)
             ->assertSee('<loc>https://kaizenkreasi.com/produk</loc>', false);
+    }
+
+    public function test_category_pages_have_clean_metadata_and_legacy_category_filters_redirect(): void
+    {
+        config(['app.url' => 'https://kaizenkreasi.com']);
+
+        $category = Category::create([
+            'name' => 'Tenda',
+            'slug' => 'tenda',
+            'type' => 'produk',
+            'is_active' => true,
+        ]);
+        Product::create([
+            'category_id' => $category->id,
+            'name' => 'Tenda Roder',
+            'slug' => 'tenda-roder',
+            'description' => 'Tenda untuk kebutuhan event.',
+            'status' => true,
+        ]);
+
+        $this->get(route('products.category', $category))
+            ->assertOk()
+            ->assertSee('<title>Sewa Tenda | Kaizen Kreasi Indonesia</title>', false)
+            ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/kategori/tenda">', false)
+            ->assertSee('Tenda Roder');
+
+        $this->get('/produk?category=tenda')
+            ->assertMovedPermanently()
+            ->assertRedirect('/produk/kategori/tenda');
+
+        $this->get('/produk?search=tenda')
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex,follow">', false)
+            ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk">', false);
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertSee('<loc>https://kaizenkreasi.com/produk/kategori/tenda</loc>', false);
     }
 
     public function test_blog_pages_render_article_metadata_and_structured_data(): void

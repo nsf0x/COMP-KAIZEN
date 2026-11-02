@@ -11,8 +11,8 @@
 
 return [
     'name'        => env('COMPANY_NAME', 'Kaizen Kreasi Indonesia'),
-    'tagline'     => env('COMPANY_TAGLINE', 'Profesional Event Equipment Rental Service'),
-    'description' => env('COMPANY_DESCRIPTION', 'Penyedia layanan event organizer dan penyewaan perlengkapan event profesional untuk acara skala kecil hingga besar di seluruh Indonesia.'),
+    'tagline'     => env('COMPANY_TAGLINE', 'Perlengkapan Event untuk Beragam Kebutuhan'),
+    'description' => env('COMPANY_DESCRIPTION', 'Penyedia penyewaan perlengkapan event untuk wilayah Jabodetabek dan pengiriman ke seluruh Indonesia bagi event skala besar.'),
     'whatsapp'    => env('COMPANY_WHATSAPP', '6281119998630'),
     'phone'       => env('COMPANY_PHONE', '0811-1999-8630'),
     'additional_phones' => [],
@@ -31,14 +31,15 @@ return [
     
     // Stats / badges
     'stats' => [
-        'events'      => env('COMPANY_STAT_EVENTS', '17+'),
-        'years'       => env('COMPANY_STAT_YEARS', '8+'),
-        'clients'     => env('COMPANY_STAT_CLIENTS', '50+'),
-        'products'    => env('COMPANY_STAT_PRODUCTS', '30+'),
+        'events'      => env('COMPANY_STAT_EVENTS', ''),
+        'years'       => env('COMPANY_STAT_YEARS', ''),
+        'clients'     => env('COMPANY_STAT_CLIENTS', ''),
+        'products'    => env('COMPANY_STAT_PRODUCTS', ''),
     ],
     
     // Working hours
     'hours' => [
+        'whatsapp' => 'Konsultasi & pemesanan via WhatsApp 24 jam setiap hari',
         'weekday' => 'Senin - Jumat: 08.00 - 17.00 WIB',
         'weekend' => 'Sabtu: 08.00 - 14.00 WIB',
         'holiday' => 'Minggu & Hari Libur: Dengan perjanjian',

@@ -10,6 +10,21 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        if ($request->filled('category') && !$request->filled('search')) {
+            $category = Category::availableForCatalog()
+                ->where('slug', $request->query('category'))
+                ->first();
+
+            if ($category) {
+                $parameters = ['category' => $category->slug];
+                if ($request->filled('page')) {
+                    $parameters['page'] = $request->query('page');
+                }
+
+                return redirect()->route('products.category', $parameters, 301);
+            }
+        }
+
         $jsonPath = base_path('produk-kaizen-kreasi.json');
         $infoUmum = [];
 
@@ -44,6 +59,22 @@ class ProductController extends Controller
         $selectedCategory = $request->category;
 
         return view('products.index', compact('products', 'categories', 'selectedCategory', 'infoUmum'));
+    }
+
+    public function category(Category $category)
+    {
+        if (!$category->is_active || !$category->products()->where('status', true)->exists()) {
+            abort(404);
+        }
+
+        $products = Product::query()
+            ->where('category_id', $category->id)
+            ->where('status', true)
+            ->with(['category', 'images'])
+            ->orderBy('order')
+            ->paginate(12);
+
+        return view('products.category', compact('category', 'products'));
     }
 
     public function show(Product $product)

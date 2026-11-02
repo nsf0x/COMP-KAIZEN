@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Tentang Kami')
-@section('meta_description', 'Kenali ' . config('company.name') . ', penyedia perlengkapan dan produksi event profesional dari Bekasi untuk acara perusahaan, pameran, wedding, konser, dan festival.')
+@section('meta_description', 'Kenali ' . config('company.name') . ', penyedia perlengkapan event berbasis di Bekasi untuk wilayah Jabodetabek dan pengiriman luar kota bagi event skala besar.')
 
 @section('content')
 
@@ -24,25 +24,33 @@
             <div class="col-lg-6" data-aos="fade-left">
                 <h2 class="section-title mb-4">Cerita Kami</h2>
                 <p class="text-muted lh-lg">
-                    Kami adalah tim profesional yang berdedikasi untuk membuat setiap momen spesial Anda menjadi tak terlupakan. Dengan pengalaman lebih dari {{ config('company.stats.years') }} tahun di industri event dan party rental, kami telah melayani lebih dari {{ config('company.stats.clients') }} pelanggan puas.
+                    {{ config('company.name') }} menyediakan perlengkapan untuk berbagai kebutuhan acara, mulai dari tenda, flooring, genset, LED screen, sound system, hingga furniture. Kami berbasis di Bekasi, melayani wilayah Jabodetabek, serta menerima permintaan pengiriman luar kota untuk event skala besar.
                 </p>
                 <p class="text-muted lh-lg">
-                    Dari acara pernikahan mewah hingga ulang tahun keluarga yang hangat, kami hadir dengan perlengkapan berkualitas terbaik, tim yang ramah, dan harga yang bersahabat.
+                    Hubungi kami melalui WhatsApp untuk menyampaikan jenis acara, lokasi, tanggal, dan perlengkapan yang dibutuhkan. Ketersediaan serta rincian penawaran akan dikonfirmasi berdasarkan kebutuhan acara.
                 </p>
+                @if(config('company.stats.events') || config('company.stats.clients') || config('company.stats.years'))
                 <div class="row g-3 mt-2">
+                    @if(config('company.stats.events'))
                     <div class="col-4 text-center p-3 rounded-3" style="background:#fdf6fb;">
                         <div class="fw-700 fs-2" style="color:var(--primary);">{{ config('company.stats.events') }}</div>
-                        <div class="text-muted small">Event Sukses</div>
+                        <div class="text-muted small">Event</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.clients'))
                     <div class="col-4 text-center p-3 rounded-3" style="background:#fdf6fb;">
                         <div class="fw-700 fs-2" style="color:var(--primary);">{{ config('company.stats.clients') }}</div>
-                        <div class="text-muted small">Klien Puas</div>
+                        <div class="text-muted small">Klien</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.years'))
                     <div class="col-4 text-center p-3 rounded-3" style="background:#fdf6fb;">
                         <div class="fw-700 fs-2" style="color:var(--primary);">{{ config('company.stats.years') }}</div>
                         <div class="text-muted small">Tahun Pengalaman</div>
                     </div>
+                    @endif
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -142,7 +150,7 @@
 <section class="py-5" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));">
     <div class="container text-center" data-aos="fade-up">
         <h2 class="text-white fw-700 mb-3">Yuk, Wujudkan Event Impian Anda!</h2>
-        <p class="text-white opacity-75 mb-4">Konsultasi gratis, respon cepat, harga bersahabat.</p>
+        <p class="text-white opacity-75 mb-4">{{ config('company.hours.whatsapp') }}.</p>
         <a href="https://wa.me/{{ config('company.whatsapp') }}" class="btn btn-light btn-lg rounded-pill px-5" target="_blank">
             <i class="bi bi-whatsapp me-2 text-success"></i>Hubungi Kami
         </a>

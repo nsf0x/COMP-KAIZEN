@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->get();
 
         $latestPosts = BlogPost::published()
-            ->orderByDesc('published_at')
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
             ->take(3)
             ->get();
 

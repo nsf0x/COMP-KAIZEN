@@ -14,11 +14,11 @@
                     EVENT EQUIPMENT RENTAL
                 </span>
                 <h1 class="display-4 fw-700 lh-sm mb-3" style="color:#1a1a2e;">
-                    Sewa Perlengkapan Event Profesional di Jabodetabek
+                    Sewa Perlengkapan Event di Jabodetabek
                 </h1>
                 <h2 class="h4 fw-600 mb-3" style="color:var(--primary);">Bangun Event Tanpa Batas Bersama Kaizen</h2>
                 <p class="lead text-muted mb-4">
-                    {{ config('company.tagline') }}. Kami menyediakan equipment, tim profesional, dan solusi produksi untuk corporate event, pameran, wedding, konser, tournament, hingga festival skala besar.
+                    {{ config('company.tagline') }}. Katalog kami mencakup tenda, flooring, genset, LED screen, sound system, furniture, dan perlengkapan event lainnya. Sampaikan jenis acara serta kebutuhan Anda untuk memeriksa ketersediaan dan meminta penawaran.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="{{ route('products.index') }}" class="btn btn-primary-custom btn-lg">
@@ -76,7 +76,7 @@
                 <div class="d-flex flex-wrap gap-2">
                     @foreach($categories as $category)
                     <a class="btn btn-sm btn-outline-secondary rounded-pill"
-                       href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                       href="{{ route('products.category', $category) }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -115,12 +115,12 @@
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="section-title">Kategori Produk</h2>
             <div class="divider-pink mx-auto my-3"></div>
-            <p class="section-subtitle">Temukan perlengkapan pesta sesuai kebutuhan Anda</p>
+            <p class="section-subtitle">Temukan perlengkapan acara sesuai kebutuhan Anda</p>
         </div>
         <div class="row g-3 justify-content-center">
             @foreach($categories as $category)
             <div class="col-6 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 50 }}">
-                <a href="{{ route('products.index', ['category' => $category->slug]) }}"
+                <a href="{{ route('products.category', $category) }}"
                    class="card category-card border-0 h-100 text-decoration-none shadow-sm">
                     <div class="category-card-icon" aria-hidden="true">
                         <i class="{{ \App\Support\CategoryIcon::classFor($category) }}"></i>
@@ -192,10 +192,10 @@
         <div class="row g-4">
             @php
             $reasons = [
-                ['icon' => '⭐', 'title' => 'Kualitas Terjamin', 'desc' => 'Semua produk kami dirawat dan dijaga kualitasnya agar acara Anda berjalan sempurna.'],
+                ['icon' => '⭐', 'title' => 'Katalog Perlengkapan', 'desc' => 'Lihat kategori dan detail perlengkapan yang tersedia di katalog.'],
                 ['icon' => '💬', 'title' => 'Penawaran Transparan', 'desc' => 'Dapatkan penawaran sesuai kebutuhan acara Anda langsung melalui WhatsApp.'],
                 ['icon' => '🚚', 'title' => 'Antar & Jemput', 'desc' => 'Layanan pengiriman dan pengambilan langsung ke lokasi acara Anda.'],
-                ['icon' => '📞', 'title' => 'Respon Cepat', 'desc' => 'Tim kami siap melayani 24 jam melalui WhatsApp untuk konsultasi dan pemesanan.'],
+                ['icon' => '📞', 'title' => 'WhatsApp 24 Jam', 'desc' => 'Konsultasi dan pemesanan dapat disampaikan melalui WhatsApp setiap hari.'],
                 ['icon' => '✅', 'title' => 'Dukungan Kebutuhan Event', 'desc' => 'Konsultasikan perlengkapan dan kebutuhan produksi sesuai jenis acara Anda.'],
                 ['icon' => '🎯', 'title' => 'Pilihan Perlengkapan', 'desc' => 'Jelajahi berbagai kategori perlengkapan event dalam satu katalog.'],
             ]
@@ -328,7 +328,9 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <div class="text-muted small mb-2">{{ ($post->published_at ?? $post->created_at)->format('d M Y') }}</div>
+                        @if($post->published_at)
+                        <div class="text-muted small mb-2">{{ $post->published_at->format('d M Y') }}</div>
+                        @endif
                         <h6 class="fw-700 mb-2">{{ $post->title }}</h6>
                         <p class="text-muted small mb-3">{{ $post->excerpt }}</p>
                         <a href="{{ route('blog.show', $post) }}" class="btn btn-sm btn-outline-secondary rounded-pill">Baca Selengkapnya</a>

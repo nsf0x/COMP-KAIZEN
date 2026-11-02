@@ -47,7 +47,7 @@ class BlogPostResource extends Resource
 
                         Forms\Components\TextInput::make('author')
                             ->label('Penulis')
-                            ->default('Admin')
+                            ->default('')
                             ->maxLength(255),
 
                         Forms\Components\DateTimePicker::make('published_at')

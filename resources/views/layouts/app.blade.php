@@ -53,6 +53,27 @@
                 config('company.youtube'),
                 config('company.tiktok'),
             ])),
+            'openingHoursSpecification' => [
+                [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                    'opens' => '08:00',
+                    'closes' => '17:00',
+                ],
+                [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => 'Saturday',
+                    'opens' => '08:00',
+                    'closes' => '14:00',
+                ],
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => config('company.phone'),
+                'contactType' => 'customer service',
+                'availableLanguage' => 'Indonesian',
+            ],
+            'areaServed' => 'Jabodetabek',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
     </script>
     @stack('structured_data')
@@ -289,8 +310,9 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-6">
-                <h6 class="text-white fw-600 mb-3">Jam Operasional</h6>
+                <h6 class="text-white fw-600 mb-3">WhatsApp & Jam Kantor</h6>
                 <ul class="list-unstyled small">
+                    <li class="mb-1"><i class="bi bi-whatsapp me-1"></i> {{ config('company.hours.whatsapp') }}</li>
                     <li class="mb-1"><i class="bi bi-clock me-1"></i> {{ config('company.hours.weekday') }}</li>
                     <li class="mb-1"><i class="bi bi-clock me-1"></i> {{ config('company.hours.weekend') }}</li>
                     <li class="mb-1"><i class="bi bi-info-circle me-1"></i> {{ config('company.hours.holiday') }}</li>

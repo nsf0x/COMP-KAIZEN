@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Semua Produk')
-@section('meta_description', 'Sewa perlengkapan event dari ' . config('company.name') . ': tenda, panggung, sound system, kursi, dan kebutuhan acara lainnya. Konsultasi dan pemesanan untuk area ' . config('company.city') . ' dan seluruh Indonesia.')
+@section('title', 'Sewa Perlengkapan Event Jabodetabek')
+@section('meta_description', 'Katalog perlengkapan event dari ' . config('company.name') . ' untuk area Jabodetabek. Pengiriman luar kota untuk event skala besar dapat dikonsultasikan via WhatsApp.')
 
 @section('content')
 

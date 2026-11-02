@@ -24,7 +24,7 @@ class HomeProductCategoriesTest extends TestCase
             ->assertDontSee('Kategori Tanpa Produk Aktif')
             ->assertDontSee('Kategori Nonaktif');
 
-        $this->assertSame(2, substr_count($response->getContent(), 'category=smart-tv'));
+        $this->assertSame(2, substr_count($response->getContent(), '/produk/kategori/smart-tv'));
     }
 
     public function test_homepage_and_product_filters_show_the_same_ordered_twelve_categories(): void
@@ -49,7 +49,7 @@ class HomeProductCategoriesTest extends TestCase
         $this->assertStringNotContainsString('Kategori Kosong', $homeContent);
         $this->assertStringNotContainsString('Kategori Kosong', $productContent);
 
-        $offsets = array_map(fn (string $slug): int|false => strpos($homeContent, 'category='.$slug), $slugs);
+        $offsets = array_map(fn (string $slug): int|false => strpos($homeContent, '/produk/kategori/'.$slug), $slugs);
         $this->assertNotContains(false, $offsets);
         $this->assertSame($offsets, collect($offsets)->sort()->values()->all());
     }
