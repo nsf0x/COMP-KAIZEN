@@ -4,6 +4,10 @@
     @php
         $seoTitle = trim($__env->yieldContent('title', config('company.name')));
         $seoDescription = trim($__env->yieldContent('meta_description', config('company.description')));
+        $companyName = config('company.name');
+        $seoDocumentTitle = str_ends_with($seoTitle, $companyName)
+            ? $seoTitle
+            : $seoTitle . ' | ' . $companyName;
         $seoCanonicalUrl = rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/');
         $seoImage = trim($__env->yieldContent('meta_image', rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png'));
     @endphp
@@ -12,15 +16,15 @@
     <meta name="description" content="{{ $seoDescription }}">
     <meta name="robots" content="{{ request()->query() ? 'noindex,follow' : 'index,follow' }}">
     <link rel="canonical" href="{{ $seoCanonicalUrl }}">
-    <title>{{ $seoTitle }} | {{ config('company.name') }}</title>
+    <title>{{ $seoDocumentTitle }}</title>
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:site_name" content="{{ config('company.name') }}">
-    <meta property="og:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta property="og:site_name" content="{{ $companyName }}">
+    <meta property="og:title" content="{{ $seoDocumentTitle }}">
     <meta property="og:description" content="{{ $seoDescription }}">
     <meta property="og:url" content="{{ $seoCanonicalUrl }}">
     <meta property="og:image" content="{{ $seoImage }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta name="twitter:title" content="{{ $seoDocumentTitle }}">
     <meta name="twitter:description" content="{{ $seoDescription }}">
     <meta name="twitter:image" content="{{ $seoImage }}">
     <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">

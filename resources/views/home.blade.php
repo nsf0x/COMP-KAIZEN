@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda')
-@section('meta_description', config('company.name') . ' menyediakan penyewaan perlengkapan dan produksi event profesional untuk pameran, wedding, konser, dan acara perusahaan. Hubungi tim kami untuk konsultasi.')
+@section('title', 'Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia')
+@section('meta_description', 'Sewa tenda, LED screen, genset, sound system dan perlengkapan event Jabodetabek. Antar-jemput tersedia, pengiriman luar kota. Minta penawaran via WhatsApp.')
 
 @section('content')
 
@@ -14,8 +14,9 @@
                     EVENT EQUIPMENT RENTAL
                 </span>
                 <h1 class="display-4 fw-700 lh-sm mb-3" style="color:#1a1a2e;">
-                    Bangun Event<br><span style="color:var(--primary);">Tanpa Batas</span><br>Bersama Kaizen
+                    Sewa Perlengkapan Event Profesional di Jabodetabek
                 </h1>
+                <h2 class="h4 fw-600 mb-3" style="color:var(--primary);">Bangun Event Tanpa Batas Bersama Kaizen</h2>
                 <p class="lead text-muted mb-4">
                     {{ config('company.tagline') }}. Kami menyediakan equipment, tim profesional, dan solusi produksi untuk corporate event, pameran, wedding, konser, tournament, hingga festival skala besar.
                 </p>
@@ -29,25 +30,81 @@
                 </div>
 
                 <!-- Stats -->
+                @if(config('company.stats.events') || config('company.stats.clients') || config('company.stats.years'))
                 <div class="row g-3 mt-4">
+                    @if(config('company.stats.events'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.events') }}</div>
                         <div class="text-muted small">Event Sukses</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.clients'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.clients') }}</div>
                         <div class="text-muted small">Klien Puas</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.years'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.years') }}</div>
                         <div class="text-muted small">Tahun Pengalaman</div>
                     </div>
+                    @endif
                 </div>
+                @endif
             </div>
             <div class="col-lg-6 text-center" data-aos="fade-left">
-                <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen" class="hero-logo">
+                <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia" class="hero-logo"
+                     width="512" height="512" fetchpriority="high">
             </div>
         </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-7">
+                <h2 class="section-title">Perlengkapan Event untuk Beragam Kebutuhan</h2>
+                <p class="text-muted lh-lg">
+                    Kaizen Kreasi Indonesia menyediakan perlengkapan dan dukungan produksi untuk pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival. Pilihan katalog mencakup tenda, flooring dan karpet, LED screen, genset, sound system, lighting, panggung, furniture, partisi, toilet portable, perangkat komunikasi, serta kebutuhan produksi dan branding. Tim kami melayani kebutuhan acara di Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Untuk event skala besar di luar Jabodetabek, konsultasikan lokasi, jadwal, dan kebutuhan logistik melalui WhatsApp. Ketersediaan produk, kebutuhan instalasi, pengiriman, dan penawaran dikonfirmasi sesuai detail acara. Jelajahi kategori di samping untuk melihat produk yang tersedia dan kirimkan kebutuhan Anda agar tim kami dapat membantu menyiapkan penawaran yang sesuai.
+                </p>
+            </div>
+            <div class="col-lg-5">
+                <h2 class="h4 fw-700 mb-3">Area Layanan</h2>
+                <p class="text-muted">Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Pengiriman ke seluruh Indonesia dapat dikonsultasikan untuk event skala besar.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach($categories as $category)
+                    <a class="btn btn-sm btn-outline-secondary rounded-pill"
+                       href="{{ route('products.index', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background:var(--light-bg);">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="section-title">Cara Memesan Perlengkapan Event</h2>
+            <p class="section-subtitle">Minta penawaran sesuai kebutuhan acara Anda melalui WhatsApp.</p>
+        </div>
+        <ol class="row g-3 list-unstyled mb-0">
+            @foreach([
+                'Chat tim Kaizen melalui WhatsApp.',
+                'Sampaikan jenis perlengkapan, tanggal, lokasi, dan kebutuhan event.',
+                'Tim kami meninjau kebutuhan dan mengirimkan penawaran.',
+                'Konfirmasi pesanan dan koordinasikan pengiriman untuk acara Anda.',
+            ] as $step)
+            <li class="col-md-6 col-lg-3">
+                <div class="h-100 p-4 bg-white rounded-4 shadow-sm">
+                    <span class="badge rounded-pill mb-3" style="background:var(--primary);">{{ $loop->iteration }}</span>
+                    <p class="mb-0">{{ $step }}</p>
+                </div>
+            </li>
+            @endforeach
+        </ol>
     </div>
 </section>
 
@@ -136,11 +193,11 @@
             @php
             $reasons = [
                 ['icon' => '⭐', 'title' => 'Kualitas Terjamin', 'desc' => 'Semua produk kami dirawat dan dijaga kualitasnya agar acara Anda berjalan sempurna.'],
-                ['icon' => '💰', 'title' => 'Harga Terjangkau', 'desc' => 'Paket sewa fleksibel dan harga kompetitif, sesuai budget tanpa mengorbankan kualitas.'],
+                ['icon' => '💬', 'title' => 'Penawaran Transparan', 'desc' => 'Dapatkan penawaran sesuai kebutuhan acara Anda langsung melalui WhatsApp.'],
                 ['icon' => '🚚', 'title' => 'Antar & Jemput', 'desc' => 'Layanan pengiriman dan pengambilan langsung ke lokasi acara Anda.'],
                 ['icon' => '📞', 'title' => 'Respon Cepat', 'desc' => 'Tim kami siap melayani 24 jam melalui WhatsApp untuk konsultasi dan pemesanan.'],
-                ['icon' => '✅', 'title' => 'Berpengalaman', 'desc' => 'Lebih dari ' . config('company.stats.years') . ' tahun melayani berbagai event dari skala kecil hingga besar.'],
-                ['icon' => '🎯', 'title' => 'One-Stop Solution', 'desc' => 'Dari dekorasi hingga sound system, semua tersedia di satu tempat.'],
+                ['icon' => '✅', 'title' => 'Dukungan Kebutuhan Event', 'desc' => 'Konsultasikan perlengkapan dan kebutuhan produksi sesuai jenis acara Anda.'],
+                ['icon' => '🎯', 'title' => 'Pilihan Perlengkapan', 'desc' => 'Jelajahi berbagai kategori perlengkapan event dalam satu katalog.'],
             ]
             @endphp
             @foreach($reasons as $r)

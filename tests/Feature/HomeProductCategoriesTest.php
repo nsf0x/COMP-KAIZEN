@@ -24,7 +24,7 @@ class HomeProductCategoriesTest extends TestCase
             ->assertDontSee('Kategori Tanpa Produk Aktif')
             ->assertDontSee('Kategori Nonaktif');
 
-        $this->assertSame(1, substr_count($response->getContent(), 'category=smart-tv'));
+        $this->assertSame(2, substr_count($response->getContent(), 'category=smart-tv'));
     }
 
     public function test_homepage_and_product_filters_show_the_same_ordered_twelve_categories(): void

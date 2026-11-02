@@ -12,6 +12,19 @@ class SeoMetadataTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_homepage_uses_the_jabodetabek_search_snippet_and_single_primary_heading(): void
+    {
+        config(['app.url' => 'https://kaizenkreasi.com']);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('<title>Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
+            ->assertSee('<meta property="og:title" content="Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia">', false)
+            ->assertSee('Sewa Perlengkapan Event Profesional di Jabodetabek')
+            ->assertSee('Area Layanan')
+            ->assertSee('Cara Memesan Perlengkapan Event');
+    }
+
     public function test_public_pages_render_company_metadata_and_the_configured_canonical_domain(): void
     {
         config(['app.url' => 'https://kaizenkreasi.com']);
