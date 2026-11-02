@@ -55,6 +55,8 @@ Each public page has a page-specific title and description; product pages use th
 
 Before uploading to Rumahweb, confirm the hosting package supports PHP 8.2 or newer and Laravel's required PHP extensions. Configure the web document root to Laravel's `public` directory, keep `.env` outside public access, and use the exact HTTPS domain in `APP_URL`.
 
+For the complete Rumahweb/cPanel deployment procedure, see [docs/RUMAHWEB_DEPLOYMENT.md](docs/RUMAHWEB_DEPLOYMENT.md).
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
