@@ -176,6 +176,9 @@
         html.dark .dropdown-menu { border-color:#343642; background-color:#1a1b23; color:#e5e6ec; }
         html.dark .card-body,
         html.dark .card-footer { color:#e5e6ec; }
+        html.dark .breadcrumb,
+        html.dark .breadcrumb-item.active,
+        html.dark .breadcrumb-item::before { color:#fff !important; }
         html.dark .category-card-icon,
         html.dark [style*="#ffeef9"],
         html.dark [style*="#fdf6fb"],
