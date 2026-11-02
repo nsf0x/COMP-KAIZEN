@@ -18,6 +18,10 @@ mkdir -p \
     storage/framework/views \
     storage/logs
 
+find storage/framework/views -type f -name '*.php' -delete
+php artisan view:clear
+php artisan config:clear
+
 if [ ! -d storage/app/public/products ] || [ -z "$(find storage/app/public/products -type f -print -quit)" ]; then
     mkdir -p storage/app/public/products
     cp -a /opt/kaizen-product-assets/products/. storage/app/public/products/
