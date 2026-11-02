@@ -37,6 +37,5 @@ class CategorySeeder extends Seeder
             );
         }
 
-        Category::whereDoesntHave('products')->delete();
     }
 }
