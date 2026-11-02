@@ -27,7 +27,7 @@
                     <div style="width:48px;height:48px;border-radius:12px;background:#ffe4f5;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">📍</div>
                     <div>
                         <div class="fw-600 small mb-1">Alamat</div>
-                        <div class="text-muted small">{{ config('company.address') }}</div>
+                        <a class="text-muted small text-decoration-none" href="{{ config('company.maps_url') }}" target="_blank" rel="noopener noreferrer">{{ config('company.address') }}</a>
                     </div>
                 </div>
 
