@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/produk', [ProductController::class, 'index'])->name('products.index');
-Route::get('/produk/kategori/{category:slug}', [ProductController::class, 'category'])->name('products.category');
+Route::get('/sewa-{slug}-jabodetabek', [ProductController::class, 'categoryBySeoSlug'])
+    ->where('slug', '[a-z0-9-]+')
+    ->name('products.category');
+Route::get('/produk/kategori/{legacySlug}', [ProductController::class, 'legacyCategory'])->name('products.category.legacy');
+Route::redirect('/produk/genset-kapasitas-150-kva-100-kva-80-kva-60-kva-dan-5000-watt', '/produk/genset-150-kva', 301);
 Route::get('/produk/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/portofolio', [PortfolioController::class, 'index'])->name('portfolio.index');

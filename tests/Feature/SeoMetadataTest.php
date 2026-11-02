@@ -109,15 +109,19 @@ class SeoMetadataTest extends TestCase
             'status' => true,
         ]);
 
-        $this->get(route('products.category', $category))
+        $this->get(route('products.category', ['slug' => $category->slug]))
             ->assertOk()
             ->assertSee('<title>Sewa Tenda | Kaizen Kreasi Indonesia</title>', false)
-            ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/kategori/tenda">', false)
+            ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/sewa-tenda-jabodetabek">', false)
             ->assertSee('Tenda Roder');
 
         $this->get('/produk?category=tenda')
             ->assertMovedPermanently()
-            ->assertRedirect('/produk/kategori/tenda');
+            ->assertRedirect('/sewa-tenda-jabodetabek');
+
+        $this->get('/produk/kategori/tenda')
+            ->assertMovedPermanently()
+            ->assertRedirect('/sewa-tenda-jabodetabek');
 
         $this->get('/produk?search=tenda')
             ->assertOk()
@@ -126,7 +130,7 @@ class SeoMetadataTest extends TestCase
 
         $this->get('/sitemap.xml')
             ->assertOk()
-            ->assertSee('<loc>https://kaizenkreasi.com/produk/kategori/tenda</loc>', false);
+            ->assertSee('<loc>https://kaizenkreasi.com/sewa-tenda-jabodetabek</loc>', false);
     }
 
     public function test_blog_pages_render_article_metadata_and_structured_data(): void

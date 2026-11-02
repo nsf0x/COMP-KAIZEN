@@ -30,7 +30,7 @@
         'itemListElement' => array_values(array_filter([
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Produk', 'item' => route('products.index', [], true)],
-            $product->category?->is_active ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('products.category', $product->category, true)] : null,
+            $product->category?->is_active ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('products.category', ['slug' => $product->category->slug], true)] : null,
             ['@type' => 'ListItem', 'position' => $product->category?->is_active ? 4 : 3, 'name' => $product->name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
         ])),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
@@ -57,7 +57,7 @@
             <li class="breadcrumb-item"><a href="{{ route('products.index') }}" style="color:var(--primary);">Produk</a></li>
             @if($product->category?->is_active)
             <li class="breadcrumb-item">
-                <a href="{{ route('products.category', $product->category) }}" style="color:var(--primary);">
+                <a href="{{ route('products.category', ['slug' => $product->category->slug]) }}" style="color:var(--primary);">
                     {{ $product->category->name }}
                 </a>
             </li>

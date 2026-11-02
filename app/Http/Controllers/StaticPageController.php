@@ -50,7 +50,7 @@ class StaticPageController extends Controller
 
         foreach (Category::availableForCatalog()->get() as $category) {
             if (filled($category->slug)) {
-                $urls->push(['loc' => $baseUrl.'/produk/kategori/'.rawurlencode($category->slug), 'changefreq' => 'weekly', 'priority' => '0.8']);
+                $urls->push(['loc' => $baseUrl.'/sewa-'.rawurlencode($category->slug).'-jabodetabek', 'changefreq' => 'weekly', 'priority' => '0.8']);
             }
         }
 

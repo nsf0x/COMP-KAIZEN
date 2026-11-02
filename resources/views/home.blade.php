@@ -76,7 +76,7 @@
                 <div class="d-flex flex-wrap gap-2">
                     @foreach($categories as $category)
                     <a class="btn btn-sm btn-outline-secondary rounded-pill"
-                       href="{{ route('products.category', $category) }}">{{ $category->name }}</a>
+                       href="{{ route('products.category', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -120,7 +120,7 @@
         <div class="row g-3 justify-content-center">
             @foreach($categories as $category)
             <div class="col-6 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 50 }}">
-                <a href="{{ route('products.category', $category) }}"
+                <a href="{{ route('products.category', ['slug' => $category->slug]) }}"
                    class="card category-card border-0 h-100 text-decoration-none shadow-sm">
                     <div class="category-card-icon" aria-hidden="true">
                         <i class="{{ \App\Support\CategoryIcon::classFor($category) }}"></i>
