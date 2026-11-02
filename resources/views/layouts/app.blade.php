@@ -80,7 +80,7 @@
             --brand-blue: #1736e8;
             --brand-red: #ff0000;
             --brand-gradient: linear-gradient(105deg, #1736e8 8%, #8d0d86 48%, #ff0000 82%, #ff0000 100%);
-            --brand-wash: radial-gradient(circle at 86% 48%, rgba(255, 0, 0, 0.38) 0%, rgba(255, 0, 0, 0.18) 18%, rgba(255, 0, 0, 0) 46%), linear-gradient(120deg, #f0f4ff 0%, #fff 58%, #fff5f5 100%);
+            --brand-wash: radial-gradient(circle at 86% 48%, rgba(255, 0, 0, 0.24) 0%, rgba(255, 0, 0, 0.12) 18%, rgba(255, 0, 0, 0) 46%), linear-gradient(120deg, #f0f4ff 0%, #fff 58%, #fff2f2 100%);
             --primary: #1736e8;
             --primary-dark: #1026a8;
             --secondary: #ff0000;
@@ -89,7 +89,7 @@
         }
         html.dark {
             color-scheme: dark;
-            --brand-wash: radial-gradient(circle at 86% 48%, rgba(255, 0, 0, 0.42) 0%, rgba(255, 0, 0, 0.16) 20%, rgba(255, 0, 0, 0) 46%), linear-gradient(120deg, #11172f 0%, #171821 58%, #28171c 100%);
+            --brand-wash: radial-gradient(circle at 86% 48%, rgba(255, 0, 0, 0.28) 0%, rgba(255, 0, 0, 0.12) 20%, rgba(255, 0, 0, 0) 46%), linear-gradient(120deg, #11172f 0%, #171821 58%, #28171c 100%);
             --dark: #f1f2f7;
             --light-bg: #171821;
         }
