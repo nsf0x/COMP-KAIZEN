@@ -70,10 +70,13 @@
                 {!! nl2br(e($blogPost->content)) !!}
             </div>
 
-            @if($relatedProducts->isNotEmpty())
-            <section class="mt-5" aria-labelledby="related-products-heading">
-                <h2 id="related-products-heading" class="h5 fw-700 mb-3">Perlengkapan terkait</h2>
+            @if($relatedCategories->isNotEmpty() || $relatedProducts->isNotEmpty())
+            <section class="mt-5" aria-labelledby="related-catalog-heading">
+                <h2 id="related-catalog-heading" class="h5 fw-700 mb-3">Kategori dan produk terkait</h2>
                 <ul class="list-unstyled">
+                    @foreach($relatedCategories as $category)
+                    <li class="mb-2"><a href="{{ route('products.category', ['slug' => $category->slug]) }}">Kategori {{ $category->name }}</a></li>
+                    @endforeach
                     @foreach($relatedProducts as $product)
                     <li class="mb-2"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></li>
                     @endforeach

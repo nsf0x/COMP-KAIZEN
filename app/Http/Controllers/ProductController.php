@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -85,7 +86,66 @@ class ProductController extends Controller
             ->orderBy('order')
             ->paginate(12);
 
-        return view('products.category', compact('category', 'products'));
+        $categoryArticleMap = [
+            'tenda-flooring' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'faktor-biaya-sewa-tenda-pernikahan',
+                'perlengkapan-event-ulang-tahun',
+            ],
+            'led-screen-processor' => ['persiapan-display-visual-event'],
+            'smart-tv' => ['persiapan-display-visual-event'],
+            'genset' => ['perencanaan-kebutuhan-daya-event'],
+            'genset-power' => ['perencanaan-kebutuhan-daya-event'],
+            'sound-system' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'perlengkapan-event-ulang-tahun',
+            ],
+            'sound-system-lighting-pendingin' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'perlengkapan-event-ulang-tahun',
+            ],
+            'lighting-stage' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'persiapan-panggung-backdrop-branding',
+            ],
+            'stage-backdrop' => ['persiapan-panggung-backdrop-branding'],
+            'partisi' => ['persiapan-panggung-backdrop-branding'],
+            'booth-branding' => ['persiapan-panggung-backdrop-branding'],
+            'produksi-branding' => ['persiapan-panggung-backdrop-branding'],
+            'furniture' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'perlengkapan-event-ulang-tahun',
+            ],
+            'furniture-seating' => [
+                'perlengkapan-event-pernikahan-checklist-tenda-peralatan',
+                'perlengkapan-event-ulang-tahun',
+            ],
+            'event-support' => ['koordinasi-dan-fasilitas-event'],
+            'toilet-portable' => ['koordinasi-dan-fasilitas-event'],
+            'perangkat-komunikasi' => ['koordinasi-dan-fasilitas-event'],
+        ];
+        $relatedArticles = BlogPost::published()
+            ->whereIn('slug', $categoryArticleMap[$category->slug] ?? [])
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
+            ->get();
+        $categoryTopics = collect($this->categoryTopics($category->slug))
+            ->map(function (array $topic) use ($category): array {
+                $topic['products'] = Product::query()
+                    ->where('category_id', $category->id)
+                    ->where('status', true)
+                    ->where(function ($query) use ($topic): void {
+                        foreach ($topic['terms'] as $term) {
+                            $query->orWhere('name', 'like', '%'.$term.'%');
+                        }
+                    })
+                    ->orderBy('order')
+                    ->get();
+
+                return $topic;
+            })
+            ->values();
+
+        return view('products.category', compact('category', 'products', 'relatedArticles', 'categoryTopics'));
     }
 
     private function findAvailableCategory(string $slug): ?Category
@@ -147,7 +207,45 @@ class ProductController extends Controller
             ->where('status', true)
             ->orderBy('order')
             ->get();
-
         return view('products.show', compact('product', 'related', 'variants'));
+    }
+
+    private function categoryTopics(string $slug): array
+    {
+        return match ($slug) {
+            'tenda-flooring' => [
+                [
+                    'title' => 'Tenda untuk area acara',
+                    'description' => 'Pilih jenis dan ukuran tenda berdasarkan area yang digunakan, lokasi, serta kebutuhan acara. Konfirmasikan akses pemasangan dengan pengelola venue.',
+                    'question' => 'Informasi apa yang perlu disiapkan untuk menanyakan tenda?',
+                    'answer' => 'Sampaikan tanggal acara, lokasi, ukuran area, dan jenis tenda yang dibutuhkan agar ketersediaan dapat diperiksa.',
+                    'terms' => ['tenda'],
+                ],
+                [
+                    'title' => 'Flooring dan karpet',
+                    'description' => 'Pertimbangkan kondisi permukaan, area yang akan digunakan, dan alur tamu sebelum menentukan kebutuhan flooring atau karpet.',
+                    'question' => 'Bagaimana menentukan kebutuhan flooring atau karpet?',
+                    'answer' => 'Siapkan ukuran dan kondisi area serta informasi venue. Tim dapat membantu memeriksa pilihan yang tersedia untuk kebutuhan tersebut.',
+                    'terms' => ['flooring', 'karpet'],
+                ],
+            ],
+            'led-screen-processor' => [
+                [
+                    'title' => 'LED screen',
+                    'description' => 'Katalog mencantumkan LED screen P2.6 dan P3.9 dengan pilihan indoor dan outdoor. Sampaikan kebutuhan lokasi acara agar jenis yang tersedia dapat dikonfirmasi.',
+                    'question' => 'Informasi apa yang dibutuhkan untuk menanyakan LED screen?',
+                    'answer' => 'Sampaikan tanggal acara, lokasi penggunaan indoor atau outdoor, ukuran tampilan yang dibutuhkan, dan kebutuhan teknis yang sudah diketahui.',
+                    'terms' => ['led screen', 'led cube'],
+                ],
+                [
+                    'title' => 'Video processor',
+                    'description' => 'Katalog mencantumkan processor Novastar VX16S, VX600, dan VX400. Konfirmasikan kesesuaian model dan ketersediaannya untuk kebutuhan acara.',
+                    'question' => 'Model processor Novastar apa yang tercantum di katalog?',
+                    'answer' => 'Model yang tercantum adalah VX16S, VX600, dan VX400. Kesesuaian perangkat serta ketersediaannya perlu dikonfirmasi untuk kebutuhan acara.',
+                    'terms' => ['processor'],
+                ],
+            ],
+            default => [],
+        };
     }
 }

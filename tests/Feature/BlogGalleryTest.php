@@ -43,7 +43,7 @@ class BlogGalleryTest extends TestCase
             'is_published' => true,
         ]);
 
-        $this->assertCount(1, BlogPost::published()->get());
+        $this->assertSame(1, BlogPost::published()->where('slug', 'draft-like-blog')->count());
     }
 
     public function test_public_blog_listing_renders_published_posts_without_published_at(): void

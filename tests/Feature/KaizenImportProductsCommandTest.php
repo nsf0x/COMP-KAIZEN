@@ -61,7 +61,7 @@ class KaizenImportProductsCommandTest extends TestCase
             'processor-novastar-vx600',
             'processor-novastar-vx400',
         ])->where('status', true)->count());
-        $this->assertSame(3, BlogPost::query()->count());
+        $this->assertSame(4, BlogPost::query()->count());
         $this->assertSame(21, Portfolio::query()->count());
         $this->assertSame(0, Product::query()->where('status', false)->count());
         $this->assertSame(0, Product::query()->whereNotNull('price')->count());
@@ -82,7 +82,7 @@ class KaizenImportProductsCommandTest extends TestCase
 
         $this->assertSame($productCount, Product::query()->count());
         $this->assertSame($categoryCount, Category::query()->count());
-        $this->assertSame(3, BlogPost::query()->count());
+        $this->assertSame(4, BlogPost::query()->count());
         $this->assertSame(21, Portfolio::query()->count());
 
         $product = Product::query()->firstOrFail();

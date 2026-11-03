@@ -96,7 +96,7 @@
             <div class="row g-4">
                 @foreach($products as $product)
                 <div class="col-sm-6 col-xl-4">
-                    <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden; transition: transform .2s, box-shadow .2s;"
+                    <div class="card border-0 shadow-sm h-100" data-product-name="{{ $product->name }}" style="border-radius:16px; overflow:hidden; transition: transform .2s, box-shadow .2s;"
                          onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 15px 40px rgba(233,30,140,0.15)'"
                          onmouseout="this.style.transform='';this.style.boxShadow=''">
                         <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">

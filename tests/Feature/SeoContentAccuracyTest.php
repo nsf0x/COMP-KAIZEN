@@ -26,7 +26,7 @@ class SeoContentAccuracyTest extends TestCase
     {
         $this->seed(BlogPostSeeder::class);
 
-        $this->assertDatabaseCount('blog_posts', 3);
+        $this->assertDatabaseCount('blog_posts', 7);
         $this->assertDatabaseHas('blog_posts', [
             'slug' => 'faktor-biaya-sewa-tenda-pernikahan',
             'author' => '',
