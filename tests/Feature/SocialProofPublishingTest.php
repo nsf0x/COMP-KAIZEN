@@ -13,6 +13,15 @@ class SocialProofPublishingTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_about_story_uses_the_kaizen_logo(): void
+    {
+        $this->get(route('about'))
+            ->assertOk()
+            ->assertSee('images/kaizen-kreasi-indonesia.svg')
+            ->assertSee('alt="Logo Kaizen Kreasi Indonesia"', false)
+            ->assertDontSee('🎊');
+    }
+
     public function test_unpublished_clients_and_testimonials_are_hidden_from_public_pages(): void
     {
         Client::create(['name' => 'Klien Draft']);
