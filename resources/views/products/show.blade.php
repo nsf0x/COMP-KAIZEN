@@ -1,7 +1,28 @@
 @extends('layouts.app')
 
-@section('title', $product->name)
-@section('meta_description', Str::limit(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))), 160))
+@php
+    $variantNames = [
+        'genset-150-kva', 'genset-100-kva', 'genset-80-kva', 'genset-60-kva', 'genset-5000-watt',
+        'smart-tv-75-inch', 'smart-tv-65-inch', 'smart-tv-55-inch',
+        'processor-novastar-vx16s', 'processor-novastar-vx600', 'processor-novastar-vx400',
+    ];
+    $isVariantProduct = in_array($product->slug, $variantNames, true);
+    $variantSeoTitle = 'Sewa ' . $product->name . ' Jabodetabek | Kaizen Kreasi';
+    $variantHubSlug = match (true) {
+        in_array($product->slug, ['genset-150-kva', 'genset-100-kva', 'genset-80-kva', 'genset-60-kva', 'genset-5000-watt'], true) => 'genset-berbagai-kapasitas',
+        in_array($product->slug, ['smart-tv-75-inch', 'smart-tv-65-inch', 'smart-tv-55-inch'], true) => 'smart-tv-berbagai-ukuran',
+        in_array($product->slug, ['processor-novastar-vx16s', 'processor-novastar-vx600', 'processor-novastar-vx400'], true) => 'processor-novastar',
+        default => null,
+    };
+    $variantHub = $related->firstWhere('slug', $variantHubSlug);
+    $productSeoDescription = $isVariantProduct
+        ? Str::limit($variantSeoTitle . '. ' . strip_tags($product->description ?: '') . ' Tanyakan ketersediaan sesuai tanggal dan lokasi acara.', 160)
+        : Str::limit(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))), 160);
+@endphp
+
+@section('title', $isVariantProduct ? $variantSeoTitle : $product->name)
+@section('meta_title', $isVariantProduct ? $variantSeoTitle : $product->name . ' | ' . config('company.name'))
+@section('meta_description', $productSeoDescription)
 @section('meta_image', $product->thumbnail ? $product->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
 @section('og_type', 'product')
 
@@ -49,7 +70,7 @@
 
 @section('content')
 
-<div class="container py-5">
+<div class="container py-5" data-product-name="{{ $product->name }}">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
@@ -120,11 +141,15 @@
             <span class="badge mb-2 ms-1" style="background:var(--primary);">⭐ Produk Unggulan</span>
             @endif
 
-            <h1 class="fw-700 fs-2 mb-2">{{ $product->name }}</h1>
+            <h1 class="fw-700 fs-2 mb-2">{{ $isVariantProduct ? $variantSeoTitle : $product->name }}</h1>
 
             <div class="fw-600 mb-4 text-muted">
                 Informasi lebih lanjut via WhatsApp atau telepon
             </div>
+
+            @if($variantHub)
+            <p class="mt-4"><a href="{{ route('products.show', $variantHub) }}">Lihat semua pilihan {{ Str::before($product->name, ' ') }} di Jabodetabek</a></p>
+            @endif
 
             @if($product->description)
             <div class="mb-4">

@@ -13,6 +13,7 @@ class ProductVariantPagesTest extends TestCase
 
     public function test_hub_pages_link_to_each_available_variant(): void
     {
+        $seoTitles = [];
         $groups = [
             [
                 'category' => ['Genset', 'genset'],
@@ -77,8 +78,19 @@ class ProductVariantPagesTest extends TestCase
             $response->assertOk();
             foreach ($group['variants'] as [$name, $slug]) {
                 $response->assertSee($name)->assertSee(route('products.show', $slug));
+                $seoTitle = 'Sewa '.$name.' Jabodetabek | Kaizen Kreasi';
+                $seoTitles[] = $seoTitle;
+                $this->get(route('products.show', $slug))
+                    ->assertOk()
+                    ->assertSee('<title>'.$seoTitle.'</title>', false)
+                    ->assertSee('<meta property="og:title" content="'.$seoTitle.'">', false)
+                    ->assertSee('<meta name="description" content="'.$seoTitle.'.', false)
+                    ->assertSee('<h1 class="fw-700 fs-2 mb-2">'.$seoTitle.'</h1>', false)
+                    ->assertDontSee('Rp ');
             }
         }
+
+        $this->assertCount(11, array_unique($seoTitles));
     }
 
     public function test_old_combined_product_urls_redirect_permanently_to_the_hubs(): void
