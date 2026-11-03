@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $seoDescription }}">
-    <meta name="robots" content="{{ request()->query() ? 'noindex,follow' : 'index,follow' }}">
+    <meta name="robots" content="@yield('meta_robots', request()->query() ? 'noindex,follow' : 'index,follow')">
     <link rel="canonical" href="{{ $seoCanonicalUrl }}">
     <title>{{ $seoDocumentTitle }}</title>
     <meta property="og:type" content="@yield('og_type', 'website')">

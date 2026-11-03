@@ -149,12 +149,13 @@ Contoh redirect di `.htaccess` jika document root berupa `public_html` dan SSL s
 ```apache
 RewriteEngine On
 
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L]
-
+RewriteCond %{HTTP_HOST} ^(?:www\.)?kaizenkreasi\.com$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.kaizenkreasi\.com$ [NC]
-RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L]
+RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L,NE]
 ```
+
+Aturan ini juga tersedia di `public/.htaccess`. Pastikan SSL untuk domain utama dan `www` aktif sebelum menggunakannya.
 
 ## 7. Verifikasi pemasangan
 
@@ -167,19 +168,22 @@ https://kaizenkreasi.com/sitemap.xml
 https://kaizenkreasi.com/admin
 https://kaizenkreasi.com/kontak
 https://kaizenkreasi.com/portofolio
+https://kaizenkreasi.com/alamat-yang-tidak-ada
 ```
 
 Contoh hasil yang benar:
 
 - Homepage berstatus HTTP 200.
 - Sitemap berisi URL domain `https://kaizenkreasi.com`.
+- URL `http://kaizenkreasi.com` dan `https://www.kaizenkreasi.com` dialihkan permanen ke HTTPS tanpa `www`.
+- Alamat yang tidak tersedia menghasilkan HTTP 404, bukan halaman sukses HTTP 200.
 - Tidak ada halaman Laravel yang menampilkan debug error.
 - Admin dapat login dengan `ADMIN_EMAIL` dan `ADMIN_PASSWORD`.
 - Upload gambar pada admin berhasil dan gambar dapat dibuka.
 
 ## 8. Checklist update aplikasi
 
-Untuk upload versi baru:
+Sebelum deploy, ekspor/backup database lewat phpMyAdmin dan backup `storage/app/public`. Pastikan backup berhasil sebelum melanjutkan. Setelah itu jalankan:
 
 ```bash
 php artisan down
@@ -187,17 +191,13 @@ composer install --no-dev --optimize-autoloader
 npm install
 npm run build
 php artisan migrate --force
-php artisan optimize
 php artisan storage:link
+php artisan optimize:clear
+php artisan optimize
 php artisan up
 ```
 
-Hapus cache hanya jika perubahan konfigurasi atau template tidak tampil:
-
-```bash
-php artisan optimize:clear
-php artisan optimize
-```
+Untuk membuat file WebP setelah backup file, gunakan `php artisan kaizen:optimize-images` bila hosting menyediakan PHP GD dengan dukungan WebP. Perintah ini mempertahankan file sumber; uji beberapa halaman dan gambar setelahnya.
 
 ## 9. Troubleshooting
 
