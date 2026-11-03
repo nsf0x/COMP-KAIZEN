@@ -5,9 +5,9 @@
         $seoTitle = trim($__env->yieldContent('title', config('company.name')));
         $seoDescription = trim($__env->yieldContent('meta_description', config('company.description')));
         $companyName = config('company.name');
-        $seoDocumentTitle = str_ends_with($seoTitle, $companyName)
+        $seoDocumentTitle = trim($__env->yieldContent('meta_title', str_ends_with($seoTitle, $companyName)
             ? $seoTitle
-            : $seoTitle . ' | ' . $companyName;
+            : $seoTitle . ' | ' . $companyName));
         $seoCanonicalUrl = rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/');
         $seoImage = trim($__env->yieldContent('meta_image', rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png'));
     @endphp
@@ -386,6 +386,31 @@
             }
         });
     })();
+</script>
+<script>
+    document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        const link = target?.closest('a[href*="wa.me/"]');
+        if (!link) return;
+
+        const productName = link.dataset.productName
+            || link.closest('[data-product-name]')?.dataset.productName
+            || null;
+        const eventData = {
+            event: 'whatsapp_click',
+            page_source: window.location.pathname,
+            product_name: productName,
+        };
+
+        if (window.google_tag_manager && Array.isArray(window.dataLayer)) {
+            window.dataLayer.push(eventData);
+        } else if (typeof window.gtag === 'function') {
+            window.gtag('event', eventData.event, {
+                page_source: eventData.page_source,
+                product_name: eventData.product_name,
+            });
+        }
+    });
 </script>
 @stack('scripts')
 </body>
