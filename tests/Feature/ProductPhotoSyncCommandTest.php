@@ -140,11 +140,12 @@ class ProductPhotoSyncCommandTest extends TestCase
                 ]],
             ],
         ]);
+        $categoryCount = Category::query()->count();
 
         $this->runSync($manifest);
 
         $this->assertSame(0, Product::query()->count());
-        $this->assertSame(0, Category::query()->count());
+        $this->assertSame($categoryCount, Category::query()->count());
     }
 
     public function test_existing_catering_product_is_reported_and_left_unchanged(): void
