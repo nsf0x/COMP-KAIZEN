@@ -17,7 +17,7 @@ class SocialProofPublishingTest extends TestCase
     {
         $this->get(route('about'))
             ->assertOk()
-            ->assertSee('images/kaizen-kreasi-indonesia.svg')
+            ->assertSee('images/kaizen-logo-story.png')
             ->assertSee('alt="Logo Kaizen Kreasi Indonesia"', false)
             ->assertDontSee('🎊');
     }
