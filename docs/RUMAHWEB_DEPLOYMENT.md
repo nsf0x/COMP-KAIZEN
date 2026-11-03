@@ -77,6 +77,7 @@ APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
 APP_URL=https://kaizenkreasi.com
+TRUSTED_PROXIES=IP_PROXY_DARI_PENYEDIA_HOSTING
 
 LOG_CHANNEL=stack
 LOG_LEVEL=error
@@ -156,6 +157,8 @@ RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L,NE]
 ```
 
 Aturan ini juga tersedia di `public/.htaccess`. Pastikan SSL untuk domain utama dan `www` aktif sebelum menggunakannya.
+
+Jika hosting meneruskan HTTPS melalui reverse proxy, Laravel harus mempercayai hanya alamat IP proxy yang benar. Isi `TRUSTED_PROXIES` dengan IP proxy dari penyedia hosting (pisahkan beberapa IP dengan koma); jangan gunakan `*`. Pastikan proxy mengirim `X-Forwarded-Proto: https` untuk koneksi HTTPS. Aturan `.htaccess` memeriksa header tersebut agar koneksi HTTPS yang diteruskan ke backend HTTP tidak diarahkan berulang kali.
 
 ## 7. Verifikasi pemasangan
 
