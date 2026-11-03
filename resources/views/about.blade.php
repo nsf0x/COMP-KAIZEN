@@ -26,7 +26,7 @@
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6" data-aos="fade-right">
-                <x-optimized-image src="{{ asset('images/kaizen-kreasi-indonesia.svg') }}" alt="Logo Kaizen Kreasi Indonesia"
+                <x-optimized-image src="{{ asset('images/kaizen-logo-story.png') }}" alt="Logo Kaizen Kreasi Indonesia"
                                    width="500" height="500" loading="eager"
                                    style="display:block;width:min(100%,420px);height:auto;margin:auto;filter:drop-shadow(0 20px 40px rgba(23,54,232,0.2));" />
             </div>
