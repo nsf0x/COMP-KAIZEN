@@ -3,6 +3,21 @@
 @section('title', 'Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia')
 @section('meta_description', 'Sewa tenda, LED screen, genset, sound system dan perlengkapan event Jabodetabek. Antar-jemput tersedia, pengiriman luar kota. Minta penawaran via WhatsApp.')
 
+@push('styles')
+<style>
+    .order-step-card {
+        background: #fff;
+        color: #30323d;
+    }
+
+    html.dark .order-step-card {
+        border: 1px solid #343642;
+        background: #202230;
+        color: #e5e6ec;
+    }
+</style>
+@endpush
+
 @section('content')
 
 {{-- Hero Section --}}
@@ -98,7 +113,7 @@
                 'Konfirmasi pesanan dan koordinasikan pengiriman untuk acara Anda.',
             ] as $step)
             <li class="col-md-6 col-lg-3">
-                <div class="h-100 p-4 bg-white rounded-4 shadow-sm">
+                <div class="order-step-card h-100 p-4 rounded-4 shadow-sm">
                     <span class="badge rounded-pill mb-3" style="background:var(--primary);">{{ $loop->iteration }}</span>
                     <p class="mb-0">{{ $step }}</p>
                 </div>

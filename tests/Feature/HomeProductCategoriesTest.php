@@ -11,6 +11,16 @@ class HomeProductCategoriesTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_ordering_steps_have_a_dark_mode_card_style(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('class="order-step-card h-100 p-4 rounded-4 shadow-sm"', false)
+            ->assertSee('html.dark .order-step-card', false)
+            ->assertSee('background: #202230', false)
+            ->assertSee('color: #e5e6ec', false);
+    }
+
     public function test_homepage_includes_active_categories_with_active_products_without_requiring_a_photo(): void
     {
         $category = $this->createCategoryWithProduct('Smart TV', 'smart-tv', 5, null);
