@@ -3,6 +3,13 @@
 @section('title', 'Event Portofolio')
 @section('meta_description', 'Lihat dokumentasi event, pameran, wedding, konser, dan acara perusahaan yang ditangani oleh ' . config('company.name') . '.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Event Portofolio', 'url' => route('portfolio.index', [], true)],
+    ]])
+@endpush
+
 @section('content')
 
 <div class="container py-5">
@@ -30,10 +37,10 @@
             <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                 <div style="height:240px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                     @if($portfolio->thumbnail)
-                    <img src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="{{ $portfolio->title }}"
-                         style="width:100%;height:100%;object-fit:cover; transition:transform .3s;"
-                         onmouseover="this.style.transform='scale(1.05)'"
-                         onmouseout="this.style.transform=''">
+                    <x-optimized-image src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="Dokumentasi event: {{ $portfolio->title }}"
+                                       width="600" height="400" style="width:100%;height:100%;object-fit:cover; transition:transform .3s;"
+                                       onmouseover="this.style.transform='scale(1.05)'"
+                                       onmouseout="this.style.transform=''" />
                     @else
                     <div style="font-size:5rem;">🎉</div>
                     @endif

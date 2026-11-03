@@ -20,6 +20,7 @@ class ImportKaizenProductsCommand extends Command
 
         if (! is_file($path)) {
             $this->error("File not found: {$path}");
+
             return self::FAILURE;
         }
 
@@ -28,6 +29,7 @@ class ImportKaizenProductsCommand extends Command
 
         if (! is_array($decoded) || ! isset($decoded['products']) || ! is_array($decoded['products'])) {
             $this->error('Invalid JSON structure. Expected a top-level "products" array.');
+
             return self::FAILURE;
         }
 
@@ -42,6 +44,11 @@ class ImportKaizenProductsCommand extends Command
             }
 
             $categorySlug = Str::slug($categoryName) ?: 'umum';
+            [$categorySlug, $categoryName] = match ($categorySlug) {
+                'tenda', 'tenda-flooring', 'flooring-karpet' => ['tenda-flooring', 'Tenda & Flooring'],
+                'led-screen', 'led-screen-processor' => ['led-screen-processor', 'LED Screen & Processor'],
+                default => [$categorySlug, $categoryName],
+            };
             $category = Category::firstOrCreate(
                 ['slug' => $categorySlug],
                 [
@@ -54,12 +61,12 @@ class ImportKaizenProductsCommand extends Command
                 ]
             );
 
-            $slug = Str::slug($productName) ?: 'produk-' . ($count + 1);
+            $slug = Str::slug($productName) ?: 'produk-'.($count + 1);
             $unit = trim((string) ($item['unit'] ?? ''));
             $description = trim((string) ($item['description'] ?? ''));
 
             if ($unit !== '' && ! str_contains(strtolower($description), strtolower($unit))) {
-                $description = trim($description . "\n\nSatuan: {$unit}");
+                $description = trim($description."\n\nSatuan: {$unit}");
             }
 
             Product::firstOrCreate(

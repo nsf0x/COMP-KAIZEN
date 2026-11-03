@@ -77,6 +77,7 @@ APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
 APP_URL=https://kaizenkreasi.com
+TRUSTED_PROXIES=IP_PROXY_DARI_PENYEDIA_HOSTING
 
 LOG_CHANNEL=stack
 LOG_LEVEL=error
@@ -99,7 +100,8 @@ ADMIN_PASSWORD=PasswordAdminYangSangatKuat
 
 COMPANY_NAME="Kaizen Kreasi Indonesia"
 COMPANY_EMAIL=kaizenkreasi@gmail.com
-COMPANY_WHATSAPP=6281119998630
+COMPANY_PHONE=0811-1305-1007
+COMPANY_WHATSAPP=6281113051007
 COMPANY_MAPS_URL=https://maps.app.goo.gl/YJibJiqrCoqz95qG8?g_st=ac
 ```
 
@@ -149,12 +151,15 @@ Contoh redirect di `.htaccess` jika document root berupa `public_html` dan SSL s
 ```apache
 RewriteEngine On
 
-RewriteCond %{HTTPS} !=on
-RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L]
-
+RewriteCond %{HTTP_HOST} ^(?:www\.)?kaizenkreasi\.com$ [NC]
+RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.kaizenkreasi\.com$ [NC]
-RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L]
+RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L,NE]
 ```
+
+Aturan ini juga tersedia di `public/.htaccess`. Pastikan SSL untuk domain utama dan `www` aktif sebelum menggunakannya.
+
+Jika hosting meneruskan HTTPS melalui reverse proxy, Laravel harus mempercayai hanya alamat IP proxy yang benar. Isi `TRUSTED_PROXIES` dengan IP proxy dari penyedia hosting (pisahkan beberapa IP dengan koma); jangan gunakan `*`. Pastikan proxy mengirim `X-Forwarded-Proto: https` untuk koneksi HTTPS. Aturan `.htaccess` memeriksa header tersebut agar koneksi HTTPS yang diteruskan ke backend HTTP tidak diarahkan berulang kali.
 
 ## 7. Verifikasi pemasangan
 
@@ -167,19 +172,22 @@ https://kaizenkreasi.com/sitemap.xml
 https://kaizenkreasi.com/admin
 https://kaizenkreasi.com/kontak
 https://kaizenkreasi.com/portofolio
+https://kaizenkreasi.com/alamat-yang-tidak-ada
 ```
 
 Contoh hasil yang benar:
 
 - Homepage berstatus HTTP 200.
 - Sitemap berisi URL domain `https://kaizenkreasi.com`.
+- URL `http://kaizenkreasi.com` dan `https://www.kaizenkreasi.com` dialihkan permanen ke HTTPS tanpa `www`.
+- Alamat yang tidak tersedia menghasilkan HTTP 404, bukan halaman sukses HTTP 200.
 - Tidak ada halaman Laravel yang menampilkan debug error.
 - Admin dapat login dengan `ADMIN_EMAIL` dan `ADMIN_PASSWORD`.
 - Upload gambar pada admin berhasil dan gambar dapat dibuka.
 
 ## 8. Checklist update aplikasi
 
-Untuk upload versi baru:
+Sebelum deploy, ekspor/backup database lewat phpMyAdmin dan backup `storage/app/public`. Pastikan backup berhasil sebelum melanjutkan. Setelah itu jalankan:
 
 ```bash
 php artisan down
@@ -187,17 +195,13 @@ composer install --no-dev --optimize-autoloader
 npm install
 npm run build
 php artisan migrate --force
-php artisan optimize
 php artisan storage:link
+php artisan optimize:clear
+php artisan optimize
 php artisan up
 ```
 
-Hapus cache hanya jika perubahan konfigurasi atau template tidak tampil:
-
-```bash
-php artisan optimize:clear
-php artisan optimize
-```
+Untuk membuat file WebP setelah backup file, gunakan `php artisan kaizen:optimize-images` bila hosting menyediakan PHP GD dengan dukungan WebP. Perintah ini mempertahankan file sumber; uji beberapa halaman dan gambar setelahnya.
 
 ## 9. Troubleshooting
 

@@ -56,10 +56,6 @@ class ProductResource extends Resource
                             ->placeholder('Contoh: Sound System Premium')
                             ->helperText('Jika kategori belum ada, masukkan nama baru di sini. Sistem akan membuat kategori otomatis.')
                             ->required(fn (Get $get) => blank($get('category_id'))),
-                        Forms\Components\TextInput::make('price')
-                            ->label('Harga')
-                            ->placeholder('Hubungi Kami')
-                            ->maxLength(255),
                         Forms\Components\Textarea::make('description')
                             ->label('Deskripsi')
                             ->rows(4)
@@ -139,9 +135,6 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Kategori')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->label('Harga')
-                    ->searchable(),
                 Tables\Columns\IconColumn::make('status')
                     ->label('Tampil')
                     ->boolean(),

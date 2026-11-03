@@ -4,29 +4,33 @@
     @php
         $seoTitle = trim($__env->yieldContent('title', config('company.name')));
         $seoDescription = trim($__env->yieldContent('meta_description', config('company.description')));
+        $companyName = config('company.name');
+        $seoDocumentTitle = trim($__env->yieldContent('meta_title', str_ends_with($seoTitle, $companyName)
+            ? $seoTitle
+            : $seoTitle . ' | ' . $companyName));
         $seoCanonicalUrl = rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/');
         $seoImage = trim($__env->yieldContent('meta_image', rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png'));
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $seoDescription }}">
-    <meta name="robots" content="{{ request()->query() ? 'noindex,follow' : 'index,follow' }}">
+    <meta name="robots" content="@yield('meta_robots', request()->query() ? 'noindex,follow' : 'index,follow')">
     <link rel="canonical" href="{{ $seoCanonicalUrl }}">
-    <title>{{ $seoTitle }} | {{ config('company.name') }}</title>
+    <title>{{ $seoDocumentTitle }}</title>
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:site_name" content="{{ config('company.name') }}">
-    <meta property="og:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta property="og:site_name" content="{{ $companyName }}">
+    <meta property="og:title" content="{{ $seoDocumentTitle }}">
     <meta property="og:description" content="{{ $seoDescription }}">
     <meta property="og:url" content="{{ $seoCanonicalUrl }}">
     <meta property="og:image" content="{{ $seoImage }}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $seoTitle }} | {{ config('company.name') }}">
+    <meta name="twitter:title" content="{{ $seoDocumentTitle }}">
     <meta name="twitter:description" content="{{ $seoDescription }}">
     <meta name="twitter:image" content="{{ $seoImage }}">
     <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
     <script type="application/ld+json">
         {!! json_encode([
-            '@context' => 'https://schema.org',
+            '@@context' => 'https://schema.org',
             '@type' => 'LocalBusiness',
             '@id' => rtrim(config('app.url'), '/') . '/#organization',
             'name' => config('company.name'),
@@ -49,6 +53,36 @@
                 config('company.youtube'),
                 config('company.tiktok'),
             ])),
+            'openingHoursSpecification' => [
+                [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                    'opens' => '08:00',
+                    'closes' => '17:00',
+                ],
+                [
+                    '@type' => 'OpeningHoursSpecification',
+                    'dayOfWeek' => 'Saturday',
+                    'opens' => '08:00',
+                    'closes' => '14:00',
+                ],
+            ],
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'telephone' => config('company.phone'),
+                'contactType' => 'customer service',
+                'availableLanguage' => 'Indonesian',
+                'description' => 'Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari.',
+                'hoursAvailable' => [
+                    [
+                        '@type' => 'OpeningHoursSpecification',
+                        'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        'opens' => '00:00',
+                        'closes' => '23:59',
+                    ],
+                ],
+            ],
+            'areaServed' => 'Jabodetabek',
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
     </script>
     @stack('structured_data')
@@ -205,7 +239,8 @@
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="" class="brand-logo">
+            <x-optimized-image src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia"
+                               width="48" height="48" loading="eager" class="brand-logo" />
             <span>{{ config('company.name') }}</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
@@ -256,7 +291,8 @@
         <div class="row g-4">
             <div class="col-lg-4">
                 <div class="footer-brand mb-2">
-                    <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="" class="brand-logo brand-logo-footer">
+                    <x-optimized-image src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia"
+                                       width="38" height="38" class="brand-logo brand-logo-footer" />
                     <span>{{ config('company.name') }}</span>
                 </div>
                 <p class="small">{{ config('company.description') }}</p>
@@ -285,8 +321,9 @@
                 </ul>
             </div>
             <div class="col-lg-3 col-6">
-                <h6 class="text-white fw-600 mb-3">Jam Operasional</h6>
+                <h6 class="text-white fw-600 mb-3">WhatsApp & Jam Kantor</h6>
                 <ul class="list-unstyled small">
+                    <li class="mb-1"><i class="bi bi-whatsapp me-1"></i> {{ config('company.hours.whatsapp') }}</li>
                     <li class="mb-1"><i class="bi bi-clock me-1"></i> {{ config('company.hours.weekday') }}</li>
                     <li class="mb-1"><i class="bi bi-clock me-1"></i> {{ config('company.hours.weekend') }}</li>
                     <li class="mb-1"><i class="bi bi-info-circle me-1"></i> {{ config('company.hours.holiday') }}</li>
@@ -299,7 +336,7 @@
                         <i class="bi bi-whatsapp me-2"></i>
                         <a href="https://wa.me/{{ config('company.whatsapp') }}" target="_blank" rel="noopener noreferrer">{{ config('company.phone') }}</a>
                     </li>
-                    <li class="mb-2"><i class="bi bi-envelope me-2"></i>{{ config('company.email') }}</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:{{ config('company.email') }}">{{ config('company.email') }}</a></li>
                     <li class="mb-2"><i class="bi bi-geo-alt me-2"></i><a href="{{ config('company.maps_url') }}" target="_blank" rel="noopener noreferrer">{{ config('company.address') }}</a></li>
                 </ul>
             </div>
@@ -349,6 +386,31 @@
             }
         });
     })();
+</script>
+<script>
+    document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        const link = target?.closest('a[href*="wa.me/"]');
+        if (!link) return;
+
+        const productName = link.dataset.productName
+            || link.closest('[data-product-name]')?.dataset.productName
+            || null;
+        const eventData = {
+            event: 'whatsapp_click',
+            page_source: window.location.pathname,
+            product_name: productName,
+        };
+
+        if (window.google_tag_manager && Array.isArray(window.dataLayer)) {
+            window.dataLayer.push(eventData);
+        } else if (typeof window.gtag === 'function') {
+            window.gtag('event', eventData.event, {
+                page_source: eventData.page_source,
+                product_name: eventData.product_name,
+            });
+        }
+    });
 </script>
 @stack('scripts')
 </body>

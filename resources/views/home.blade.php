@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Beranda')
-@section('meta_description', config('company.name') . ' menyediakan penyewaan perlengkapan dan produksi event profesional untuk pameran, wedding, konser, dan acara perusahaan. Hubungi tim kami untuk konsultasi.')
+@section('title', 'Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia')
+@section('meta_description', 'Sewa tenda, LED screen, genset, sound system dan perlengkapan event Jabodetabek. Antar-jemput tersedia, pengiriman luar kota. Minta penawaran via WhatsApp.')
 
 @section('content')
 
@@ -14,10 +14,11 @@
                     EVENT EQUIPMENT RENTAL
                 </span>
                 <h1 class="display-4 fw-700 lh-sm mb-3" style="color:#1a1a2e;">
-                    Bangun Event<br><span style="color:var(--primary);">Tanpa Batas</span><br>Bersama Kaizen
+                    Sewa Perlengkapan Event di Jabodetabek
                 </h1>
+                <h2 class="h4 fw-600 mb-3" style="color:var(--primary);">Bangun Event Tanpa Batas Bersama Kaizen</h2>
                 <p class="lead text-muted mb-4">
-                    {{ config('company.tagline') }}. Kami menyediakan equipment, tim profesional, dan solusi produksi untuk corporate event, pameran, wedding, konser, tournament, hingga festival skala besar.
+                    {{ config('company.tagline') }}. Katalog kami mencakup tenda, flooring, genset, LED screen, sound system, furniture, dan perlengkapan event lainnya. Sampaikan jenis acara serta kebutuhan Anda untuk memeriksa ketersediaan dan meminta penawaran.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="{{ route('products.index') }}" class="btn btn-primary-custom btn-lg">
@@ -29,25 +30,81 @@
                 </div>
 
                 <!-- Stats -->
+                @if(config('company.stats.events') || config('company.stats.clients') || config('company.stats.years'))
                 <div class="row g-3 mt-4">
+                    @if(config('company.stats.events'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.events') }}</div>
                         <div class="text-muted small">Event Sukses</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.clients'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.clients') }}</div>
                         <div class="text-muted small">Klien Puas</div>
                     </div>
+                    @endif
+                    @if(config('company.stats.years'))
                     <div class="col-4 text-center">
                         <div class="fw-700 fs-3" style="color:var(--primary);">{{ config('company.stats.years') }}</div>
                         <div class="text-muted small">Tahun Pengalaman</div>
                     </div>
+                    @endif
                 </div>
+                @endif
             </div>
             <div class="col-lg-6 text-center" data-aos="fade-left">
-                <img src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen" class="hero-logo">
+                <x-optimized-image src="{{ asset('images/kaizen-logo-color.png') }}" alt="Logo Kaizen Kreasi Indonesia"
+                                   width="512" height="512" loading="eager" fetchpriority="high" class="hero-logo" />
             </div>
         </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-7">
+                <h2 class="section-title">Perlengkapan Event untuk Beragam Kebutuhan</h2>
+                <p class="text-muted lh-lg">
+                    Kaizen Kreasi Indonesia menyediakan perlengkapan dan dukungan produksi untuk pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival. Pilihan katalog mencakup tenda, flooring dan karpet, LED screen, genset, sound system, lighting, panggung, furniture, partisi, toilet portable, perangkat komunikasi, serta kebutuhan produksi dan branding. Tim kami melayani kebutuhan acara di Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Untuk event skala besar di luar Jabodetabek, konsultasikan lokasi, jadwal, dan kebutuhan logistik melalui WhatsApp. Ketersediaan produk, kebutuhan instalasi, pengiriman, dan penawaran dikonfirmasi sesuai detail acara. Jelajahi kategori di samping untuk melihat produk yang tersedia dan kirimkan kebutuhan Anda agar tim kami dapat membantu menyiapkan penawaran yang sesuai.
+                </p>
+            </div>
+            <div class="col-lg-5">
+                <h2 class="h4 fw-700 mb-3">Area Layanan</h2>
+                <p class="text-muted">Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Pengiriman ke seluruh Indonesia dapat dikonsultasikan untuk event skala besar.</p>
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach($categories as $category)
+                    <a class="btn btn-sm btn-outline-secondary rounded-pill"
+                       href="{{ route('products.category', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5" style="background:var(--light-bg);">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="section-title">Cara Memesan Perlengkapan Event</h2>
+            <p class="section-subtitle">Minta penawaran sesuai kebutuhan acara Anda melalui WhatsApp.</p>
+        </div>
+        <ol class="row g-3 list-unstyled mb-0">
+            @foreach([
+                'Chat tim Kaizen melalui WhatsApp.',
+                'Sampaikan jenis perlengkapan, tanggal, lokasi, dan kebutuhan event.',
+                'Tim kami meninjau kebutuhan dan mengirimkan penawaran.',
+                'Konfirmasi pesanan dan koordinasikan pengiriman untuk acara Anda.',
+            ] as $step)
+            <li class="col-md-6 col-lg-3">
+                <div class="h-100 p-4 bg-white rounded-4 shadow-sm">
+                    <span class="badge rounded-pill mb-3" style="background:var(--primary);">{{ $loop->iteration }}</span>
+                    <p class="mb-0">{{ $step }}</p>
+                </div>
+            </li>
+            @endforeach
+        </ol>
     </div>
 </section>
 
@@ -58,12 +115,12 @@
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="section-title">Kategori Produk</h2>
             <div class="divider-pink mx-auto my-3"></div>
-            <p class="section-subtitle">Temukan perlengkapan pesta sesuai kebutuhan Anda</p>
+            <p class="section-subtitle">Temukan perlengkapan acara sesuai kebutuhan Anda</p>
         </div>
         <div class="row g-3 justify-content-center">
             @foreach($categories as $category)
             <div class="col-6 col-md-3 col-lg-2" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 50 }}">
-                <a href="{{ route('products.index', ['category' => $category->slug]) }}"
+                <a href="{{ route('products.category', ['slug' => $category->slug]) }}"
                    class="card category-card border-0 h-100 text-decoration-none shadow-sm">
                     <div class="category-card-icon" aria-hidden="true">
                         <i class="{{ \App\Support\CategoryIcon::classFor($category) }}"></i>
@@ -92,8 +149,8 @@
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                     <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex; align-items:center; justify-content:center;">
                         @if($product->thumbnail)
-                        <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}"
-                             style="width:100%; height:100%; object-fit:cover;">
+                        <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                           width="600" height="400" style="width:100%; height:100%; object-fit:cover;" />
                         @else
                         <div style="font-size:5rem;">🎁</div>
                         @endif
@@ -135,12 +192,12 @@
         <div class="row g-4">
             @php
             $reasons = [
-                ['icon' => '⭐', 'title' => 'Kualitas Terjamin', 'desc' => 'Semua produk kami dirawat dan dijaga kualitasnya agar acara Anda berjalan sempurna.'],
-                ['icon' => '💰', 'title' => 'Harga Terjangkau', 'desc' => 'Paket sewa fleksibel dan harga kompetitif, sesuai budget tanpa mengorbankan kualitas.'],
+                ['icon' => '⭐', 'title' => 'Katalog Perlengkapan', 'desc' => 'Lihat kategori dan detail perlengkapan yang tersedia di katalog.'],
+                ['icon' => '💬', 'title' => 'Penawaran Transparan', 'desc' => 'Dapatkan penawaran sesuai kebutuhan acara Anda langsung melalui WhatsApp.'],
                 ['icon' => '🚚', 'title' => 'Antar & Jemput', 'desc' => 'Layanan pengiriman dan pengambilan langsung ke lokasi acara Anda.'],
-                ['icon' => '📞', 'title' => 'Respon Cepat', 'desc' => 'Tim kami siap melayani 24 jam melalui WhatsApp untuk konsultasi dan pemesanan.'],
-                ['icon' => '✅', 'title' => 'Berpengalaman', 'desc' => 'Lebih dari ' . config('company.stats.years') . ' tahun melayani berbagai event dari skala kecil hingga besar.'],
-                ['icon' => '🎯', 'title' => 'One-Stop Solution', 'desc' => 'Dari dekorasi hingga sound system, semua tersedia di satu tempat.'],
+                ['icon' => '📞', 'title' => 'WhatsApp 24 Jam', 'desc' => 'Konsultasi dan pemesanan dapat disampaikan melalui WhatsApp setiap hari.'],
+                ['icon' => '✅', 'title' => 'Dukungan Kebutuhan Event', 'desc' => 'Konsultasikan perlengkapan dan kebutuhan produksi sesuai jenis acara Anda.'],
+                ['icon' => '🎯', 'title' => 'Pilihan Perlengkapan', 'desc' => 'Jelajahi berbagai kategori perlengkapan event dalam satu katalog.'],
             ]
             @endphp
             @foreach($reasons as $r)
@@ -172,10 +229,10 @@
             <div class="col-6 col-md-4" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 60 }}">
                 <a href="{{ route('portfolio.show', $portfolio) }}" class="d-block rounded-4 overflow-hidden position-relative" style="height:220px;">
                     @if($portfolio->thumbnail)
-                    <img src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="{{ $portfolio->title }}"
-                         style="width:100%; height:100%; object-fit:cover; transition: transform .3s;"
-                         onmouseover="this.style.transform='scale(1.05)'"
-                         onmouseout="this.style.transform=''">
+                    <x-optimized-image src="{{ asset('storage/' . $portfolio->thumbnail) }}" alt="Dokumentasi event: {{ $portfolio->title }}"
+                                       width="600" height="340" style="width:100%; height:100%; object-fit:cover; transition: transform .3s;"
+                                       onmouseover="this.style.transform='scale(1.05)'"
+                                       onmouseout="this.style.transform=''" />
                     @else
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#ffe4f5,#ffd4ee);display:flex;align-items:center;justify-content:center;font-size:4rem;">🎉</div>
                     @endif
@@ -217,7 +274,14 @@
                         </div>
                         <div>
                             <div class="fw-600 small">{{ $testimonial->client_name }}</div>
-                            <div class="text-muted" style="font-size:.75rem;">{{ $testimonial->company ?? 'Pelanggan' }}</div>
+                            @if($testimonial->event_type || $testimonial->rented_product || $testimonial->location || $testimonial->event_date)
+                            <div class="text-muted" style="font-size:.75rem;">
+                                @if($testimonial->event_type){{ $testimonial->event_type }}@endif
+                                @if($testimonial->rented_product){{ $testimonial->event_type ? ' · ' : '' }}{{ $testimonial->rented_product }}@endif
+                                @if($testimonial->location){{ ' · ' . $testimonial->location }}@endif
+                                @if($testimonial->event_date){{ ' · ' . $testimonial->event_date->format('d M Y') }}@endif
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -239,8 +303,9 @@
             @foreach($clients as $client)
             <div data-aos="zoom-in" data-aos-delay="{{ $loop->index * 40 }}" style="opacity:.7; transition: opacity .2s;"
                  onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='.7'">
-                @if($client->logo)
-                <img src="{{ asset('storage/' . $client->logo) }}" alt="{{ $client->name }}" style="height:48px; object-fit:contain; filter:grayscale(50%);">
+                @if($client->logo_path)
+                <x-optimized-image src="{{ $client->logo_url }}" alt="Logo {{ $client->name }}" width="180" height="48"
+                                   style="height:48px; object-fit:contain; filter:grayscale(50%);" />
                 @else
                 <span class="fw-600 text-muted">{{ $client->name }}</span>
                 @endif
@@ -265,13 +330,16 @@
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
                     <div style="height:180px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                         @if($post->thumbnail)
-                        <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ $post->thumbnail_url }}" alt="Gambar artikel: {{ $post->title }}"
+                                           width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                         @else
                         <div style="font-size:4rem;">📝</div>
                         @endif
                     </div>
                     <div class="card-body">
-                        <div class="text-muted small mb-2">{{ ($post->published_at ?? $post->created_at)->format('d M Y') }}</div>
+                        @if($post->published_at)
+                        <div class="text-muted small mb-2">{{ $post->published_at->format('d M Y') }}</div>
+                        @endif
                         <h6 class="fw-700 mb-2">{{ $post->title }}</h6>
                         <p class="text-muted small mb-3">{{ $post->excerpt }}</p>
                         <a href="{{ route('blog.show', $post) }}" class="btn btn-sm btn-outline-secondary rounded-pill">Baca Selengkapnya</a>

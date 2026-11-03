@@ -30,17 +30,17 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        $testimonials = Testimonial::where('is_active', true)
+        $testimonials = Testimonial::where('is_published', true)
             ->orderBy('order')
             ->take(6)
             ->get();
 
-        $clients = Client::where('is_active', true)
+        $clients = Client::where('is_published', true)
             ->orderBy('order')
             ->get();
 
         $latestPosts = BlogPost::published()
-            ->orderByDesc('published_at')
+            ->orderByRaw('COALESCE(published_at, created_at) DESC')
             ->take(3)
             ->get();
 

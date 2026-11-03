@@ -21,7 +21,7 @@ class KaizenImportProductsCommandTest extends TestCase
         $this->artisan('kaizen:import-products', ['--file' => 'produk-kaizen-kreasi.json'])
             ->assertSuccessful();
 
-        $this->assertTrue(Category::query()->where('slug', 'tenda')->exists());
+        $this->assertTrue(Category::query()->where('slug', 'tenda-flooring')->exists());
         $this->assertTrue(Product::query()->where('slug', 'tenda-roder')->exists());
         $this->assertDatabaseHas('products', [
             'name' => 'Tenda Roder',
@@ -42,12 +42,26 @@ class KaizenImportProductsCommandTest extends TestCase
     public function test_production_bootstrap_imports_only_the_kaizen_catalog_and_is_idempotent(): void
     {
         Storage::fake('public');
-
         $this->artisan('kaizen:production-startup')->assertSuccessful();
 
-        $this->assertSame(49, Product::query()->count());
-        $this->assertSame(12, Category::query()->count());
-        $this->assertSame(3, BlogPost::query()->count());
+        $this->assertSame(5, Product::query()->whereIn('slug', [
+            'genset-150-kva',
+            'genset-100-kva',
+            'genset-80-kva',
+            'genset-60-kva',
+            'genset-5000-watt',
+        ])->where('status', true)->count());
+        $this->assertSame(3, Product::query()->whereIn('slug', [
+            'smart-tv-75-inch',
+            'smart-tv-65-inch',
+            'smart-tv-55-inch',
+        ])->where('status', true)->count());
+        $this->assertSame(3, Product::query()->whereIn('slug', [
+            'processor-novastar-vx16s',
+            'processor-novastar-vx600',
+            'processor-novastar-vx400',
+        ])->where('status', true)->count());
+        $this->assertSame(4, BlogPost::query()->count());
         $this->assertSame(21, Portfolio::query()->count());
         $this->assertSame(0, Product::query()->where('status', false)->count());
         $this->assertSame(0, Product::query()->whereNotNull('price')->count());
@@ -57,12 +71,18 @@ class KaizenImportProductsCommandTest extends TestCase
             'price' => null,
             'thumbnail' => 'products/grand-stand.jpg',
         ]);
+        $this->assertDatabaseHas('products', ['slug' => 'genset-150-kva', 'status' => true]);
+        $this->assertDatabaseHas('products', ['slug' => 'genset-5000-watt', 'status' => true]);
+        $this->assertDatabaseHas('products', ['slug' => 'smart-tv-75-inch', 'status' => true]);
+        $this->assertDatabaseHas('products', ['slug' => 'processor-novastar-vx16s', 'status' => true]);
 
+        $productCount = Product::query()->count();
+        $categoryCount = Category::query()->count();
         $this->artisan('kaizen:production-startup')->assertSuccessful();
 
-        $this->assertSame(49, Product::query()->count());
-        $this->assertSame(12, Category::query()->count());
-        $this->assertSame(3, BlogPost::query()->count());
+        $this->assertSame($productCount, Product::query()->count());
+        $this->assertSame($categoryCount, Category::query()->count());
+        $this->assertSame(4, BlogPost::query()->count());
         $this->assertSame(21, Portfolio::query()->count());
 
         $product = Product::query()->firstOrFail();
@@ -83,14 +103,20 @@ class KaizenImportProductsCommandTest extends TestCase
             '--manifest' => 'storage/framework/testing/missing-photo-manifest.json',
         ])->assertSuccessful();
 
-        $this->assertSame(49, Product::query()->count());
-        $this->assertSame(12, Category::query()->count());
+        $this->assertSame(5, Product::query()->whereIn('slug', [
+            'genset-150-kva',
+            'genset-100-kva',
+            'genset-80-kva',
+            'genset-60-kva',
+            'genset-5000-watt',
+        ])->where('status', true)->count());
     }
 
-    public function test_production_startup_consolidates_legacy_genset_products_into_one_photo_item(): void
+    public function test_production_startup_preserves_legacy_genset_variants_and_reuses_the_hub_photo(): void
     {
         Storage::fake('public');
         Storage::disk('public')->put('products/genset-photo.jpg', 'genset-photo');
+        Storage::disk('public')->put('products/duplicate-gallery-photo.jpg', 'gallery-photo');
 
         $category = Category::create([
             'name' => 'Genset',
@@ -131,13 +157,14 @@ class KaizenImportProductsCommandTest extends TestCase
 
         $this->artisan('kaizen:production-startup')->assertSuccessful();
 
-        $combinedSlug = 'genset-kapasitas-150-kva-100-kva-80-kva-60-kva-dan-5000-watt';
-        $product = Product::query()->where('slug', $combinedSlug)->firstOrFail();
+        $product = Product::query()->where('slug', 'genset-berbagai-kapasitas')->firstOrFail();
 
-        $this->assertSame('Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt', $product->name);
+        $this->assertSame('Genset Berbagai Kapasitas', $product->name);
         $this->assertSame('products/genset-photo.jpg', $product->thumbnail);
-        $this->assertSame(1, Product::query()->where('category_id', $category->id)->count());
-        $this->assertSame(0, $product->images()->count());
+        $this->assertSame(6, Product::query()->where('category_id', $category->id)->count());
+        $this->assertSame(1, $product->images()->where('image_path', 'products/duplicate-gallery-photo.jpg')->count());
+        $this->assertDatabaseHas('products', ['slug' => 'genset-150-kva', 'status' => true]);
+        $this->assertDatabaseHas('products', ['slug' => 'genset-5000-watt', 'status' => true]);
     }
 
     public function test_startup_adds_exactly_eleven_photo_products_to_existing_catalog_without_sample_seed_data(): void
@@ -158,14 +185,11 @@ class KaizenImportProductsCommandTest extends TestCase
                 ->assertSuccessful();
 
             $this->assertSame(47, Product::query()->count());
-            $this->assertSame(11, Category::query()->count());
 
             $this->artisan('kaizen:production-startup')->assertSuccessful();
 
-            $this->assertSame(49, Product::query()->count());
-            $this->assertSame(12, Category::query()->count());
             $newPhotoProductSlugs = [
-                'processor-novastar-vx16s-vx600-vx400',
+                'processor-novastar',
                 'grandstand',
                 'ringlock-system',
                 'q-line',
@@ -206,8 +230,7 @@ class KaizenImportProductsCommandTest extends TestCase
 
             $this->artisan('kaizen:production-startup')->assertSuccessful();
 
-            $this->assertSame(49, Product::query()->count());
-            $this->assertSame(12, Category::query()->count());
+            $this->assertSame(11, Product::query()->whereIn('slug', $newPhotoProductSlugs)->count());
             $this->assertSame(43, Product::query()->whereNotNull('thumbnail')->count());
             $this->assertSame(3, ProductImage::query()->count());
             $this->assertCount(40, Storage::disk('public')->allFiles('products'));

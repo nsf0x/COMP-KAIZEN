@@ -65,10 +65,45 @@
     },
     {
       "category": "Genset",
-      "name": "Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt",
+      "name": "Genset Berbagai Kapasitas",
       "unit": "per unit",
       "description": "Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.",
       "sort_order": 12
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 150 KVA",
+      "unit": "per unit",
+      "description": "Genset kapasitas 150 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.",
+      "sort_order": 13
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 100 KVA",
+      "unit": "per unit",
+      "description": "Genset kapasitas 100 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.",
+      "sort_order": 14
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 80 KVA",
+      "unit": "per unit",
+      "description": "Genset kapasitas 80 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.",
+      "sort_order": 15
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 60 KVA",
+      "unit": "per unit",
+      "description": "Genset kapasitas 60 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.",
+      "sort_order": 16
+    },
+    {
+      "category": "Genset",
+      "name": "Genset 5000 Watt",
+      "unit": "per unit",
+      "description": "Genset kapasitas 5000 watt. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.",
+      "sort_order": 17
     },
     {
       "category": "LED Screen",
@@ -128,10 +163,31 @@
     },
     {
       "category": "Smart TV",
-      "name": "Smart TV 75 Inch, 65 Inch, dan 55 Inch",
+      "name": "Smart TV Berbagai Ukuran",
       "unit": "per unit",
       "description": "Sudah termasuk kabel power 15m dan kabel HDMI 20m.",
       "sort_order": 27
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 75 Inch",
+      "unit": "per unit",
+      "description": "Smart TV ukuran 75 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 28
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 65 Inch",
+      "unit": "per unit",
+      "description": "Smart TV ukuran 65 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 29
+    },
+    {
+      "category": "Smart TV",
+      "name": "Smart TV 55 Inch",
+      "unit": "per unit",
+      "description": "Smart TV ukuran 55 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.",
+      "sort_order": 30
     },
     {
       "category": "Sound System, Lighting & Pendingin",
@@ -268,10 +324,31 @@
     },
     {
       "category": "LED Screen",
-      "name": "Processor Novastar VX16S, VX600, VX400",
+      "name": "Processor Novastar",
       "unit": "",
       "description": "Video processor profesional untuk pengelolaan tampilan LED screen.",
       "sort_order": 52
+    },
+    {
+      "category": "LED Screen",
+      "name": "Processor Novastar VX16S",
+      "unit": "",
+      "description": "Video processor Novastar VX16S untuk pengelolaan tampilan LED screen.",
+      "sort_order": 53
+    },
+    {
+      "category": "LED Screen",
+      "name": "Processor Novastar VX600",
+      "unit": "",
+      "description": "Video processor Novastar VX600 untuk pengelolaan tampilan LED screen.",
+      "sort_order": 54
+    },
+    {
+      "category": "LED Screen",
+      "name": "Processor Novastar VX400",
+      "unit": "",
+      "description": "Video processor Novastar VX400 untuk pengelolaan tampilan LED screen.",
+      "sort_order": 55
     },
     {
       "category": "Stage & Backdrop",

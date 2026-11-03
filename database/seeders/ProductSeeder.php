@@ -21,8 +21,20 @@ class ProductSeeder extends Seeder
             ['category' => 'led-screen-processor', 'name' => 'LED Screen P2.6 Indoor dan Outdoor', 'description' => 'LED screen dengan pilihan indoor, outdoor, curve, dan straight untuk panggung maupun branding.', 'featured' => true],
             ['category' => 'led-screen-processor', 'name' => 'LED Screen P3.9 Indoor dan Outdoor', 'description' => 'LED screen modular untuk konser, exhibition, corporate event, dan wedding.', 'featured' => true],
             ['category' => 'led-screen-processor', 'name' => 'LED Cube P2.5 48x48cm', 'description' => 'LED cube modular untuk instalasi visual kreatif dan kebutuhan event experience.', 'featured' => false],
-            ['category' => 'led-screen-processor', 'name' => 'Processor Novastar VX16S, VX600, VX400', 'description' => 'Video processor profesional untuk pengelolaan tampilan LED screen.', 'featured' => false],
-            ['category' => 'genset-power', 'name' => 'Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt', 'description' => 'Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt.', 'featured' => true],
+            ['category' => 'led-screen-processor', 'name' => 'Processor Novastar', 'description' => 'Video processor profesional untuk pengelolaan tampilan LED screen.', 'featured' => true],
+            ['category' => 'led-screen-processor', 'name' => 'Processor Novastar VX16S', 'description' => 'Video processor Novastar VX16S untuk pengelolaan tampilan LED screen.', 'featured' => false],
+            ['category' => 'led-screen-processor', 'name' => 'Processor Novastar VX600', 'description' => 'Video processor Novastar VX600 untuk pengelolaan tampilan LED screen.', 'featured' => false],
+            ['category' => 'led-screen-processor', 'name' => 'Processor Novastar VX400', 'description' => 'Video processor Novastar VX400 untuk pengelolaan tampilan LED screen.', 'featured' => false],
+            ['category' => 'genset-power', 'name' => 'Genset Berbagai Kapasitas', 'description' => 'Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt.', 'featured' => true],
+            ['category' => 'genset-power', 'name' => 'Genset 150 KVA', 'description' => 'Genset kapasitas 150 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.', 'featured' => false],
+            ['category' => 'genset-power', 'name' => 'Genset 100 KVA', 'description' => 'Genset kapasitas 100 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.', 'featured' => false],
+            ['category' => 'genset-power', 'name' => 'Genset 80 KVA', 'description' => 'Genset kapasitas 80 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.', 'featured' => false],
+            ['category' => 'genset-power', 'name' => 'Genset 60 KVA', 'description' => 'Genset kapasitas 60 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.', 'featured' => false],
+            ['category' => 'genset-power', 'name' => 'Genset 5000 Watt', 'description' => 'Genset kapasitas 5000 watt. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.', 'featured' => false],
+            ['category' => 'smart-tv', 'name' => 'Smart TV Berbagai Ukuran', 'description' => 'Smart TV ukuran 75 inch, 65 inch, dan 55 inch. Sudah termasuk kabel power 15m dan kabel HDMI 20m.', 'featured' => true],
+            ['category' => 'smart-tv', 'name' => 'Smart TV 75 Inch', 'description' => 'Smart TV ukuran 75 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.', 'featured' => false],
+            ['category' => 'smart-tv', 'name' => 'Smart TV 65 Inch', 'description' => 'Smart TV ukuran 65 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.', 'featured' => false],
+            ['category' => 'smart-tv', 'name' => 'Smart TV 55 Inch', 'description' => 'Smart TV ukuran 55 inch, sudah termasuk kabel power 15m dan kabel HDMI 20m.', 'featured' => false],
             ['category' => 'sound-system', 'name' => 'Sound System Event', 'description' => 'Sistem tata suara profesional untuk seminar, konser, golf tournament, dan corporate event.', 'featured' => true],
             ['category' => 'lighting-stage', 'name' => 'Lighting System', 'description' => 'Pencahayaan panggung dan area event untuk menghasilkan suasana serta visual yang maksimal.', 'featured' => true],
             ['category' => 'lighting-stage', 'name' => 'Stage dan Rigging', 'description' => 'Panggung, grand stand, dan struktur rigging untuk event skala kecil hingga besar.', 'featured' => true],
@@ -32,10 +44,22 @@ class ProductSeeder extends Seeder
             ['category' => 'event-support', 'name' => 'HT Baofeng', 'description' => 'Radio komunikasi untuk koordinasi tim selama persiapan dan pelaksanaan event.', 'featured' => false],
         ];
 
+        Category::firstOrCreate(
+            ['slug' => 'smart-tv'],
+            [
+                'name' => 'Smart TV',
+                'type' => 'produk',
+                'icon' => 'tv',
+                'description' => null,
+                'order' => (Category::max('order') ?? 0) + 1,
+                'is_active' => true,
+            ],
+        );
+
         foreach ($products as $order => $data) {
             $category = Category::where('slug', $data['category'])->first();
 
-            if (!$category) {
+            if (! $category) {
                 continue;
             }
 
@@ -48,7 +72,7 @@ class ProductSeeder extends Seeder
                     'name' => $data['name'],
                     'description' => $data['description'],
                     'specification' => null,
-                    'price' => 'Hubungi Kami',
+                    'price' => null,
                     'is_featured' => $data['featured'],
                     'status' => true,
                     'order' => $order + 1,

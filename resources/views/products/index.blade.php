@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Semua Produk')
-@section('meta_description', 'Sewa perlengkapan event dari ' . config('company.name') . ': tenda, panggung, sound system, kursi, dan kebutuhan acara lainnya. Konsultasi dan pemesanan untuk area ' . config('company.city') . ' dan seluruh Indonesia.')
+@section('title', 'Sewa Perlengkapan Event Jabodetabek')
+@section('meta_description', 'Katalog perlengkapan event dari ' . config('company.name') . ' untuk area Jabodetabek. Pengiriman luar kota untuk event skala besar dapat dikonsultasikan via WhatsApp.')
+
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Produk', 'url' => route('products.index', [], true)],
+    ]])
+@endpush
 
 @section('content')
 
@@ -89,12 +96,13 @@
             <div class="row g-4">
                 @foreach($products as $product)
                 <div class="col-sm-6 col-xl-4">
-                    <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden; transition: transform .2s, box-shadow .2s;"
+                    <div class="card border-0 shadow-sm h-100" data-product-name="{{ $product->name }}" style="border-radius:16px; overflow:hidden; transition: transform .2s, box-shadow .2s;"
                          onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 15px 40px rgba(233,30,140,0.15)'"
                          onmouseout="this.style.transform='';this.style.boxShadow=''">
                         <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
                             @if($product->thumbnail)
-                            <img src="{{ $product->thumbnail_url }}" alt="{{ $product->name }}" style="width:100%;height:100%;object-fit:cover;">
+                            <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
+                                               width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                             @else
                             <div style="font-size:5rem;">🎁</div>
                             @endif

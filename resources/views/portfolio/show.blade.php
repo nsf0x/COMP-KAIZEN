@@ -4,6 +4,14 @@
 @section('meta_description', Str::limit(trim(strip_tags($portfolio->description ?: ('Dokumentasi event ' . $portfolio->title . ' yang ditangani oleh ' . config('company.name') . '.'))), 160))
 @section('meta_image', $portfolio->thumbnail ? $portfolio->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Event Portofolio', 'url' => route('portfolio.index', [], true)],
+        ['name' => $portfolio->title, 'url' => route('portfolio.show', $portfolio, true)],
+    ]])
+@endpush
+
 @push('styles')
 <style>
     .portfolio-related-heading { color: #25283a; }
@@ -39,8 +47,8 @@
 
             @if(count($galleryImages) === 1)
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm">
-                <img src="{{ asset('storage/' . $galleryImages[0]) }}" alt="{{ $portfolio->title }}"
-                     style="width:100%; max-height:450px; object-fit:cover;">
+                <x-optimized-image src="{{ asset('storage/' . $galleryImages[0]) }}" alt="Dokumentasi event: {{ $portfolio->title }}"
+                                   width="900" height="600" loading="eager" style="width:100%; max-height:450px; object-fit:cover;" />
             </div>
             @elseif(count($galleryImages) > 1)
             <div id="portfolio-gallery-{{ $portfolio->id }}" class="carousel slide rounded-4 overflow-hidden mb-4 shadow-sm"
@@ -55,8 +63,9 @@
                 <div class="carousel-inner">
                     @foreach($galleryImages as $index => $image)
                     <div class="carousel-item @if($index === 0) active @endif">
-                        <img src="{{ asset('storage/' . $image) }}" alt="{{ $portfolio->title }} - foto {{ $index + 1 }}"
-                             style="width:100%; height:450px; object-fit:cover;">
+                        <x-optimized-image src="{{ asset('storage/' . $image) }}" alt="Dokumentasi event {{ $portfolio->title }} nomor {{ $index + 1 }}"
+                                           width="900" height="600" @if($index === 0) loading="eager" @endif
+                                           style="width:100%; height:450px; object-fit:cover;" />
                     </div>
                     @endforeach
                 </div>
@@ -148,7 +157,8 @@
             <a href="{{ route('portfolio.show', $item) }}" class="portfolio-related-link d-flex align-items-center gap-3 text-decoration-none mb-3 p-2 rounded-3">
                 <div style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;background:#ffeef9;display:flex;align-items:center;justify-content:center;">
                     @if($item->thumbnail)
-                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" style="width:100%;height:100%;object-fit:cover;">
+                    <x-optimized-image src="{{ asset('storage/' . $item->thumbnail) }}" alt="Dokumentasi event: {{ $item->title }}"
+                                       width="160" height="160" style="width:100%;height:100%;object-fit:cover;" />
                     @else
                     <div style="font-size:2rem;">🎉</div>
                     @endif

@@ -6,19 +6,24 @@
 @section('og_type', 'article')
 
 @push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Blog', 'url' => route('blog.index', [], true)],
+        ['name' => $blogPost->title, 'url' => route('blog.show', $blogPost, true)],
+    ]])
 <script type="application/ld+json">
     {!! json_encode(array_filter([
-        '@context' => 'https://schema.org',
+        '@@context' => 'https://schema.org',
         '@type' => 'BlogPosting',
         'headline' => $blogPost->title,
         'description' => $blogPost->meta_description ?? $blogPost->excerpt,
         'image' => $blogPost->thumbnail ? $blogPost->thumbnail_url : null,
-        'datePublished' => ($blogPost->published_at ?? $blogPost->created_at)->toAtomString(),
+        'datePublished' => $blogPost->published_at?->toAtomString(),
         'dateModified' => $blogPost->updated_at->toAtomString(),
-        'author' => [
+        'author' => filled($blogPost->author) && strtolower($blogPost->author) !== 'admin' ? [
             '@type' => 'Person',
-            'name' => $blogPost->author ?? 'Admin',
-        ],
+            'name' => $blogPost->author,
+        ] : null,
         'publisher' => [
             '@type' => 'Organization',
             'name' => config('company.name'),
@@ -46,20 +51,38 @@
 
             @if($blogPost->thumbnail)
             <div class="rounded-4 overflow-hidden mb-4 shadow-sm" style="max-height:420px;">
-                <img src="{{ $blogPost->thumbnail_url }}" alt="{{ $blogPost->title }}"
-                     style="width:100%; height:420px; object-fit:cover;">
+                <x-optimized-image src="{{ $blogPost->thumbnail_url }}" alt="Gambar artikel: {{ $blogPost->title }}"
+                                   width="840" height="560" loading="eager" style="width:100%; height:420px; object-fit:cover;" />
             </div>
             @endif
 
             <h1 class="fw-700 fs-2 mb-3">{{ $blogPost->title }}</h1>
             <div class="d-flex align-items-center gap-3 text-muted small mb-4">
-                <span><i class="bi bi-calendar3 me-1"></i>{{ ($blogPost->published_at ?? $blogPost->created_at)->format('d F Y') }}</span>
-                <span><i class="bi bi-person me-1"></i>{{ $blogPost->author ?? 'Admin' }}</span>
+                @if($blogPost->published_at)
+                <span><i class="bi bi-calendar3 me-1"></i>{{ $blogPost->published_at->format('d F Y') }}</span>
+                @endif
+                @if(filled($blogPost->author) && strtolower($blogPost->author) !== 'admin')
+                <span><i class="bi bi-person me-1"></i>{{ $blogPost->author }}</span>
+                @endif
             </div>
 
             <div class="prose lh-lg text-muted" style="font-size:1.05rem;">
                 {!! nl2br(e($blogPost->content)) !!}
             </div>
+
+            @if($relatedCategories->isNotEmpty() || $relatedProducts->isNotEmpty())
+            <section class="mt-5" aria-labelledby="related-catalog-heading">
+                <h2 id="related-catalog-heading" class="h5 fw-700 mb-3">Kategori dan produk terkait</h2>
+                <ul class="list-unstyled">
+                    @foreach($relatedCategories as $category)
+                    <li class="mb-2"><a href="{{ route('products.category', ['slug' => $category->slug]) }}">Kategori {{ $category->name }}</a></li>
+                    @endforeach
+                    @foreach($relatedProducts as $product)
+                    <li class="mb-2"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></li>
+                    @endforeach
+                </ul>
+            </section>
+            @endif
 
             @php
                 $galleryImages = [];
@@ -76,7 +99,8 @@
                 @foreach($galleryImages as $img)
                 <div class="col-6 col-md-4">
                     <div class="rounded-3 overflow-hidden" style="height:180px;">
-                        <img src="{{ asset('storage/' . $img) }}" alt="Gallery" style="width:100%;height:100%;object-fit:cover;">
+                        <x-optimized-image src="{{ asset('storage/' . $img) }}" alt="Galeri artikel {{ $blogPost->title }} nomor {{ $loop->iteration }}"
+                                           width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                     </div>
                 </div>
                 @endforeach
@@ -124,14 +148,17 @@
                onmouseover="this.style.background='#ffe4f5'" onmouseout="this.style.background='#fdf6fb'">
                 <div style="width:64px;height:64px;border-radius:12px;overflow:hidden;flex-shrink:0;background:#ffeef9;display:flex;align-items:center;justify-content:center;">
                     @if($item->thumbnail)
-                    <img src="{{ $item->thumbnail_url }}" alt="{{ $item->title }}" style="width:100%;height:100%;object-fit:cover;">
+                    <x-optimized-image src="{{ $item->thumbnail_url }}" alt="Gambar artikel: {{ $item->title }}"
+                                       width="160" height="160" style="width:100%;height:100%;object-fit:cover;" />
                     @else
                     <div style="font-size:2rem;">📝</div>
                     @endif
                 </div>
                 <div>
                     <div class="fw-600 small">{{ Str::limit($item->title, 50) }}</div>
-                    <div class="text-muted" style="font-size:.75rem;">{{ ($item->published_at ?? $item->created_at)->format('d M Y') }}</div>
+                    @if($item->published_at)
+                    <div class="text-muted" style="font-size:.75rem;">{{ $item->published_at->format('d M Y') }}</div>
+                    @endif
                 </div>
             </a>
             @endforeach

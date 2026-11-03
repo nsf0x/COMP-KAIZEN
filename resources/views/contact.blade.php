@@ -3,6 +3,13 @@
 @section('title', 'Kontak Kami')
 @section('meta_description', 'Hubungi ' . config('company.name') . ' di ' . config('company.city') . ' untuk konsultasi dan pemesanan perlengkapan event, wedding, pameran, dan acara perusahaan.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Kontak', 'url' => route('contact', [], true)],
+    ]])
+@endpush
+
 @section('content')
 <div class="container py-5">
     <div class="text-center mb-5" data-aos="fade-up">
@@ -51,7 +58,9 @@
                 <div class="d-flex align-items-start gap-3 mb-4">
                     <div style="width:48px;height:48px;border-radius:12px;background:#ffe4f5;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;">🕐</div>
                     <div>
-                        <div class="fw-600 small mb-1">Jam Operasional</div>
+                        <div class="fw-600 small mb-1">Konsultasi & pemesanan</div>
+                        <div class="text-muted small">{{ config('company.hours.whatsapp') }}</div>
+                        <div class="fw-600 small mt-2 mb-1">Jam kantor</div>
                         <div class="text-muted small">{{ config('company.hours.weekday') }}</div>
                         <div class="text-muted small">{{ config('company.hours.weekend') }}</div>
                         <div class="text-muted small">{{ config('company.hours.holiday') }}</div>

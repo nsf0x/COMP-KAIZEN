@@ -3,6 +3,13 @@
 @section('title', 'Syarat Layanan')
 @section('meta_description', 'Syarat layanan penggunaan jasa ' . config('company.name') . '.')
 
+@push('structured_data')
+    @include('partials.seo.breadcrumb-schema', ['items' => [
+        ['name' => 'Beranda', 'url' => route('home', [], true)],
+        ['name' => 'Syarat Layanan', 'url' => route('terms', [], true)],
+    ]])
+@endpush
+
 @section('content')
 <section class="py-5">
     <div class="container" style="max-width:860px;">

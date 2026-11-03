@@ -10,6 +10,25 @@ class ContactMessageTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_contact_details_link_to_phone_whatsapp_and_email(): void
+    {
+        config([
+            'company.phone' => '0811-1305-1007',
+            'company.whatsapp' => '6281113051007',
+            'company.email' => 'kaizenkreasi@gmail.com',
+        ]);
+
+        $this->get(route('contact'))
+            ->assertOk()
+            ->assertSee('href="tel:081113051007"', false)
+            ->assertSee('href="https://wa.me/6281113051007"', false)
+            ->assertSee('href="mailto:kaizenkreasi@gmail.com"', false);
+
+        $this->get(route('privacy'))
+            ->assertOk()
+            ->assertSee('href="mailto:kaizenkreasi@gmail.com"', false);
+    }
+
     public function test_contact_form_saves_a_message_without_an_email_address(): void
     {
         $response = $this->post(route('contact.store'), [

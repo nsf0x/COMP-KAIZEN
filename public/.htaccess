@@ -5,6 +5,14 @@
 
     RewriteEngine On
 
+    RewriteCond %{HTTP_HOST} ^www\.kaizenkreasi\.com$ [NC]
+    RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L,NE]
+
+    RewriteCond %{HTTP_HOST} ^kaizenkreasi\.com$ [NC]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteRule ^ https://kaizenkreasi.com%{REQUEST_URI} [R=301,L,NE]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
