@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->filled('category') && !$request->filled('search')) {
+        if ($request->filled('category') && ! $request->filled('search')) {
             $category = $this->findAvailableCategory((string) $request->query('category'));
 
             if ($category) {
@@ -49,7 +49,7 @@ class ProductController extends Controller
         }
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where('name', 'like', '%'.$request->search.'%');
         }
 
         $products = $query->orderBy('order')->paginate(12)->withQueryString();
@@ -63,7 +63,7 @@ class ProductController extends Controller
     {
         $category = $this->findAvailableCategory($legacySlug);
 
-        if (!$category) {
+        if (! $category) {
             abort(404);
         }
 
@@ -74,7 +74,7 @@ class ProductController extends Controller
     {
         $category = $this->findAvailableCategory($slug);
 
-        if (!$category) {
+        if (! $category) {
             abort(404);
         }
 
@@ -100,7 +100,7 @@ class ProductController extends Controller
             ->where('slug', $canonicalSlug)
             ->first();
 
-        if (!$category && $canonicalSlug !== $slug) {
+        if (! $category && $canonicalSlug !== $slug) {
             $category = Category::availableForCatalog()->where('slug', $slug)->first();
         }
 
@@ -109,7 +109,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        if (!$product->status) {
+        if (! $product->status) {
             abort(404);
         }
 
@@ -122,6 +122,32 @@ class ProductController extends Controller
             ->take(4)
             ->get();
 
-        return view('products.show', compact('product', 'related'));
+        $variantSlugs = match ($product->slug) {
+            'genset-berbagai-kapasitas' => [
+                'genset-150-kva',
+                'genset-100-kva',
+                'genset-80-kva',
+                'genset-60-kva',
+                'genset-5000-watt',
+            ],
+            'smart-tv-berbagai-ukuran' => [
+                'smart-tv-75-inch',
+                'smart-tv-65-inch',
+                'smart-tv-55-inch',
+            ],
+            'processor-novastar' => [
+                'processor-novastar-vx16s',
+                'processor-novastar-vx600',
+                'processor-novastar-vx400',
+            ],
+            default => [],
+        };
+        $variants = Product::query()
+            ->whereIn('slug', $variantSlugs)
+            ->where('status', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('products.show', compact('product', 'related', 'variants'));
     }
 }

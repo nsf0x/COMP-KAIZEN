@@ -12,7 +12,7 @@ class ConsolidateKaizenCatalogCommandTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_it_removes_and_merges_requested_catalog_products(): void
+    public function test_it_preserves_smart_tv_variants_while_applying_other_catalog_consolidations(): void
     {
         $category = Category::create([
             'name' => 'Catalog',
@@ -65,24 +65,24 @@ class ConsolidateKaizenCatalogCommandTest extends TestCase
             'name' => 'Flooring',
         ]);
         $this->assertDatabaseHas('products', [
-            'slug' => 'smart-tv-75-inch-65-inch-dan-55-inch',
-            'name' => 'Smart TV 75 Inch, 65 Inch, dan 55 Inch',
-        ]);
-        $this->assertDatabaseHas('products', [
             'slug' => 'partisi-r8',
             'name' => 'Partisi R8',
         ]);
-        $this->assertSame(3, ProductImage::query()->where('product_id', Product::query()->where('slug', 'smart-tv-75-inch-65-inch-dan-55-inch')->value('id'))->count());
         $this->assertSame(4, ProductImage::query()->where('product_id', Product::query()->where('slug', 'partisi-r8')->value('id'))->count());
-        $this->assertSame(1, Product::query()->where('slug', 'smart-tv-75-inch-65-inch-dan-55-inch')->count());
+        $this->assertSame(3, Product::query()->whereIn('slug', [
+            'smart-tv-75-inch',
+            'smart-tv-65-inch',
+            'smart-tv-55-inch',
+        ])->count());
+        $this->assertSame(3, ProductImage::query()->whereIn('product_id', Product::query()
+            ->whereIn('slug', ['smart-tv-75-inch', 'smart-tv-65-inch', 'smart-tv-55-inch'])
+            ->select('id'))
+            ->count());
         $this->assertSame(0, Product::query()->whereIn('slug', [
             'tenda-sarnafil-flooring-karpet-layak-3x3m',
             'tenda-sarnafil-flooring-karpet-layak-5x5m',
             'led-screen-p26-curve-outdoor',
             'operator-led-biasa',
-            'smart-tv-75-inch',
-            'smart-tv-65-inch',
-            'smart-tv-55-inch',
             'partisi-r8-ruang-2-x-2m',
             'partisi-r8-ruang-2-x-3m',
             'partisi-r8-ruang-3-x-3m',
@@ -91,8 +91,11 @@ class ConsolidateKaizenCatalogCommandTest extends TestCase
 
         $this->artisan('kaizen:consolidate-catalog')->assertSuccessful();
 
-        $this->assertSame(1, Product::query()->where('slug', 'smart-tv-75-inch-65-inch-dan-55-inch')->count());
-        $this->assertSame(3, ProductImage::query()->where('product_id', Product::query()->where('slug', 'smart-tv-75-inch-65-inch-dan-55-inch')->value('id'))->count());
+        $this->assertSame(3, Product::query()->whereIn('slug', [
+            'smart-tv-75-inch',
+            'smart-tv-65-inch',
+            'smart-tv-55-inch',
+        ])->count());
         $this->assertSame(4, ProductImage::query()->where('product_id', Product::query()->where('slug', 'partisi-r8')->value('id'))->count());
     }
 }

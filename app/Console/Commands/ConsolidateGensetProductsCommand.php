@@ -12,61 +12,72 @@ class ConsolidateGensetProductsCommand extends Command
 {
     protected $signature = 'kaizen:consolidate-genset';
 
-    protected $description = 'Consolidate legacy genset products into the combined catalog item';
+    protected $description = 'Ensure the genset hub and capacity variants exist without deleting catalog records';
 
     public function handle(): int
     {
-        $name = 'Genset Kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 Watt';
-        $slug = Str::slug($name);
-        $description = 'Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.';
-        $legacySlugs = [
-            'genset-150-kva',
-            'genset-100-kva',
-            'genset-80-kva',
-            'genset-60-kva',
-            'genset-5000-watt',
-            'genset-5000-watt-sampai-150-kva',
-            $slug,
-        ];
+        DB::transaction(function (): void {
+            $category = Category::query()
+                ->whereIn('slug', ['genset', 'genset-power'])
+                ->orderByRaw("CASE WHEN slug = 'genset' THEN 0 ELSE 1 END")
+                ->first();
 
-        DB::transaction(function () use ($description, $legacySlugs, $name, $slug): void {
-            $products = Product::query()->whereIn('slug', $legacySlugs)->orderBy('order')->get();
-            $product = $products->firstWhere('slug', $slug)
-                ?? $products->firstWhere('slug', 'genset-5000-watt-sampai-150-kva')
-                ?? $products->first();
-
-            if (! $product) {
-                $category = Category::firstOrCreate(
-                    ['slug' => 'genset'],
-                    [
-                        'name' => 'Genset',
-                        'type' => 'produk',
-                        'icon' => 'bolt',
-                        'description' => null,
-                        'order' => (Category::query()->max('order') ?? 0) + 1,
-                        'is_active' => true,
-                    ],
-                );
-
-                $product = new Product(['category_id' => $category->id]);
-                $product->order = (Product::query()->max('order') ?? 0) + 1;
+            if (! $category) {
+                $category = Category::create([
+                    'name' => 'Genset',
+                    'slug' => 'genset',
+                    'type' => 'produk',
+                    'icon' => 'bolt',
+                    'order' => (Category::query()->max('order') ?? 0) + 1,
+                    'is_active' => true,
+                ]);
             }
 
-            $product->fill([
-                'name' => $name,
-                'slug' => $slug,
-                'description' => $description,
+            $hubSlug = 'genset-berbagai-kapasitas';
+            $hub = Product::query()->where('slug', $hubSlug)->first();
+
+            if (! $hub) {
+                $hub = Product::query()
+                    ->whereIn('slug', [
+                        'genset-kapasitas-150-kva-100-kva-80-kva-60-kva-dan-5000-watt',
+                        'genset-5000-watt-sampai-150-kva',
+                    ])
+                    ->orderBy('id')
+                    ->first();
+            }
+
+            $hubDescription = 'Genset kapasitas 150 KVA, 100 KVA, 80 KVA, 60 KVA, dan 5000 watt. Pemakaian 12 jam, solar untuk 12 jam sudah termasuk, kabel 100m, tersedia layanan overtime per jam.';
+            $hub ??= new Product(['order' => (Product::query()->max('order') ?? 0) + 1]);
+            $hub->fill([
+                'category_id' => $category->id,
+                'name' => 'Genset Berbagai Kapasitas',
+                'slug' => $hubSlug,
+                'description' => $hubDescription,
+                'price' => null,
                 'is_featured' => true,
                 'status' => true,
-                'meta_description' => Str::limit($description, 160),
-            ]);
-            $product->save();
-            $product->images()->delete();
+                'meta_description' => Str::limit($hubDescription, 160),
+            ])->save();
 
-            foreach ($products as $duplicate) {
-                if ($duplicate->isNot($product)) {
-                    $duplicate->delete();
-                }
+            foreach ([
+                ['name' => 'Genset 150 KVA', 'description' => 'Genset kapasitas 150 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.'],
+                ['name' => 'Genset 100 KVA', 'description' => 'Genset kapasitas 100 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.'],
+                ['name' => 'Genset 80 KVA', 'description' => 'Genset kapasitas 80 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.'],
+                ['name' => 'Genset 60 KVA', 'description' => 'Genset kapasitas 60 KVA. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.'],
+                ['name' => 'Genset 5000 Watt', 'description' => 'Genset kapasitas 5000 watt. Hubungi kami untuk memastikan kebutuhan dan ketersediaan.'],
+            ] as $index => $variant) {
+                $slug = Str::slug($variant['name']);
+                $product = Product::query()->firstOrNew(['slug' => $slug]);
+                $product->fill([
+                    'category_id' => $category->id,
+                    'name' => $variant['name'],
+                    'description' => $product->description ?: $variant['description'],
+                    'price' => null,
+                    'is_featured' => false,
+                    'status' => true,
+                    'order' => $hub->order + $index + 1,
+                    'meta_description' => Str::limit($variant['description'], 160),
+                ])->save();
             }
         });
 

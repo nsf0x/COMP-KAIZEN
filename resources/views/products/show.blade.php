@@ -170,6 +170,24 @@
         </div>
     </div>
 
+    @if($variants->isNotEmpty())
+    <section class="mt-5" aria-labelledby="product-variants-heading">
+        <h2 id="product-variants-heading" class="fw-700 mb-4">Pilih Varian</h2>
+        <div class="row g-3">
+            @foreach($variants as $variant)
+            <div class="col-6 col-md-4">
+                <a href="{{ route('products.show', $variant) }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                    <div class="card-body d-flex align-items-center justify-content-between gap-3">
+                        <span class="fw-600 text-dark">{{ $variant->name }}</span>
+                        <span class="text-muted" aria-hidden="true">&rarr;</span>
+                    </div>
+                </a>
+            </div>
+            @endforeach
+        </div>
+    </section>
+    @endif
+
     <!-- Related Products -->
     @if($related->count())
     <div class="mt-5">

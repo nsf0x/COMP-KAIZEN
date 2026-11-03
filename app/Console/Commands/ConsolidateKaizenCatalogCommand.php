@@ -30,12 +30,6 @@ class ConsolidateKaizenCatalogCommand extends Command
         );
 
         $this->mergeProducts(
-            ['smart-tv-75-inch', 'smart-tv-65-inch', 'smart-tv-55-inch'],
-            'Smart TV 75 Inch, 65 Inch, dan 55 Inch',
-            "Ukuran 75 inch, 65 inch, dan 55 inch. Sudah termasuk kabel power 15m dan kabel HDMI 20m.\n\nSatuan: per unit",
-        );
-
-        $this->mergeProducts(
             [
                 'partisi-r8-ruang-2-x-2m',
                 'partisi-r8-ruang-2-x-3m',
