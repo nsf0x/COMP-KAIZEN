@@ -21,7 +21,7 @@
         <h2 class="h5 fw-bold mt-4">Penggunaan data</h2>
         <p class="text-muted">Data digunakan untuk komunikasi layanan dan tidak dijual kepada pihak lain. Kami menyimpan data selama diperlukan untuk tujuan layanan dan kewajiban hukum.</p>
         <h2 class="h5 fw-bold mt-4">Kontak</h2>
-        <p class="text-muted">Untuk pertanyaan terkait data pribadi, hubungi {{ config('company.email') }}.</p>
+        <p class="text-muted">Untuk pertanyaan terkait data pribadi, hubungi <a href="mailto:{{ config('company.email') }}">{{ config('company.email') }}</a>.</p>
     </div>
 </section>
 @endsection

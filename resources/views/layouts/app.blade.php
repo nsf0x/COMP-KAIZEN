@@ -336,7 +336,7 @@
                         <i class="bi bi-whatsapp me-2"></i>
                         <a href="https://wa.me/{{ config('company.whatsapp') }}" target="_blank" rel="noopener noreferrer">{{ config('company.phone') }}</a>
                     </li>
-                    <li class="mb-2"><i class="bi bi-envelope me-2"></i>{{ config('company.email') }}</li>
+                    <li class="mb-2"><i class="bi bi-envelope me-2"></i><a href="mailto:{{ config('company.email') }}">{{ config('company.email') }}</a></li>
                     <li class="mb-2"><i class="bi bi-geo-alt me-2"></i><a href="{{ config('company.maps_url') }}" target="_blank" rel="noopener noreferrer">{{ config('company.address') }}</a></li>
                 </ul>
             </div>

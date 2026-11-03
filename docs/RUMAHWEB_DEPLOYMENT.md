@@ -100,7 +100,8 @@ ADMIN_PASSWORD=PasswordAdminYangSangatKuat
 
 COMPANY_NAME="Kaizen Kreasi Indonesia"
 COMPANY_EMAIL=kaizenkreasi@gmail.com
-COMPANY_WHATSAPP=6281119998630
+COMPANY_PHONE=0811-1305-1007
+COMPANY_WHATSAPP=6281113051007
 COMPANY_MAPS_URL=https://maps.app.goo.gl/YJibJiqrCoqz95qG8?g_st=ac
 ```
 

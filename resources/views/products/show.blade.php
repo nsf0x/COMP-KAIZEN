@@ -170,7 +170,7 @@
                 <a href="{{ $product->whatsapp_url }}" class="btn btn-success btn-lg rounded-pill px-5" target="_blank">
                     <i class="bi bi-whatsapp me-2"></i>Pesan via WhatsApp
                 </a>
-                <a href="tel:{{ config('company.phone') }}" class="btn btn-outline-secondary btn-lg rounded-pill">
+                <a href="tel:{{ preg_replace('/\D+/', '', config('company.phone')) }}" class="btn btn-outline-secondary btn-lg rounded-pill">
                     <i class="bi bi-telephone me-1"></i>Telepon
                 </a>
             </div>
