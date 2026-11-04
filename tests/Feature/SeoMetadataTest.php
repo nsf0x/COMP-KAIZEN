@@ -49,44 +49,66 @@ class SeoMetadataTest extends TestCase
     {
         config(['app.url' => 'https://kaizenkreasi.com']);
 
-        $category = Category::create([
-            'name' => 'Tenda',
-            'slug' => 'tenda',
-            'type' => 'produk',
-            'is_active' => true,
-        ]);
+        $thumbnail = 'products/tenda-roder-'.bin2hex(random_bytes(6)).'.jpg';
+        $sidecarPath = public_path('storage/'.preg_replace('/\.jpg$/', '.webp', $thumbnail));
+        $sidecarDirectory = dirname($sidecarPath);
+        $createdSidecarDirectory = ! is_dir($sidecarDirectory);
 
-        $product = Product::create([
-            'category_id' => $category->id,
-            'name' => 'Sewa Tenda Roder',
-            'slug' => 'sewa-tenda-roder',
-            'description' => 'Tenda untuk kebutuhan pameran dan acara perusahaan.',
-            'meta_description' => 'Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.',
-            'thumbnail' => 'products/tenda-roder.jpg',
-            'status' => true,
-        ]);
+        if ($createdSidecarDirectory) {
+            mkdir($sidecarDirectory, 0777, true);
+        }
 
-        $response = $this->get(route('products.show', $product))
+        file_put_contents($sidecarPath, 'temporary webp fixture');
+
+        try {
+            $product = $this->createTendaProduct($thumbnail);
+
+            $response = $this->get(route('products.show', $product))
+                ->assertOk()
+                ->assertSee('<title>Sewa Tenda Roder | Kaizen Kreasi Indonesia</title>', false)
+                ->assertSee('<meta name="description" content="Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.">', false)
+                ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/sewa-tenda-roder">', false)
+                ->assertSee('"@type":"Service"', false)
+                ->assertSee('"serviceType":"Tenda"', false)
+                ->assertSee('"@type":"BreadcrumbList"', false)
+                ->assertSee('"name":"Sewa Tenda Roder"', false)
+                ->assertSee('<source srcset="http://localhost/storage/'.str_replace('.jpg', '.webp', $thumbnail).'" type="image/webp">', false)
+                ->assertSee('alt="Perlengkapan event: Sewa Tenda Roder"', false)
+                ->assertSee('width="900" height="600"', false)
+                ->assertSee('loading="eager"', false);
+
+            preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonLd);
+            $schemas = array_map(fn (string $json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR), $jsonLd[1]);
+
+            $this->assertCount(3, $schemas);
+            $this->assertSame('LocalBusiness', $schemas[0]['@type']);
+            $this->assertSame('Service', $schemas[1]['@type']);
+            $this->assertSame('BreadcrumbList', $schemas[2]['@type']);
+            $this->assertArrayNotHasKey('offers', $schemas[1]);
+        } finally {
+            if (is_file($sidecarPath)) {
+                unlink($sidecarPath);
+            }
+
+            if ($createdSidecarDirectory && is_dir($sidecarDirectory)) {
+                rmdir($sidecarDirectory);
+            }
+        }
+    }
+
+    public function test_product_image_uses_original_fallback_without_a_webp_sidecar(): void
+    {
+        $thumbnail = 'products/tenda-roder-'.bin2hex(random_bytes(6)).'.jpg';
+        $product = $this->createTendaProduct($thumbnail);
+        $sidecarPath = public_path('storage/'.preg_replace('/\.jpg$/', '.webp', $thumbnail));
+        $expectedSource = '<source srcset="'.asset('storage/'.str_replace('.jpg', '.webp', $thumbnail)).'" type="image/webp">';
+        $this->assertFileDoesNotExist($sidecarPath);
+
+        $this->get(route('products.show', $product))
             ->assertOk()
-            ->assertSee('<title>Sewa Tenda Roder | Kaizen Kreasi Indonesia</title>', false)
-            ->assertSee('<meta name="description" content="Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.">', false)
-            ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/sewa-tenda-roder">', false)
-            ->assertSee('"@type":"Service"', false)
-            ->assertSee('"serviceType":"Tenda"', false)
-            ->assertSee('"@type":"BreadcrumbList"', false)
-            ->assertSee('"name":"Sewa Tenda Roder"', false)
-            ->assertSee('<source srcset="http://localhost/storage/products/tenda-roder.webp" type="image/webp">', false)
-            ->assertSee('alt="Perlengkapan event: Sewa Tenda Roder" width="900" height="600"', false)
-            ->assertSee('loading="eager"', false);
-
-        preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonLd);
-        $schemas = array_map(fn (string $json) => json_decode($json, true, 512, JSON_THROW_ON_ERROR), $jsonLd[1]);
-
-        $this->assertCount(3, $schemas);
-        $this->assertSame('LocalBusiness', $schemas[0]['@type']);
-        $this->assertSame('Service', $schemas[1]['@type']);
-        $this->assertSame('BreadcrumbList', $schemas[2]['@type']);
-        $this->assertArrayNotHasKey('offers', $schemas[1]);
+            ->assertDontSee($expectedSource, false)
+            ->assertSee('src="'.asset('storage/'.$thumbnail).'"', false)
+            ->assertSee('alt="Perlengkapan event: Sewa Tenda Roder"', false);
     }
 
     public function test_robots_and_sitemap_use_the_configured_public_domain(): void
@@ -173,5 +195,25 @@ class SeoMetadataTest extends TestCase
         $this->assertSame('BreadcrumbList', collect($schemas)->firstWhere('@type', 'BreadcrumbList')['@type']);
         $this->assertSame('https://schema.org', $article['@context']);
         $this->assertSame('Tips Persiapan Event Perusahaan', $article['headline']);
+    }
+
+    private function createTendaProduct(string $thumbnail): Product
+    {
+        $category = Category::create([
+            'name' => 'Tenda',
+            'slug' => 'tenda',
+            'type' => 'produk',
+            'is_active' => true,
+        ]);
+
+        return Product::create([
+            'category_id' => $category->id,
+            'name' => 'Sewa Tenda Roder',
+            'slug' => 'sewa-tenda-roder',
+            'description' => 'Tenda untuk kebutuhan pameran dan acara perusahaan.',
+            'meta_description' => 'Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.',
+            'thumbnail' => $thumbnail,
+            'status' => true,
+        ]);
     }
 }
