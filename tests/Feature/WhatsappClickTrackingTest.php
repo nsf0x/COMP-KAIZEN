@@ -11,7 +11,7 @@ class WhatsappClickTrackingTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_tracking_hook_is_inert_without_analytics_and_can_report_product_context(): void
+    public function test_tracking_hook_can_report_product_context_with_analytics(): void
     {
         $category = Category::create([
             'name' => 'Genset',
@@ -37,7 +37,9 @@ class WhatsappClickTrackingTest extends TestCase
             ->assertSee('window.google_tag_manager && Array.isArray(window.dataLayer)', false)
             ->assertSee('typeof window.gtag === \'function\'', false)
             ->assertSee('window.dataLayer.push(eventData)', false)
+            ->assertSee('googletagmanager.com/gtag/js?id=G-XSCWM6X4JV', false)
+            ->assertSee('gtag(\'config\', \'G-XSCWM6X4JV\')', false)
             ->assertDontSee('googletagmanager.com/gtm.js', false)
-            ->assertDontSee('googletagmanager.com/gtag/js', false);
+            ->assertDontSee('GTM-', false);
     }
 }
