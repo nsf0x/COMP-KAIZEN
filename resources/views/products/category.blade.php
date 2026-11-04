@@ -21,27 +21,7 @@
                 'text' => $faq['answer'],
             ],
         ], $categorySeo['faqs'])
-        : array_merge(
-            [
-                [
-                    '@type' => 'Question',
-                    'name' => 'Produk apa saja yang tersedia dalam kategori ' . $category->display_name . '?',
-                    'acceptedAnswer' => [
-                        '@type' => 'Answer',
-                        'text' => 'Produk yang tercantum di kategori ini adalah: ' . $products->getCollection()->pluck('name')->implode(', ') . '. Ketersediaan produk dikonfirmasi untuk tanggal dan lokasi acara.',
-                    ],
-                ],
-                [
-                    '@type' => 'Question',
-                    'name' => 'Bagaimana cara meminta penawaran perlengkapan ' . $category->display_name . '?',
-                    'acceptedAnswer' => [
-                        '@type' => 'Answer',
-                        'text' => 'Hubungi Kaizen Kreasi Indonesia melalui WhatsApp dan sampaikan tanggal acara, lokasi, serta perlengkapan yang dibutuhkan. Ketersediaan dan rincian penawaran dikonfirmasi berdasarkan kebutuhan acara.',
-                    ],
-                ],
-            ],
-            $topicFaqs,
-        );
+        : $topicFaqs;
 @endphp
 
 @push('structured_data')
@@ -56,6 +36,7 @@
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>
+@if($categoryFaqs !== [])
 <script type="application/ld+json">
     {!! json_encode([
         '@@context' => 'https://schema.org',
@@ -63,6 +44,7 @@
         'mainEntity' => $categoryFaqs,
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>
+@endif
 @endpush
 
 @section('content')

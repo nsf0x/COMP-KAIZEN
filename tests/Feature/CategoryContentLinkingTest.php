@@ -149,7 +149,49 @@ class CategoryContentLinkingTest extends TestCase
                 $response->assertSee('"name":"'.$question.'"', false);
             }
             $response->assertDontSee('Rp ');
+
+            preg_match_all('/<script type="application\/ld\+json">\s*(.*?)\s*<\/script>/s', $response->getContent(), $jsonScripts);
+            $faqSchema = null;
+            foreach ($jsonScripts[1] as $jsonScript) {
+                $structuredData = json_decode($jsonScript, true);
+                if (($structuredData['@type'] ?? null) === 'FAQPage') {
+                    $faqSchema = $structuredData;
+                    break;
+                }
+            }
+            $this->assertNotNull($faqSchema);
+            $this->assertSame(
+                $fixture['questions'],
+                array_column($faqSchema['mainEntity'], 'name'),
+            );
+
+            preg_match_all('/<details>\s*<summary[^>]*>(.*?)<\/summary>\s*<p[^>]*>(.*?)<\/p>/s', $response->getContent(), $visibleFaqs, PREG_SET_ORDER);
+            $visibleQuestions = array_map(fn (array $faq): string => html_entity_decode(trim(strip_tags($faq[1])), ENT_QUOTES | ENT_HTML5, 'UTF-8'), $visibleFaqs);
+            $visibleAnswers = array_map(fn (array $faq): string => html_entity_decode(trim(strip_tags($faq[2])), ENT_QUOTES | ENT_HTML5, 'UTF-8'), $visibleFaqs);
+            $schemaAnswers = array_column(array_column($faqSchema['mainEntity'], 'acceptedAnswer'), 'text');
+            $this->assertSame($visibleQuestions, array_column($faqSchema['mainEntity'], 'name'));
+            $this->assertSame($visibleAnswers, $schemaAnswers);
         }
+    }
+
+    public function test_category_without_visible_faqs_does_not_emit_empty_faq_schema(): void
+    {
+        $category = Category::create([
+            'name' => 'Genset',
+            'slug' => 'genset',
+            'type' => 'produk',
+            'is_active' => true,
+        ]);
+        Product::create([
+            'category_id' => $category->id,
+            'name' => 'Genset 5000 Watt',
+            'slug' => 'fixture-genset-5000-watt',
+            'status' => true,
+        ]);
+
+        $this->get(route('products.category', ['slug' => 'genset']))
+            ->assertOk()
+            ->assertDontSee('"@type":"FAQPage"', false);
     }
 
     public function test_category_pages_link_to_published_articles_for_current_catalog_categories(): void
