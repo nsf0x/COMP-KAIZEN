@@ -75,7 +75,7 @@
                 <h2 id="related-catalog-heading" class="h5 fw-700 mb-3">Kategori dan produk terkait</h2>
                 <ul class="list-unstyled">
                     @foreach($relatedCategories as $category)
-                    <li class="mb-2"><a href="{{ route('products.category', ['slug' => $category->slug]) }}">Kategori {{ $category->name }}</a></li>
+                    <li class="mb-2"><a href="{{ route('products.category', ['slug' => $category->slug]) }}">Kategori {{ $category->display_name }}</a></li>
                     @endforeach
                     @foreach($relatedProducts as $product)
                     <li class="mb-2"><a href="{{ route('products.show', $product) }}">{{ $product->name }}</a></li>

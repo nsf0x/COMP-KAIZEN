@@ -19,6 +19,16 @@ class Category extends Model {
             ->where('is_active', true)
             ->whereHas('products', fn (Builder $products) => $products->where('status', true));
     }
+
+    public function getDisplayNameAttribute(): string
+    {
+        return match ($this->slug) {
+            'lighting-stage' => 'Panggung & Backdrop',
+            'furniture-seating' => 'Furniture (Kursi & Meja)',
+            'tenda-flooring' => 'Tenda & Karpet Flooring',
+            default => $this->name,
+        };
+    }
     
     public function getRouteKeyName() { return 'slug'; }
 }

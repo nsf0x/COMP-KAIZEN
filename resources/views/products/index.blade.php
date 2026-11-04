@@ -114,7 +114,7 @@
                         @endif
                         <div class="card-body d-flex flex-column">
                             <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary); width:fit-content;">
-                                {{ $product->category->name ?? 'Umum' }}
+                                {{ $product->category->display_name ?? 'Umum' }}
                             </span>
                             <h6 class="fw-700 mb-1">{{ $product->name }}</h6>
                             <p class="text-muted small mb-2 flex-grow-1">{{ Str::limit($product->description, 70) }}</p>

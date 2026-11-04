@@ -36,4 +36,32 @@ class CategorySeederTest extends TestCase
         $this->assertDatabaseHas('categories', ['id' => $category->id, 'slug' => 'flooring-karpet']);
         $this->assertDatabaseHas('products', ['id' => $product->id, 'slug' => 'flooring']);
     }
+
+    public function test_run_updates_display_names_without_changing_category_slugs(): void
+    {
+        $expectedNames = [];
+
+        foreach ([
+            'lighting-stage' => ['old' => 'Lighting & Stage', 'new' => 'Panggung & Backdrop'],
+            'furniture-seating' => ['old' => 'Furniture & Seating', 'new' => 'Furniture (Kursi & Meja)'],
+            'tenda-flooring' => ['old' => 'Tenda & Flooring', 'new' => 'Tenda & Karpet Flooring'],
+        ] as $slug => $names) {
+            Category::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'name' => $names['old'],
+                    'type' => 'produk',
+                    'is_active' => true,
+                ],
+            );
+
+            $expectedNames[$slug] = $names['new'];
+        }
+
+        app(CategorySeeder::class)->run();
+
+        foreach ($expectedNames as $slug => $name) {
+            $this->assertDatabaseHas('categories', ['slug' => $slug, 'name' => $name]);
+        }
+    }
 }

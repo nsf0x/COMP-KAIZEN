@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Sewa ' . $category->name)
-@section('meta_description', Str::limit('Jelajahi perlengkapan ' . $category->name . ' untuk kebutuhan event dari ' . config('company.name') . '. Melayani Jabodetabek dari Bekasi. Tanyakan ketersediaan dan penawaran via WhatsApp.', 160))
+@section('title', 'Sewa ' . $category->display_name)
+@section('meta_description', Str::limit('Jelajahi perlengkapan ' . $category->display_name . ' untuk kebutuhan event dari ' . config('company.name') . '. Melayani Jabodetabek dari Bekasi. Tanyakan ketersediaan dan penawaran via WhatsApp.', 160))
 
 @php
     $topicFaqs = $categoryTopics->map(fn ($topic) => [
@@ -22,7 +22,7 @@
         'itemListElement' => [
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Produk', 'item' => route('products.index', [], true)],
-            ['@type' => 'ListItem', 'position' => 3, 'name' => $category->name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
+            ['@type' => 'ListItem', 'position' => 3, 'name' => $category->display_name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
         ],
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>
@@ -34,7 +34,7 @@
             [
                 [
                     '@type' => 'Question',
-                    'name' => 'Produk apa saja yang tersedia dalam kategori ' . $category->name . '?',
+                    'name' => 'Produk apa saja yang tersedia dalam kategori ' . $category->display_name . '?',
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
                         'text' => 'Produk yang tercantum di kategori ini adalah: ' . $products->getCollection()->pluck('name')->implode(', ') . '. Ketersediaan produk dikonfirmasi untuk tanggal dan lokasi acara.',
@@ -42,7 +42,7 @@
                 ],
                 [
                     '@type' => 'Question',
-                    'name' => 'Bagaimana cara meminta penawaran perlengkapan ' . $category->name . '?',
+                    'name' => 'Bagaimana cara meminta penawaran perlengkapan ' . $category->display_name . '?',
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
                         'text' => 'Hubungi Kaizen Kreasi Indonesia melalui WhatsApp dan sampaikan tanggal acara, lokasi, serta perlengkapan yang dibutuhkan. Ketersediaan dan rincian penawaran dikonfirmasi berdasarkan kebutuhan acara.',
@@ -61,21 +61,21 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:var(--primary);">Beranda</a></li>
             <li class="breadcrumb-item"><a href="{{ route('products.index') }}" style="color:var(--primary);">Produk</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $category->display_name }}</li>
         </ol>
     </nav>
 
     <header class="mb-4">
-        <h1 class="section-title mb-3">Perlengkapan {{ $category->name }} untuk Event</h1>
+        <h1 class="section-title mb-3">Perlengkapan {{ $category->display_name }} untuk Event</h1>
         <p class="text-muted">
-            Jelajahi produk kategori {{ $category->name }} untuk kebutuhan acara. Hubungi {{ config('company.name') }}
+            Jelajahi produk kategori {{ $category->display_name }} untuk kebutuhan acara. Hubungi {{ config('company.name') }}
             untuk menanyakan ketersediaan berdasarkan tanggal, lokasi, dan kebutuhan event.
         </p>
     </header>
 
     @if($categoryTopics->isNotEmpty())
     <section class="mb-5" aria-labelledby="category-subtopics-heading">
-        <h2 id="category-subtopics-heading" class="h4 fw-700 mb-3">{{ $category->name }}: topik perlengkapan</h2>
+        <h2 id="category-subtopics-heading" class="h4 fw-700 mb-3">{{ $category->display_name }}: topik perlengkapan</h2>
         <div class="row g-4">
             @foreach($categoryTopics as $topic)
             <article class="col-md-6">

@@ -51,7 +51,7 @@
         'itemListElement' => array_values(array_filter([
             ['@type' => 'ListItem', 'position' => 1, 'name' => 'Beranda', 'item' => rtrim(config('app.url'), '/') . '/'],
             ['@type' => 'ListItem', 'position' => 2, 'name' => 'Produk', 'item' => route('products.index', [], true)],
-            $product->category?->is_active ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->name, 'item' => route('products.category', ['slug' => $product->category->slug], true)] : null,
+            $product->category?->is_active ? ['@type' => 'ListItem', 'position' => 3, 'name' => $product->category->display_name, 'item' => route('products.category', ['slug' => $product->category->slug], true)] : null,
             ['@type' => 'ListItem', 'position' => $product->category?->is_active ? 4 : 3, 'name' => $product->name, 'item' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/')],
         ])),
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
@@ -79,7 +79,7 @@
             @if($product->category?->is_active)
             <li class="breadcrumb-item">
                 <a href="{{ route('products.category', ['slug' => $product->category->slug]) }}" style="color:var(--primary);">
-                    {{ $product->category->name }}
+                    {{ $product->category->display_name }}
                 </a>
             </li>
             @endif
@@ -135,7 +135,7 @@
         <!-- Details -->
         <div class="col-lg-6 product-detail-copy">
             @if($product->category)
-            <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->name }}</span>
+            <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->display_name }}</span>
             @endif
             @if($product->is_featured)
             <span class="badge mb-2 ms-1" style="background:var(--primary);">⭐ Produk Unggulan</span>

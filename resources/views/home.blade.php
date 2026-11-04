@@ -33,7 +33,7 @@
                 </h1>
                 <h2 class="h4 fw-600 mb-3" style="color:var(--primary);">Bangun Event Tanpa Batas Bersama Kaizen</h2>
                 <p class="lead text-muted mb-4">
-                    {{ config('company.tagline') }}. Katalog kami mencakup tenda, flooring, genset, LED screen, sound system, furniture, dan perlengkapan event lainnya. Sampaikan jenis acara serta kebutuhan Anda untuk memeriksa ketersediaan dan meminta penawaran.
+                    Kami menyediakan perlengkapan event untuk berbagai acara. Sampaikan jenis acara serta kebutuhan Anda untuk memeriksa ketersediaan dan meminta penawaran.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="{{ route('products.index') }}" class="btn btn-primary-custom btn-lg">
@@ -82,7 +82,20 @@
             <div class="col-lg-7">
                 <h2 class="section-title">Perlengkapan Event untuk Beragam Kebutuhan</h2>
                 <p class="text-muted lh-lg">
-                    Kaizen Kreasi Indonesia menyediakan perlengkapan dan dukungan produksi untuk pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival. Pilihan katalog mencakup tenda, flooring dan karpet, LED screen, genset, sound system, lighting, panggung, furniture, partisi, toilet portable, perangkat komunikasi, serta kebutuhan produksi dan branding. Tim kami melayani kebutuhan acara di Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Untuk event skala besar di luar Jabodetabek, konsultasikan lokasi, jadwal, dan kebutuhan logistik melalui WhatsApp. Ketersediaan produk, kebutuhan instalasi, pengiriman, dan penawaran dikonfirmasi sesuai detail acara. Jelajahi kategori di samping untuk melihat produk yang tersedia dan kirimkan kebutuhan Anda agar tim kami dapat membantu menyiapkan penawaran yang sesuai.
+                    Kaizen Kreasi Indonesia menyediakan perlengkapan dan dukungan produksi untuk pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival. Pilihan katalog mencakup tenda, flooring, LED screen, genset, sound system, lighting, partisi, toilet portable, perangkat komunikasi, serta kebutuhan produksi dan branding.
+                    @if($homeRentalKeywords['rental_alat_event'])
+                    Layanan rental alat event tersedia sesuai katalog.
+                    @endif
+                    @if($homeRentalKeywords['kursi_dan_meja'])
+                    Kami juga melayani sewa kursi dan meja.
+                    @endif
+                    @if($homeRentalKeywords['panggung'])
+                    Sewa panggung dapat dikonsultasikan sesuai kebutuhan acara.
+                    @endif
+                    @if($homeRentalKeywords['karpet'])
+                    Sewa karpet tersedia sesuai produk yang tercantum.
+                    @endif
+                    Tim kami melayani kebutuhan acara di Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Untuk event skala besar di luar Jabodetabek, konsultasikan lokasi, jadwal, dan kebutuhan logistik melalui WhatsApp. Ketersediaan produk, kebutuhan instalasi, pengiriman, dan penawaran dikonfirmasi sesuai detail acara. Jelajahi kategori di samping untuk melihat produk yang tersedia dan kirimkan kebutuhan Anda agar tim kami dapat membantu menyiapkan penawaran yang sesuai.
                 </p>
             </div>
             <div class="col-lg-5">
@@ -91,7 +104,7 @@
                 <div class="d-flex flex-wrap gap-2">
                     @foreach($categories as $category)
                     <a class="btn btn-sm btn-outline-secondary rounded-pill"
-                       href="{{ route('products.category', ['slug' => $category->slug]) }}">{{ $category->name }}</a>
+                       href="{{ route('products.category', ['slug' => $category->slug]) }}">{{ $category->display_name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -140,7 +153,7 @@
                     <div class="category-card-icon" aria-hidden="true">
                         <i class="{{ \App\Support\CategoryIcon::classFor($category) }}"></i>
                     </div>
-                    <div class="px-2 py-3 text-center fw-600 small" style="color:#25283a;">{{ $category->name }}</div>
+                    <div class="px-2 py-3 text-center fw-600 small" style="color:#25283a;">{{ $category->display_name }}</div>
                 </a>
             </div>
             @endforeach
@@ -171,7 +184,7 @@
                         @endif
                     </div>
                     <div class="card-body d-flex flex-column">
-                        <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->name ?? '' }}</span>
+                        <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->display_name ?? '' }}</span>
                         <h5 class="fw-600 mb-1">{{ $product->name }}</h5>
                         <p class="text-muted small mb-2">{{ Str::limit($product->description, 80) }}</p>
                         <div class="fw-600 mb-3 text-muted small">
