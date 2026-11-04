@@ -64,7 +64,7 @@ class HomeProductCategoriesTest extends TestCase
         $this->assertSame($offsets, collect($offsets)->sort()->values()->all());
     }
 
-    public function test_homepage_uses_category_display_names_and_only_mentions_rental_terms_with_matching_products(): void
+    public function test_homepage_uses_category_display_names_and_preserves_existing_category_urls(): void
     {
         $catalog = [
             [
@@ -119,60 +119,38 @@ class HomeProductCategoriesTest extends TestCase
             $this->assertStringContainsString('/sewa-'.$item['slug'].'-jabodetabek', $content);
         }
 
-        foreach (['rental alat event', 'sewa kursi dan meja', 'sewa panggung', 'sewa karpet'] as $keyword) {
-            $this->assertSame(1, substr_count(strtolower($content), $keyword), 'Expected "'.$keyword.'" exactly once.');
-        }
-
-        $this->assertSame(1, substr_count($content, 'Perlengkapan Event untuk Beragam Kebutuhan'));
     }
 
-    public function test_homepage_omits_rental_terms_when_matching_products_are_not_in_the_catalog(): void
+    public function test_homepage_contains_all_required_search_phrases_and_one_primary_heading(): void
     {
-        $catalog = [
-            ['slug' => 'lighting-stage', 'name' => 'Lighting & Stage', 'product' => 'Lighting System', 'description' => 'Lampu untuk event.'],
-            ['slug' => 'furniture-seating', 'name' => 'Furniture & Seating', 'product' => 'Sofa Event', 'description' => 'Sofa untuk acara.'],
-            ['slug' => 'tenda-flooring', 'name' => 'Tenda & Flooring', 'product' => 'Tenda Roder', 'description' => 'Tenda untuk acara.'],
+        $phrases = [
+            'sewa perlengkapan event jabodetabek',
+            'rental alat event jakarta',
+            'sewa tenda event jabodetabek',
+            'sewa genset jakarta',
+            'sewa led screen jakarta',
+            'sewa sound system event jabodetabek',
+            'sewa toilet portable jabodetabek',
+            'sewa panggung event jakarta',
+            'sewa karpet event jabodetabek',
+            'sewa tenda pameran jakarta',
+            'sewa perlengkapan event bekasi',
+            'sewa lighting event jakarta',
+            'sewa kursi meja event jabodetabek',
+            'sewa genset jabodetabek',
+            'event equipment rental indonesia',
         ];
 
-        foreach ($catalog as $order => $item) {
-            $category = Category::updateOrCreate(
-                ['slug' => $item['slug']],
-                [
-                    'name' => $item['name'],
-                    'type' => 'produk',
-                    'order' => $order + 1,
-                    'is_active' => true,
-                ],
-            );
+        $response = $this->get(route('home'))->assertOk();
+        $content = strtolower($response->getContent());
 
-            Product::create([
-                'category_id' => $category->id,
-                'name' => $item['product'],
-                'slug' => $item['slug'].'-product',
-                'description' => $item['description'],
-                'status' => true,
-                'is_featured' => false,
-                'order' => $order + 1,
-            ]);
+        foreach ($phrases as $phrase) {
+            $this->assertStringContainsString($phrase, $content);
         }
 
-        $content = $this->get(route('home'))->assertOk()->getContent();
-
-        $content = strtolower($content);
-
-        $this->assertStringContainsString('rental alat event', $content);
-        $this->assertStringNotContainsString('sewa kursi dan meja', $content);
-        $this->assertStringNotContainsString('sewa panggung', $content);
-        $this->assertStringNotContainsString('sewa karpet', $content);
-    }
-
-    public function test_homepage_omits_all_catalog_rental_terms_when_no_products_are_available(): void
-    {
-        $content = $this->get(route('home'))->assertOk()->getContent();
-
-        foreach (['rental alat event', 'sewa kursi dan meja', 'sewa panggung', 'sewa karpet'] as $keyword) {
-            $this->assertStringNotContainsString($keyword, strtolower($content));
-        }
+        preg_match_all('/<h1\b/i', $response->getContent(), $headings);
+        $this->assertCount(1, $headings[0]);
+        $response->assertSee('<h2 class="section-title">Mitra Sewa Perlengkapan Event Jabodetabek untuk Berbagai Acara</h2>', false);
     }
 
     public function test_existing_stage_and_furniture_category_urls_use_the_requested_display_names(): void

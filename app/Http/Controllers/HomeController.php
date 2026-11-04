@@ -25,26 +25,6 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
-        $hasCatalogProductMatching = static function (array $terms) use ($categories): bool {
-            return Product::query()
-                ->where('status', true)
-                ->whereIn('category_id', $categories->modelKeys())
-                ->where(function ($query) use ($terms): void {
-                    foreach ($terms as $term) {
-                        $like = '%'.mb_strtolower($term).'%';
-                        $query->orWhereRaw('LOWER(name) LIKE ?', [$like])
-                            ->orWhereRaw('LOWER(description) LIKE ?', [$like]);
-                    }
-                })
-                ->exists();
-        };
-        $homeRentalKeywords = [
-            'rental_alat_event' => $categories->isNotEmpty(),
-            'kursi_dan_meja' => $hasCatalogProductMatching(['kursi']) && $hasCatalogProductMatching(['meja']),
-            'panggung' => $hasCatalogProductMatching(['panggung', 'stage', 'rigging']),
-            'karpet' => $hasCatalogProductMatching(['karpet']),
-        ];
-
         $portfolios = Portfolio::where('is_featured', true)
             ->orderBy('order')
             ->take(6)
@@ -67,7 +47,6 @@ class HomeController extends Controller
         return view('home', compact(
             'featuredProducts',
             'categories',
-            'homeRentalKeywords',
             'portfolios',
             'testimonials',
             'clients',

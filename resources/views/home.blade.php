@@ -79,26 +79,14 @@
 <section class="py-5">
     <div class="container">
         <div class="row g-4 align-items-start">
-            <div class="col-lg-7">
-                <h2 class="section-title">Perlengkapan Event untuk Beragam Kebutuhan</h2>
-                <p class="text-muted lh-lg">
-                    Kaizen Kreasi Indonesia menyediakan perlengkapan dan dukungan produksi untuk pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival. Pilihan katalog mencakup tenda, flooring, LED screen, genset, sound system, lighting, partisi, toilet portable, perangkat komunikasi, serta kebutuhan produksi dan branding.
-                    @if($homeRentalKeywords['rental_alat_event'])
-                    Layanan rental alat event tersedia sesuai katalog.
-                    @endif
-                    @if($homeRentalKeywords['kursi_dan_meja'])
-                    Kami juga melayani sewa kursi dan meja.
-                    @endif
-                    @if($homeRentalKeywords['panggung'])
-                    Sewa panggung dapat dikonsultasikan sesuai kebutuhan acara.
-                    @endif
-                    @if($homeRentalKeywords['karpet'])
-                    Sewa karpet tersedia sesuai produk yang tercantum.
-                    @endif
-                    Tim kami melayani kebutuhan acara di Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Untuk event skala besar di luar Jabodetabek, konsultasikan lokasi, jadwal, dan kebutuhan logistik melalui WhatsApp. Ketersediaan produk, kebutuhan instalasi, pengiriman, dan penawaran dikonfirmasi sesuai detail acara. Jelajahi kategori di samping untuk melihat produk yang tersedia dan kirimkan kebutuhan Anda agar tim kami dapat membantu menyiapkan penawaran yang sesuai.
-                </p>
+            <div class="col-lg-8">
+                <h2 class="section-title">Mitra Sewa Perlengkapan Event Jabodetabek untuk Berbagai Acara</h2>
+                <p class="text-muted lh-lg">Kaizen Kreasi Indonesia adalah penyedia sewa perlengkapan event Jabodetabek yang berkantor di Bekasi. Kami membantu penyelenggara pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival menyiapkan kebutuhan lapangan dengan lebih mudah. Sebagai rental alat event Jakarta dan sekitarnya, kami menyediakan satu katalog yang mencakup tenda, flooring dan karpet, LED screen, genset, sound system, lighting, panggung, furniture, hingga toilet portable. Anda tidak perlu mencari banyak vendor terpisah, cukup sampaikan kebutuhan acara melalui WhatsApp dan tim kami akan membantu menyiapkan penawaran.</p>
+                <p class="text-muted lh-lg">Untuk kebutuhan ruang, sewa tenda event Jabodetabek tersedia dalam berbagai jenis, mulai dari tenda konvensional, sarnafil, hingga roder. Bila acara Anda berupa expo atau bazar, sewa tenda pameran Jakarta dapat dipadukan dengan sewa karpet event Jabodetabek serta flooring agar area tampil rapi dan nyaman bagi pengunjung. Tamu pun lebih nyaman dengan sewa kursi meja event Jabodetabek, mulai dari kursi futura, kursi barstool, sofa, hingga set meja kantin dan dining.</p>
+                <p class="text-muted lh-lg">Dari sisi teknis, kebutuhan listrik sering menentukan kelancaran acara. Layanan sewa genset Jakarta kami mencakup kapasitas dari 5000 watt hingga 150 KVA, dan sewa genset Jabodetabek dapat disesuaikan dengan total daya peralatan di lokasi. Untuk tampilan visual, sewa LED screen Jakarta tersedia dalam berbagai tipe indoor maupun outdoor, lengkap dengan processor dan smart TV. Suasana acara didukung oleh sewa sound system event Jabodetabek, sewa lighting event Jakarta, serta sewa panggung event Jakarta beserta backdrop. Fasilitas pendukung seperti sewa toilet portable Jabodetabek juga siap dikirim ke lokasi.</p>
+                <p class="text-muted lh-lg">Karena berpusat di Bekasi, sewa perlengkapan event Bekasi dapat kami layani langsung, begitu pula untuk Depok, Bogor, Tangerang, dan Jakarta dengan layanan antar-jemput ke lokasi acara. Untuk event skala besar di luar Jabodetabek, kami juga mengatur pengiriman sebagai bagian dari layanan event equipment rental Indonesia. Sampaikan jenis acara, tanggal, lokasi, dan jumlah kebutuhan Anda melalui WhatsApp, lalu dapatkan penawaran sesuai detail acara dari Kaizen Kreasi Indonesia.</p>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <h2 class="h4 fw-700 mb-3">Area Layanan</h2>
                 <p class="text-muted">Jakarta, Bekasi, Depok, Bogor, dan Tangerang. Pengiriman ke seluruh Indonesia dapat dikonsultasikan untuk event skala besar.</p>
                 <div class="d-flex flex-wrap gap-2">
