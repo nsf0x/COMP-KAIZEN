@@ -12,4 +12,21 @@ class PublicText
             $text,
         );
     }
+
+    public static function limitToCompleteSentences(string $text, int $limit): string
+    {
+        preg_match_all('/[^.!?]+[.!?](?:\s+|$)/u', trim($text), $matches);
+
+        $description = '';
+        foreach ($matches[0] as $sentence) {
+            $candidate = $description.$sentence;
+            if (mb_strlen(trim($candidate)) > $limit) {
+                break;
+            }
+
+            $description = $candidate;
+        }
+
+        return trim($description);
+    }
 }

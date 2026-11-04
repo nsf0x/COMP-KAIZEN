@@ -3,13 +3,14 @@
 <head>
     @include('partials.google-analytics')
     @php
-        $seoTitle = trim($__env->yieldContent('title', config('company.name')));
+        $seoTitle = html_entity_decode(trim($__env->yieldContent('title', config('company.name'))), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $seoDescription = \App\Support\PublicText::normalize(trim($__env->yieldContent('meta_description', config('company.description'))));
         $companyDescription = \App\Support\PublicText::normalize(config('company.description'));
         $companyName = config('company.name');
-        $seoDocumentTitle = trim($__env->yieldContent('meta_title', str_ends_with($seoTitle, $companyName)
-            ? $seoTitle
-            : $seoTitle . ' | ' . $companyName));
+        $seoMetaTitle = html_entity_decode(trim($__env->yieldContent('meta_title')), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $seoDocumentTitle = $seoMetaTitle !== ''
+            ? $seoMetaTitle
+            : (str_ends_with($seoTitle, $companyName) ? $seoTitle : $seoTitle . ' | ' . $companyName);
         $seoCanonicalUrl = rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/');
         $seoImage = trim($__env->yieldContent('meta_image', rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png'));
     @endphp

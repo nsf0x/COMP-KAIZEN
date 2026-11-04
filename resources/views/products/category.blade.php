@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Sewa ' . $category->display_name)
-@section('meta_description', Str::limit('Jelajahi perlengkapan ' . $category->display_name . ' untuk kebutuhan event dari ' . config('company.name') . '. Melayani Jabodetabek dari Bekasi. Tanyakan ketersediaan dan penawaran via WhatsApp.', 160))
+@section('meta_description', \App\Support\PublicText::limitToCompleteSentences('Jelajahi perlengkapan ' . $category->display_name . ' untuk kebutuhan event dari ' . config('company.name') . '. Melayani Jabodetabek dari Bekasi. Tanyakan ketersediaan dan penawaran via WhatsApp.', 160))
 
 @php
     $topicFaqs = $categoryTopics->map(fn ($topic) => [

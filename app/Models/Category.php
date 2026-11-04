@@ -26,7 +26,7 @@ class Category extends Model {
             'lighting-stage', 'stage-backdrop' => 'Panggung & Backdrop',
             'furniture-seating', 'furniture' => 'Furniture (Kursi & Meja)',
             'tenda-flooring' => 'Tenda & Karpet Flooring',
-            default => $this->name,
+            default => html_entity_decode($this->name, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
         };
     }
     
