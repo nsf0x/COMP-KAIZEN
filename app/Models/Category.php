@@ -23,8 +23,8 @@ class Category extends Model {
     public function getDisplayNameAttribute(): string
     {
         return match ($this->slug) {
-            'lighting-stage' => 'Panggung & Backdrop',
-            'furniture-seating' => 'Furniture (Kursi & Meja)',
+            'lighting-stage', 'stage-backdrop' => 'Panggung & Backdrop',
+            'furniture-seating', 'furniture' => 'Furniture (Kursi & Meja)',
             'tenda-flooring' => 'Tenda & Karpet Flooring',
             default => $this->name,
         };

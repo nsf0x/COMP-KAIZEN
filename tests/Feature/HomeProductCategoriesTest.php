@@ -175,6 +175,37 @@ class HomeProductCategoriesTest extends TestCase
         }
     }
 
+    public function test_existing_stage_and_furniture_category_urls_use_the_requested_display_names(): void
+    {
+        foreach ([
+            ['slug' => 'stage-backdrop', 'name' => 'Stage & Backdrop', 'display_name' => 'Panggung & Backdrop'],
+            ['slug' => 'furniture', 'name' => 'Furniture', 'display_name' => 'Furniture (Kursi & Meja)'],
+        ] as $order => $item) {
+            $category = Category::create([
+                'name' => $item['name'],
+                'slug' => $item['slug'],
+                'type' => 'produk',
+                'order' => $order + 1,
+                'is_active' => true,
+            ]);
+
+            Product::create([
+                'category_id' => $category->id,
+                'name' => $item['name'].' Product',
+                'slug' => $item['slug'].'-product',
+                'status' => true,
+                'is_featured' => false,
+                'order' => $order + 1,
+            ]);
+
+            $this->get(route('products.category', ['slug' => $item['slug']]))
+                ->assertOk()
+                ->assertSee('Perlengkapan '.$item['display_name'].' untuk Event')
+                ->assertSee('aria-current="page">'.htmlspecialchars($item['display_name'], ENT_QUOTES, 'UTF-8').'</li>', false)
+                ->assertSee('/sewa-'.$item['slug'].'-jabodetabek', false);
+        }
+    }
+
     private function createCategoryWithProduct(
         string $name,
         string $slug,
