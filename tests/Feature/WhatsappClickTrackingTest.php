@@ -13,6 +13,9 @@ class WhatsappClickTrackingTest extends TestCase
 
     public function test_tracking_hook_can_report_product_context_with_analytics(): void
     {
+        $this->app['env'] = 'production';
+        config(['services.google_analytics.measurement_id' => 'G-XSCWM6X4JV']);
+
         $category = Category::create([
             'name' => 'Genset',
             'slug' => 'genset',
@@ -38,7 +41,7 @@ class WhatsappClickTrackingTest extends TestCase
             ->assertSee('typeof window.gtag === \'function\'', false)
             ->assertSee('window.dataLayer.push(eventData)', false)
             ->assertSee('googletagmanager.com/gtag/js?id=G-XSCWM6X4JV', false)
-            ->assertSee('gtag(\'config\', \'G-XSCWM6X4JV\')', false)
+            ->assertSee('gtag(\'config\', "G-XSCWM6X4JV")', false)
             ->assertDontSee('googletagmanager.com/gtm.js', false)
             ->assertDontSee('GTM-', false);
     }

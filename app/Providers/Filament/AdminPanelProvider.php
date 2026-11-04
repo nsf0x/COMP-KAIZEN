@@ -36,8 +36,7 @@ class AdminPanelProvider extends PanelProvider
                 fn (): HtmlString => new HtmlString(
                     '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">'
                     .'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css">'
-                    .'<script async src="https://www.googletagmanager.com/gtag/js?id=G-XSCWM6X4JV"></script>'
-                    .'<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'G-XSCWM6X4JV\');</script>',
+                    .view('partials.google-analytics')->render(),
                 ),
             )
             ->colors([

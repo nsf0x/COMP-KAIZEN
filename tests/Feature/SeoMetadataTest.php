@@ -25,6 +25,30 @@ class SeoMetadataTest extends TestCase
             ->assertSee('Cara Memesan Perlengkapan Event');
     }
 
+    public function test_google_analytics_requires_production_environment_and_a_measurement_id(): void
+    {
+        $this->app['env'] = 'testing';
+        config(['services.google_analytics.measurement_id' => 'G-TEST123456']);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertDontSee('googletagmanager.com/gtag/js', false)
+            ->assertDontSee('G-TEST123456', false);
+
+        $this->app['env'] = 'production';
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('https://www.googletagmanager.com/gtag/js?id=G-TEST123456', false)
+            ->assertSee('gtag(\'config\', "G-TEST123456")', false);
+
+        config(['services.google_analytics.measurement_id' => null]);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertDontSee('googletagmanager.com/gtag/js', false);
+    }
+
     public function test_public_pages_render_company_metadata_and_the_configured_canonical_domain(): void
     {
         config([

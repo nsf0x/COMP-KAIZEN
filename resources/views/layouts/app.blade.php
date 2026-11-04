@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XSCWM6X4JV"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XSCWM6X4JV');
-    </script>
+    @include('partials.google-analytics')
     @php
         $seoTitle = trim($__env->yieldContent('title', config('company.name')));
         $seoDescription = \App\Support\PublicText::normalize(trim($__env->yieldContent('meta_description', config('company.description'))));
