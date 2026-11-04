@@ -145,7 +145,9 @@ class ProductController extends Controller
             })
             ->values();
 
-        return view('products.category', compact('category', 'products', 'relatedArticles', 'categoryTopics'));
+        $categorySeo = config('category_seo.'.$category->slug);
+
+        return view('products.category', compact('category', 'products', 'relatedArticles', 'categoryTopics', 'categorySeo'));
     }
 
     private function findAvailableCategory(string $slug): ?Category
