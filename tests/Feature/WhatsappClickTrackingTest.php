@@ -31,18 +31,29 @@ class WhatsappClickTrackingTest extends TestCase
             'status' => true,
         ]);
 
-        $this->get(route('products.show', $product))
+        $response = $this->get(route('products.show', $product));
+
+        $response
             ->assertOk()
             ->assertSee('data-product-name="Genset 150 KVA"', false)
             ->assertSee('event: \'whatsapp_click\'', false)
             ->assertSee('page_source: window.location.pathname', false)
             ->assertSee('product_name: productName', false)
-            ->assertSee('window.google_tag_manager && Array.isArray(window.dataLayer)', false)
             ->assertSee('typeof window.gtag === \'function\'', false)
+            ->assertSee("window.gtag('event', 'whatsapp_click', {", false)
+            ->assertSee('} else if (window.google_tag_manager && Array.isArray(window.dataLayer)) {', false)
             ->assertSee('window.dataLayer.push(eventData)', false)
             ->assertSee('googletagmanager.com/gtag/js?id=G-XSCWM6X4JV', false)
             ->assertSee('gtag(\'config\', "G-XSCWM6X4JV")', false)
             ->assertDontSee('googletagmanager.com/gtm.js', false)
             ->assertDontSee('GTM-', false);
+
+        $trackingScript = $response->getContent();
+        $gtagBranchPosition = strpos($trackingScript, "if (typeof window.gtag === 'function')");
+        $dataLayerFallbackPosition = strpos($trackingScript, 'else if (window.google_tag_manager && Array.isArray(window.dataLayer))');
+
+        $this->assertNotFalse($gtagBranchPosition);
+        $this->assertNotFalse($dataLayerFallbackPosition);
+        $this->assertLessThan($dataLayerFallbackPosition, $gtagBranchPosition);
     }
 }

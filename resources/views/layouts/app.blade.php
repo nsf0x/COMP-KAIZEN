@@ -404,13 +404,13 @@
             product_name: productName,
         };
 
-        if (window.google_tag_manager && Array.isArray(window.dataLayer)) {
-            window.dataLayer.push(eventData);
-        } else if (typeof window.gtag === 'function') {
-            window.gtag('event', eventData.event, {
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'whatsapp_click', {
                 page_source: eventData.page_source,
                 product_name: eventData.product_name,
             });
+        } else if (window.google_tag_manager && Array.isArray(window.dataLayer)) {
+            window.dataLayer.push(eventData);
         }
     });
 </script>
