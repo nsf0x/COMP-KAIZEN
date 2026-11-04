@@ -32,7 +32,7 @@
         '@@context' => 'https://schema.org',
         '@type' => 'Service',
         'name' => $product->name,
-        'description' => trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))),
+        'description' => \App\Support\PublicText::normalize(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.')))),
         'image' => $product->thumbnail ? $product->thumbnail_url : null,
         'serviceType' => $product->category?->name,
         'provider' => [

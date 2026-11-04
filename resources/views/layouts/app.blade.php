@@ -11,7 +11,8 @@
     </script>
     @php
         $seoTitle = trim($__env->yieldContent('title', config('company.name')));
-        $seoDescription = trim($__env->yieldContent('meta_description', config('company.description')));
+        $seoDescription = \App\Support\PublicText::normalize(trim($__env->yieldContent('meta_description', config('company.description'))));
+        $companyDescription = \App\Support\PublicText::normalize(config('company.description'));
         $companyName = config('company.name');
         $seoDocumentTitle = trim($__env->yieldContent('meta_title', str_ends_with($seoTitle, $companyName)
             ? $seoTitle
@@ -42,7 +43,7 @@
             '@type' => 'LocalBusiness',
             '@id' => rtrim(config('app.url'), '/') . '/#organization',
             'name' => config('company.name'),
-            'description' => config('company.description'),
+            'description' => $companyDescription,
             'url' => rtrim(config('app.url'), '/') . '/',
             'logo' => rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png',
             'image' => rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png',
@@ -80,7 +81,7 @@
                 'telephone' => config('company.phone'),
                 'contactType' => 'customer service',
                 'availableLanguage' => 'Indonesian',
-                'description' => 'Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari.',
+                'description' => \App\Support\PublicText::normalize(config('company.contact_description')),
                 'hoursAvailable' => [
                     [
                         '@type' => 'OpeningHoursSpecification',
@@ -303,7 +304,7 @@
                                        width="38" height="38" class="brand-logo brand-logo-footer" />
                     <span>{{ config('company.name') }}</span>
                 </div>
-                <p class="small">{{ config('company.description') }}</p>
+                <p class="small">{{ $companyDescription }}</p>
                 <div class="mt-3">
                     @if(config('company.instagram'))
                     <a href="{{ config('company.instagram') }}" class="social-icon" target="_blank"><i class="bi bi-instagram"></i></a>

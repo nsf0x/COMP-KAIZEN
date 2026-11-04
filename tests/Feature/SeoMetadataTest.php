@@ -27,7 +27,11 @@ class SeoMetadataTest extends TestCase
 
     public function test_public_pages_render_company_metadata_and_the_configured_canonical_domain(): void
     {
-        config(['app.url' => 'https://kaizenkreasi.com']);
+        config([
+            'app.url' => 'https://kaizenkreasi.com',
+            'company.description' => 'Penyedia penyewaan perlengkapan event untuk wilayah Jabodetabekdan pengiriman ke seluruh Indonesia bagi event skala besar.',
+            'company.contact_description' => 'Konsultasi dan pemesanan melalui WhatsApp 24jam setiap hari.',
+        ]);
 
         $this->get('/kontak')
             ->assertOk()
@@ -36,6 +40,10 @@ class SeoMetadataTest extends TestCase
             ->assertSee('"@type":"LocalBusiness"', false)
             ->assertSee('"@type":"ContactPoint"', false)
             ->assertSee('"description":"Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari."', false)
+            ->assertDontSee('"description":"Konsultasi dan pemesanan melalui WhatsApp 24jam setiap hari."', false)
+            ->assertSee('<p class="small">Penyedia penyewaan perlengkapan event untuk wilayah Jabodetabek dan pengiriman ke seluruh Indonesia bagi event skala besar.</p>', false)
+            ->assertSee('"description":"Penyedia penyewaan perlengkapan event untuk wilayah Jabodetabek dan pengiriman ke seluruh Indonesia bagi event skala besar."', false)
+            ->assertDontSee('Jabodetabekdan pengiriman', false)
             ->assertSee('"opens":"08:00","closes":"17:00"', false)
             ->assertSee('"opens":"08:00","closes":"14:00"', false)
             ->assertSee('https://kaizenkreasi.com/#organization', false);
@@ -67,6 +75,9 @@ class SeoMetadataTest extends TestCase
                 ->assertOk()
                 ->assertSee('<title>Sewa Tenda Roder | Kaizen Kreasi Indonesia</title>', false)
                 ->assertSee('<meta name="description" content="Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.">', false)
+                ->assertSee('<meta property="og:description" content="Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.">', false)
+                ->assertSee('"description":"Sewa tenda roder untuk pameran dan event perusahaan di Bekasi."', false)
+                ->assertDontSee('perusahaandi Bekasi', false)
                 ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/produk/sewa-tenda-roder">', false)
                 ->assertSee('"@type":"Service"', false)
                 ->assertSee('"serviceType":"Tenda"', false)
@@ -211,7 +222,7 @@ class SeoMetadataTest extends TestCase
             'name' => 'Sewa Tenda Roder',
             'slug' => 'sewa-tenda-roder',
             'description' => 'Tenda untuk kebutuhan pameran dan acara perusahaan.',
-            'meta_description' => 'Sewa tenda roder untuk pameran dan event perusahaan di Bekasi.',
+            'meta_description' => 'Sewa tenda roder untuk pameran dan event perusahaandi Bekasi.',
             'thumbnail' => $thumbnail,
             'status' => true,
         ]);

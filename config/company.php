@@ -13,6 +13,7 @@ return [
     'name'        => env('COMPANY_NAME', 'Kaizen Kreasi Indonesia'),
     'tagline'     => env('COMPANY_TAGLINE', 'Perlengkapan Event untuk Beragam Kebutuhan'),
     'description' => env('COMPANY_DESCRIPTION', 'Penyedia penyewaan perlengkapan event untuk wilayah Jabodetabek dan pengiriman ke seluruh Indonesia bagi event skala besar.'),
+    'contact_description' => env('COMPANY_CONTACT_DESCRIPTION', 'Konsultasi dan pemesanan melalui WhatsApp 24 jam setiap hari.'),
     'whatsapp'    => env('COMPANY_WHATSAPP', '6281113051007'),
     'phone'       => env('COMPANY_PHONE', '0811-1305-1007'),
     'additional_phones' => [],
