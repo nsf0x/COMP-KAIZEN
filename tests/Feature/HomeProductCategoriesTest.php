@@ -176,9 +176,13 @@ class HomeProductCategoriesTest extends TestCase
                 'order' => $order + 1,
             ]);
 
+            $expectedHeading = $item['slug'] === 'stage-backdrop'
+                ? 'Sewa Panggung Event Jakarta dan Jabodetabek'
+                : 'Perlengkapan '.$item['display_name'].' untuk Event';
+
             $this->get(route('products.category', ['slug' => $item['slug']]))
                 ->assertOk()
-                ->assertSee('Perlengkapan '.$item['display_name'].' untuk Event')
+                ->assertSee($expectedHeading)
                 ->assertSee('aria-current="page">'.htmlspecialchars($item['display_name'], ENT_QUOTES, 'UTF-8').'</li>', false)
                 ->assertSee('/sewa-'.$item['slug'].'-jabodetabek', false);
         }
