@@ -30,7 +30,9 @@
     <meta name="twitter:title" content="{{ $seoDocumentTitle }}">
     <meta name="twitter:description" content="{{ $seoDescription }}">
     <meta name="twitter:image" content="{{ $seoImage }}">
-    <link rel="icon" type="image/png" href="{{ asset('images/kaizen-logo-color.png') }}">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <script type="application/ld+json">
         {!! json_encode([
             '@@context' => 'https://schema.org',
