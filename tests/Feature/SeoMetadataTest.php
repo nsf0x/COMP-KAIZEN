@@ -182,7 +182,7 @@ class SeoMetadataTest extends TestCase
             ->assertOk()
             ->assertSee('<title>Sewa Tenda | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<link rel="canonical" href="https://kaizenkreasi.com/sewa-tenda-jabodetabek">', false)
-            ->assertSee('"@type":"FAQPage"', false)
+            ->assertDontSee('"@type":"FAQPage"', false)
             ->assertSee('Tenda Roder')
             ->assertDontSee('Rp ');
 
