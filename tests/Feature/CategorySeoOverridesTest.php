@@ -59,9 +59,14 @@ class CategorySeoOverridesTest extends TestCase
         $this->assertLandingMetadata(
             $content,
             'Sewa Genset Jakarta dan Jabodetabek',
-            'Sewa genset Jakarta dan Jabodetabek: kapasitas 5000 watt hingga 150 KVA untuk event. Antar-jemput. Minta penawaran via WhatsApp.',
+            'Sewa genset Jakarta dan Jabodetabek untuk kebutuhan daya event. Lihat juga sewa led screen jakarta. Antar-jemput. Minta penawaran via WhatsApp.',
             ['sewa genset jakarta' => 3, 'sewa genset jabodetabek' => 1],
         );
+        preg_match('/<meta name="description" content="([^"]*)"/', $content, $descriptionMatch);
+        $this->assertArrayHasKey(1, $descriptionMatch);
+        $description = html_entity_decode($descriptionMatch[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $this->assertLessThanOrEqual(150, mb_strlen($description));
+        $this->assertStringContainsString('sewa led screen jakarta', mb_strtolower($description));
         $this->assertFaqsMatchVisibleContent($content, [
             'Apakah Kaizen Kreasi melayani sewa genset Jakarta?' =>
                 'Ya. Kami berkantor di Bekasi dan melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk acara di luar Jabodetabek, konsultasikan lokasi dan jadwalnya lewat WhatsApp.',
