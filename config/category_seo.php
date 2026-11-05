@@ -76,7 +76,7 @@ return [
                 ],
             ],
         ],
-        'body_heading' => 'Koordinasi Genset dan Sound System untuk Event',
+        'body_heading' => 'Perencanaan Genset dan sewa sound system event jabodetabek',
         'body_content' => [
             'Perencanaan kebutuhan listrik dan audio sebaiknya dimulai dari daftar peralatan yang benar-benar akan digunakan di acara. Catat apakah venue menyediakan sumber listrik, perangkat mana yang menyala bersamaan, serta posisi area panggung, audiens, dan genset. Informasi tersebut membantu tim memahami kebutuhan acara sebelum ketersediaan unit dan kebutuhan pemasangan dikonfirmasi. Dalam persiapan acara di Jakarta, kebutuhan sewa sound system event Jabodetabek dapat dibicarakan bersamaan dengan kebutuhan genset agar susunan perangkat audio dan sumber dayanya dipertimbangkan sebagai satu rencana, bukan diasumsikan cocok tanpa pemeriksaan.',
             'Kaizen Kreasi Indonesia berkantor di Bekasi dan melayani permintaan acara di Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi. Untuk membuat permintaan lebih jelas, sampaikan tanggal acara, alamat venue, jadwal penggunaan, daftar perangkat yang akan memakai listrik, serta informasi dari pengelola venue mengenai sambungan yang tersedia. Jika sound system disediakan oleh pihak lain, cantumkan spesifikasi yang diberikan vendor; jika Anda juga ingin menanyakan sewa sound system event Jabodetabek dari katalog, sebutkan ruang atau area acara dan kebutuhan audio yang sudah diketahui. Tim dapat memeriksa ketersediaan berdasarkan detail yang disampaikan.',
