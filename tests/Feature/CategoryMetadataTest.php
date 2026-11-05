@@ -59,4 +59,29 @@ class CategoryMetadataTest extends TestCase
         $this->assertStringEndsWith('.', $description);
         $this->assertFalse(str_ends_with($description, '...'));
     }
+
+    public function test_category_descriptions_escape_ampersands_once_in_all_description_metadata(): void
+    {
+        $category = Category::create([
+            'name' => 'Tenda & Karpet',
+            'slug' => 'ampersand-description-fixture',
+            'type' => 'produk',
+            'is_active' => true,
+        ]);
+        Product::create([
+            'category_id' => $category->id,
+            'name' => 'Fixture product',
+            'slug' => 'ampersand-description-fixture-product',
+            'status' => true,
+        ]);
+
+        $content = $this->get(route('products.category', ['slug' => $category->slug]))
+            ->assertOk()
+            ->getContent();
+
+        preg_match_all('/<meta\b[^>]*(?:name="description"|property="og:description"|name="twitter:description")[^>]*>/i', $content, $metaTags);
+        $this->assertCount(3, $metaTags[0]);
+        $this->assertDoesNotMatchRegularExpression('/&amp;amp;/i', implode(' ', $metaTags[0]));
+        $this->assertSame(3, substr_count(implode(' ', $metaTags[0]), 'Tenda &amp; Karpet'));
+    }
 }

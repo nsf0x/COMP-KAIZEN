@@ -4,7 +4,7 @@
     @include('partials.google-analytics')
     @php
         $seoTitle = html_entity_decode(trim($__env->yieldContent('title', config('company.name'))), ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $seoDescription = \App\Support\PublicText::normalize(trim($__env->yieldContent('meta_description', config('company.description'))));
+        $seoDescription = \App\Support\PublicText::normalize(html_entity_decode(trim($__env->yieldContent('meta_description', config('company.description'))), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         $companyDescription = \App\Support\PublicText::normalize(config('company.description'));
         $companyName = config('company.name');
         $seoMetaTitle = html_entity_decode(trim($__env->yieldContent('meta_title')), ENT_QUOTES | ENT_HTML5, 'UTF-8');
