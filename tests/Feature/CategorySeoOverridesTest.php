@@ -48,7 +48,7 @@ class CategorySeoOverridesTest extends TestCase
         $response = $this->renderCategory('genset-power', 'Genset & Power', 'Genset 5000 Watt');
         $content = $response->getContent();
 
-        $response->assertSee('<title>Sewa Genset Jakarta dan Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
+        $response->assertSee('<title>Genset &amp; sewa led screen jakarta | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<meta name="robots" content="index,follow">', false)
             ->assertSee('Cara Menentukan Kapasitas Genset untuk Event')
             ->assertSee('<h2 id="category-body-heading" class="h4 fw-700 mb-3">Perencanaan Genset dan sewa sound system event jabodetabek</h2>', false)
@@ -64,6 +64,11 @@ class CategorySeoOverridesTest extends TestCase
             'Sewa genset Jakarta dan Jabodetabek untuk kebutuhan event. Didukung sewa led screen jakarta dan sewa sound system event jabodetabek. Hubungi kami.',
             ['sewa genset jakarta' => 3, 'sewa genset jabodetabek' => 1],
         );
+        preg_match('/<title>(.*?)<\/title>/', $content, $titleMatch);
+        $this->assertArrayHasKey(1, $titleMatch);
+        $title = html_entity_decode($titleMatch[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $this->assertLessThanOrEqual(65, mb_strlen($title));
+        $this->assertStringContainsString('sewa led screen jakarta', mb_strtolower($title));
         preg_match('/<meta name="description" content="([^"]*)"/', $content, $descriptionMatch);
         $this->assertArrayHasKey(1, $descriptionMatch);
         $description = html_entity_decode($descriptionMatch[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');

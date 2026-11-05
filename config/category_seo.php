@@ -46,7 +46,7 @@ return [
         'cta' => 'Untuk kebutuhan LED screen di Jakarta dan sekitarnya, sampaikan tanggal, lokasi, indoor atau outdoor, dan ukuran tampilan melalui WhatsApp. Tim kami akan membantu memeriksa ketersediaan dan menyiapkan penawaran.',
     ],
     'genset-power' => [
-        'title' => 'Sewa Genset Jakarta dan Jabodetabek',
+        'title' => 'Genset & sewa led screen jakarta | Kaizen Kreasi Indonesia',
         'h1' => 'Sewa Genset Jakarta dan Jabodetabek',
         'description' => 'Sewa genset Jakarta dan Jabodetabek untuk kebutuhan event. Didukung sewa led screen jakarta dan sewa sound system event jabodetabek. Hubungi kami.',
         'intro' => [
