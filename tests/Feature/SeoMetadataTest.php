@@ -20,7 +20,7 @@ class SeoMetadataTest extends TestCase
             ->assertOk()
             ->assertSee('<title>Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<meta property="og:title" content="Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia">', false)
-            ->assertSee('Sewa Perlengkapan Event di Jabodetabek')
+            ->assertSee('Sewa Perlengkapan Event Jabodetabek')
             ->assertSee('Area Layanan')
             ->assertSee('Cara Memesan Perlengkapan Event');
     }

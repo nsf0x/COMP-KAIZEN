@@ -150,7 +150,10 @@ class HomeProductCategoriesTest extends TestCase
 
         preg_match_all('/<h1\b/i', $response->getContent(), $headings);
         $this->assertCount(1, $headings[0]);
-        $response->assertSee('<h2 class="section-title">Mitra Sewa Perlengkapan Event Jabodetabek untuk Berbagai Acara</h2>', false);
+        $response->assertSee('<h1 class="display-4 fw-700 lh-sm mb-3" style="color:#1a1a2e;">'."\n".'                    Sewa Perlengkapan Event Jabodetabek'."\n".'                </h1>', false)
+            ->assertSee('<h2 class="section-title">Sewa Tenda Event Jabodetabek untuk Berbagai Acara</h2>', false);
+        $this->assertSame(1, preg_match_all('/<h1\b[^>]*>.*?sewa perlengkapan event jabodetabek.*?<\/h1>/is', $response->getContent()));
+        $this->assertSame(1, preg_match_all('/<h[1-3]\b[^>]*>.*?sewa tenda event jabodetabek.*?<\/h[1-3]>/is', $response->getContent()));
     }
 
     public function test_existing_stage_and_furniture_category_urls_use_the_requested_display_names(): void

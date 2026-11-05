@@ -29,7 +29,7 @@
                     EVENT EQUIPMENT RENTAL
                 </span>
                 <h1 class="display-4 fw-700 lh-sm mb-3" style="color:#1a1a2e;">
-                    Sewa Perlengkapan Event di Jabodetabek
+                    Sewa Perlengkapan Event Jabodetabek
                 </h1>
                 <h2 class="h4 fw-600 mb-3" style="color:var(--primary);">Bangun Event Tanpa Batas Bersama Kaizen</h2>
                 <p class="lead text-muted mb-4">
@@ -80,7 +80,7 @@
     <div class="container">
         <div class="row g-4 align-items-start">
             <div class="col-lg-8">
-                <h2 class="section-title">Mitra Sewa Perlengkapan Event Jabodetabek untuk Berbagai Acara</h2>
+                <h2 class="section-title">Sewa Tenda Event Jabodetabek untuk Berbagai Acara</h2>
                 <p class="text-muted lh-lg">Kaizen Kreasi Indonesia adalah penyedia sewa perlengkapan event Jabodetabek yang berkantor di Bekasi. Kami membantu penyelenggara pameran, acara perusahaan, pernikahan, konser, turnamen, dan festival menyiapkan kebutuhan lapangan dengan lebih mudah. Sebagai rental alat event Jakarta dan sekitarnya, kami menyediakan satu katalog yang mencakup tenda, flooring dan karpet, LED screen, genset, sound system, lighting, panggung, furniture, hingga toilet portable. Anda tidak perlu mencari banyak vendor terpisah, cukup sampaikan kebutuhan acara melalui WhatsApp dan tim kami akan membantu menyiapkan penawaran.</p>
                 <p class="text-muted lh-lg">Untuk kebutuhan ruang, sewa tenda event Jabodetabek tersedia dalam berbagai jenis, mulai dari tenda konvensional, sarnafil, hingga roder. Bila acara Anda berupa expo atau bazar, sewa tenda pameran Jakarta dapat dipadukan dengan sewa karpet event Jabodetabek serta flooring agar area tampil rapi dan nyaman bagi pengunjung. Tamu pun lebih nyaman dengan sewa kursi meja event Jabodetabek, mulai dari kursi futura, kursi barstool, sofa, hingga set meja kantin dan dining.</p>
                 <p class="text-muted lh-lg">Dari sisi teknis, kebutuhan listrik sering menentukan kelancaran acara. Layanan <a href="{{ route('products.category', ['slug' => 'genset-power']) }}">sewa genset Jakarta</a> kami mencakup kapasitas dari 5000 watt hingga 150 KVA, dan sewa genset Jabodetabek dapat disesuaikan dengan total daya peralatan di lokasi. Untuk tampilan visual, <a href="{{ route('products.category', ['slug' => 'led-screen-processor']) }}">sewa LED screen Jakarta</a> tersedia dalam berbagai tipe indoor maupun outdoor, lengkap dengan processor dan smart TV. Suasana acara didukung oleh sewa sound system event Jabodetabek, sewa lighting event Jakarta, serta <a href="{{ route('products.category', ['slug' => 'stage-backdrop']) }}">sewa panggung event Jakarta</a> beserta backdrop. Fasilitas pendukung seperti sewa toilet portable Jabodetabek juga siap dikirim ke lokasi.</p>
