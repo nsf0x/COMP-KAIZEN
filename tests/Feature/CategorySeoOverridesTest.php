@@ -73,6 +73,7 @@ class CategorySeoOverridesTest extends TestCase
         $bodyWords = preg_split('/[^\p{L}\p{N}]+/u', $bodyCopy, -1, PREG_SPLIT_NO_EMPTY);
         $this->assertGreaterThanOrEqual(250, count($bodyWords));
         $this->assertSame(3, substr_count(mb_strtolower($bodyCopy), 'sewa sound system event jabodetabek'));
+        $this->assertSame(2, substr_count(mb_strtolower($bodyCopy), 'sewa led screen jakarta'));
         $this->assertStringContainsString('Kaizen Kreasi Indonesia', $bodyCopy);
         $this->assertStringContainsString('Bekasi', $bodyCopy);
         $this->assertStringContainsString('Jakarta', $bodyCopy);
