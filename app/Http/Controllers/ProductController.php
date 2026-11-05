@@ -92,7 +92,7 @@ class ProductController extends Controller
                 'faktor-biaya-sewa-tenda-pernikahan',
                 'perlengkapan-event-ulang-tahun',
             ],
-            'led-screen-processor' => ['persiapan-display-visual-event'],
+            'led-screen-processor' => ['persiapan-display-visual-event', 'perencanaan-kebutuhan-daya-event'],
             'smart-tv' => ['persiapan-display-visual-event'],
             'genset' => ['perencanaan-kebutuhan-daya-event'],
             'genset-power' => ['perencanaan-kebutuhan-daya-event'],

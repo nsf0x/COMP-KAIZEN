@@ -159,7 +159,7 @@
 
     @if($categorySeo)
     <section class="mt-5" aria-labelledby="category-faq-heading">
-        <h2 id="category-faq-heading" class="h4 fw-700 mb-3">Pertanyaan tentang panggung dan backdrop</h2>
+        <h2 id="category-faq-heading" class="h4 fw-700 mb-3">{{ $categorySeo['faq_heading'] ?? 'Pertanyaan tentang panggung dan backdrop' }}</h2>
         @foreach($categorySeo['faqs'] as $faq)
         <article class="mb-3">
             <h3 class="h6 fw-700">{{ $faq['question'] }}</h3>

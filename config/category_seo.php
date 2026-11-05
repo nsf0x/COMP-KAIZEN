@@ -1,6 +1,50 @@
 <?php
 
 return [
+    'led-screen-processor' => [
+        'title' => 'Sewa LED Screen Jakarta',
+        'h1' => 'Sewa LED Screen Jakarta dan Jabodetabek',
+        'description' => 'Sewa LED screen Jakarta dan Jabodetabek: pilihan P3.9 dan P2.6 indoor/outdoor, LED cube, processor Novastar. Minta penawaran via WhatsApp.',
+        'intro' => [
+            'Butuh sewa LED screen Jakarta untuk pameran, konser, pernikahan, seminar, atau acara perusahaan? Kaizen Kreasi Indonesia menyediakan LED screen dengan pilihan pixel pitch P3.9 dan P2.6, untuk dalam ruangan maupun luar ruangan, serta model lengkung (curve) dan LED cube. Kami melayani Jakarta, Bekasi, Depok, Bogor, dan Tangerang dengan antar-jemput ke lokasi acara, dan pengiriman ke luar Jabodetabek dapat dikonsultasikan untuk event skala besar.',
+            'LED screen kami dihitung per meter persegi, sehingga ukuran tampilan dapat disesuaikan dengan panggung atau ruangan Anda. Untuk mengatur gambar, tersedia processor Novastar VX16S, VX600, dan VX400, layanan VJ (video jockey) untuk mengelola tampilan konten, serta dudukan LED sebagai rangka penyangga. Dengan satu katalog, kebutuhan visual acara dapat disiapkan tanpa mencari banyak vendor.',
+        ],
+        'guide' => [
+            'title' => 'Cara Memilih LED Screen untuk Acara Anda',
+            'steps' => [
+                [
+                    'title' => 'Indoor atau outdoor.',
+                    'text' => 'Pilih tipe indoor untuk hall, ballroom, atau ruang pameran, dan tipe outdoor untuk acara di area terbuka.',
+                ],
+                [
+                    'title' => 'Pixel pitch.',
+                    'text' => 'P2.6 memiliki jarak antar-piksel yang lebih rapat sehingga umumnya cocok untuk penonton yang berada dekat layar, sedangkan P3.9 umum dipakai untuk area yang lebih luas dengan jarak pandang lebih jauh.',
+                ],
+                [
+                    'title' => 'Ukuran dan daya.',
+                    'parts' => [
+                        ['text' => 'LED screen dihitung per m². Sampaikan ukuran tampilan dan lokasi pemasangan, serta siapkan informasi kelistrikan venue; kebutuhan daya dapat dilengkapi dengan '],
+                        ['label' => 'genset', 'url' => '/sewa-genset-power-jabodetabek'],
+                        ['text' => ' dari katalog kami. Baca juga '],
+                        ['label' => 'artikel perencanaan kebutuhan daya event', 'url' => '/blog/perencanaan-kebutuhan-daya-event'],
+                        ['text' => '.'],
+                    ],
+                ],
+            ],
+        ],
+        'faqs' => [
+            [
+                'question' => 'Apakah Kaizen Kreasi melayani sewa LED screen Jakarta?',
+                'answer' => 'Ya. Kami berkantor di Bekasi dan melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk acara di luar Jabodetabek, konsultasikan lokasi dan jadwalnya lewat WhatsApp.',
+            ],
+            [
+                'question' => 'Apa perbedaan LED screen indoor dan outdoor?',
+                'answer' => 'Tipe indoor dipakai di dalam ruangan seperti hall atau ruang pameran, sedangkan tipe outdoor untuk acara di area terbuka. Sampaikan lokasi acara agar tipe yang sesuai dapat dikonfirmasi.',
+            ],
+        ],
+        'faq_heading' => 'Pertanyaan tentang LED screen',
+        'cta' => 'Untuk kebutuhan LED screen di Jakarta dan sekitarnya, sampaikan tanggal, lokasi, indoor atau outdoor, dan ukuran tampilan melalui WhatsApp. Tim kami akan membantu memeriksa ketersediaan dan menyiapkan penawaran.',
+    ],
     'stage-backdrop' => [
         'title' => 'Sewa Panggung Event Jakarta',
         'h1' => 'Sewa Panggung Event Jakarta dan Jabodetabek',

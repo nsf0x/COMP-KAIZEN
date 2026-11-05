@@ -107,15 +107,6 @@ class CategoryContentLinkingTest extends TestCase
                 'topics' => ['Tenda untuk area acara', 'Flooring dan karpet'],
                 'questions' => ['Informasi apa yang perlu disiapkan untuk menanyakan tenda?', 'Bagaimana menentukan kebutuhan flooring atau karpet?'],
             ],
-            [
-                'slug' => 'led-screen-processor',
-                'products' => [
-                    ['LED Screen P2.6 Indoor', 'led-screen-p26-indoor'],
-                    ['Processor Novastar VX16S', 'processor-novastar-vx16s'],
-                ],
-                'topics' => ['LED screen', 'Video processor'],
-                'questions' => ['Informasi apa yang dibutuhkan untuk menanyakan LED screen?', 'Model processor Novastar apa yang tercantum di katalog?'],
-            ],
         ] as $fixture) {
             $category = Category::firstOrCreate(
                 ['slug' => $fixture['slug']],
@@ -200,7 +191,7 @@ class CategoryContentLinkingTest extends TestCase
 
         $categoryArticles = [
             'tenda-flooring' => ['perlengkapan-event-pernikahan-checklist-tenda-peralatan'],
-            'led-screen-processor' => ['persiapan-display-visual-event'],
+            'led-screen-processor' => ['persiapan-display-visual-event', 'perencanaan-kebutuhan-daya-event'],
             'genset' => ['perencanaan-kebutuhan-daya-event'],
             'genset-power' => ['perencanaan-kebutuhan-daya-event'],
             'smart-tv' => ['persiapan-display-visual-event'],
