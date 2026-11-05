@@ -23,6 +23,17 @@ class FaviconTest extends TestCase
         $this->assertStringNotContainsString('?v=', $head);
     }
 
+    public function test_homepage_renders_the_bing_site_verification_tag_in_the_head(): void
+    {
+        $html = $this->get(route('home'))->assertOk()->getContent();
+        $head = substr($html, 0, (int) strpos($html, '</head>') + strlen('</head>'));
+
+        $this->assertSame(
+            1,
+            substr_count($head, '<meta name="msvalidate.01" content="E2E930C2EB21A8991D6D676EA062D622" />'),
+        );
+    }
+
     public function test_public_favicon_files_are_valid_square_images_at_the_declared_sizes(): void
     {
         $pngFiles = [

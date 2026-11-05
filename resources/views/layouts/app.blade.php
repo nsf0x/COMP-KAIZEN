@@ -16,6 +16,7 @@
     @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msvalidate.01" content="E2E930C2EB21A8991D6D676EA062D622" />
     <meta name="description" content="{{ $seoDescription }}">
     <meta name="robots" content="@yield('meta_robots', request()->query() ? 'noindex,follow' : 'index,follow')">
     <link rel="canonical" href="{{ $seoCanonicalUrl }}">
