@@ -43,6 +43,39 @@ class CategorySeoOverridesTest extends TestCase
             ->assertSee('<loc>'.route('products.category', ['slug' => 'led-screen-processor']).'</loc>', false);
     }
 
+    public function test_genset_category_uses_its_landing_content_faq_schema_and_existing_url(): void
+    {
+        $response = $this->renderCategory('genset-power', 'Genset & Power', 'Genset 5000 Watt');
+        $content = $response->getContent();
+
+        $response->assertSee('<title>Sewa Genset Jakarta dan Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
+            ->assertSee('<meta name="robots" content="index,follow">', false)
+            ->assertSee('Cara Menentukan Kapasitas Genset untuk Event')
+            ->assertSee('<a href="/blog/perencanaan-kebutuhan-daya-event">kebutuhan daya</a>', false)
+            ->assertSee('<a href="/sewa-led-screen-processor-jabodetabek">LED screen</a>', false)
+            ->assertSee('Pertanyaan tentang genset')
+            ->assertSee('/blog/perencanaan-kebutuhan-daya-event', false);
+
+        $this->assertLandingMetadata(
+            $content,
+            'Sewa Genset Jakarta dan Jabodetabek',
+            'Sewa genset Jakarta dan Jabodetabek: kapasitas 5000 watt hingga 150 KVA untuk event. Antar-jemput. Minta penawaran via WhatsApp.',
+            ['sewa genset jakarta' => 3, 'sewa genset jabodetabek' => 1],
+        );
+        $this->assertFaqsMatchVisibleContent($content, [
+            'Apakah Kaizen Kreasi melayani sewa genset Jakarta?' =>
+                'Ya. Kami berkantor di Bekasi dan melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk acara di luar Jabodetabek, konsultasikan lokasi dan jadwalnya lewat WhatsApp.',
+            'Kapasitas genset apa saja yang tersedia?' =>
+                'Katalog mencantumkan genset 5000 watt, 60 KVA, 80 KVA, 100 KVA, dan 150 KVA. Ketersediaan tiap kapasitas dikonfirmasi sesuai tanggal acara.',
+            'Informasi apa yang dibutuhkan untuk meminta penawaran genset?' =>
+                'Sampaikan tanggal dan durasi acara, lokasi, daftar peralatan yang akan memakai listrik beserta dayanya, dan kondisi area penempatan genset.',
+        ]);
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertSee('<loc>'.route('products.category', ['slug' => 'genset-power']).'</loc>', false);
+    }
+
     private function renderCategory(string $slug, string $name, string $productName): \Illuminate\Testing\TestResponse
     {
         $category = Category::updateOrCreate(

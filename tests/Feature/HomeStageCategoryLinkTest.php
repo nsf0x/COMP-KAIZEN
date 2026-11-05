@@ -9,6 +9,16 @@ class HomeStageCategoryLinkTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_homepage_links_the_genset_rental_phrase_to_the_genset_category(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee(
+                '<a href="'.route('products.category', ['slug' => 'genset-power']).'">sewa genset Jakarta</a>',
+                false,
+            );
+    }
+
     public function test_homepage_links_the_led_screen_rental_phrase_to_the_led_category(): void
     {
         $this->get(route('home'))

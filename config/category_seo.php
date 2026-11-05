@@ -45,6 +45,54 @@ return [
         'faq_heading' => 'Pertanyaan tentang LED screen',
         'cta' => 'Untuk kebutuhan LED screen di Jakarta dan sekitarnya, sampaikan tanggal, lokasi, indoor atau outdoor, dan ukuran tampilan melalui WhatsApp. Tim kami akan membantu memeriksa ketersediaan dan menyiapkan penawaran.',
     ],
+    'genset-power' => [
+        'title' => 'Sewa Genset Jakarta dan Jabodetabek',
+        'h1' => 'Sewa Genset Jakarta dan Jabodetabek',
+        'description' => 'Sewa genset Jakarta dan Jabodetabek: kapasitas 5000 watt hingga 150 KVA untuk event. Antar-jemput. Minta penawaran via WhatsApp.',
+        'intro' => [
+            'Butuh sewa genset Jakarta untuk pameran, konser, pernikahan, atau acara perusahaan di luar ruangan? Kaizen Kreasi Indonesia menyediakan genset dengan kapasitas 5000 watt, 60 KVA, 80 KVA, 100 KVA, dan 150 KVA untuk memenuhi kebutuhan listrik peralatan event seperti LED screen, sound system, lighting, dan pendingin ruangan.',
+            'Sebagai penyedia sewa genset Jabodetabek yang berkantor di Bekasi, kami melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk event di luar Jabodetabek, konsultasikan lokasi dan jadwalnya melalui WhatsApp. Ketersediaan, kebutuhan instalasi, dan penawaran dikonfirmasi sesuai detail acara.',
+        ],
+        'guide' => [
+            'title' => 'Cara Menentukan Kapasitas Genset untuk Event',
+            'steps' => [
+                [
+                    'title' => 'Daftar semua peralatan.',
+                    'text' => 'Catat daya tiap perangkat (LED screen, sound system, lighting, pendingin, dan lainnya) yang akan menyala bersamaan.',
+                ],
+                [
+                    'title' => 'Perhatikan KVA dan watt.',
+                    'text' => 'Kapasitas genset dinyatakan dalam KVA, sedangkan daya perangkat biasanya dalam watt. Umumnya daya yang dapat dipakai sekitar 80% dari angka KVA, dan peralatan bermotor seperti AC membutuhkan daya awal yang lebih besar. Sisakan cadangan kapasitas agar genset tidak bekerja di batas maksimal.',
+                ],
+                [
+                    'title' => 'Cek lokasi dan durasi.',
+                    'parts' => [
+                        ['text' => 'Sampaikan lokasi, kondisi area penempatan genset, dan durasi acara agar unit dan kebutuhan pemasangan yang sesuai dapat dikonfirmasi. Pelajari juga '],
+                        ['label' => 'kebutuhan daya', 'url' => '/blog/perencanaan-kebutuhan-daya-event'],
+                        ['text' => ' dan kebutuhan '],
+                        ['label' => 'LED screen', 'url' => '/sewa-led-screen-processor-jabodetabek'],
+                        ['text' => '.'],
+                    ],
+                ],
+            ],
+        ],
+        'faqs' => [
+            [
+                'question' => 'Apakah Kaizen Kreasi melayani sewa genset Jakarta?',
+                'answer' => 'Ya. Kami berkantor di Bekasi dan melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk acara di luar Jabodetabek, konsultasikan lokasi dan jadwalnya lewat WhatsApp.',
+            ],
+            [
+                'question' => 'Kapasitas genset apa saja yang tersedia?',
+                'answer' => 'Katalog mencantumkan genset 5000 watt, 60 KVA, 80 KVA, 100 KVA, dan 150 KVA. Ketersediaan tiap kapasitas dikonfirmasi sesuai tanggal acara.',
+            ],
+            [
+                'question' => 'Informasi apa yang dibutuhkan untuk meminta penawaran genset?',
+                'answer' => 'Sampaikan tanggal dan durasi acara, lokasi, daftar peralatan yang akan memakai listrik beserta dayanya, dan kondisi area penempatan genset.',
+            ],
+        ],
+        'faq_heading' => 'Pertanyaan tentang genset',
+        'cta' => 'Untuk kebutuhan genset di Jakarta dan sekitarnya, sampaikan tanggal, lokasi, durasi acara, dan daftar peralatan melalui WhatsApp. Tim kami akan membantu memeriksa ketersediaan dan menyiapkan penawaran.',
+    ],
     'stage-backdrop' => [
         'title' => 'Sewa Panggung Event Jakarta',
         'h1' => 'Sewa Panggung Event Jakarta dan Jabodetabek',
