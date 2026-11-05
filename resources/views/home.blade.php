@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sewa Perlengkapan Event Jabodetabek | Kaizen Kreasi Indonesia')
+@section('title', 'Rental Alat Event Jakarta | Sewa Tenda | Kaizen Kreasi Indonesia')
 @section('meta_description', 'Sewa tenda, LED screen, genset, sound system dan perlengkapan event Jabodetabek. Antar-jemput tersedia, pengiriman luar kota. Minta penawaran via WhatsApp.')
 
 @push('styles')
