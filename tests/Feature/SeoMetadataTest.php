@@ -33,6 +33,19 @@ class SeoMetadataTest extends TestCase
             $this->assertStringContainsString($keyword, mb_strtolower($title));
         }
         $this->assertStringContainsString('Kaizen Kreasi Indonesia', $title);
+
+        $description = 'Layanan: sewa perlengkapan event jabodetabek, rental alat event jakarta, sewa tenda event jabodetabek. Kaizen Kreasi Indonesia di Bekasi.';
+        $this->assertLessThanOrEqual(150, mb_strlen($description));
+        $this->assertStringContainsString('Bekasi', $description);
+        foreach ([
+            'sewa perlengkapan event jabodetabek',
+            'rental alat event jakarta',
+            'sewa tenda event jabodetabek',
+        ] as $keyword) {
+            $this->assertStringContainsString($keyword, $description);
+        }
+        $this->get('/')
+            ->assertSee('<meta name="description" content="'.$description.'">', false);
     }
 
     public function test_google_analytics_requires_production_environment_and_a_measurement_id(): void
