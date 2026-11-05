@@ -51,6 +51,7 @@ class CategorySeoOverridesTest extends TestCase
         $response->assertSee('<title>Sewa Genset Jakarta dan Jabodetabek | Kaizen Kreasi Indonesia</title>', false)
             ->assertSee('<meta name="robots" content="index,follow">', false)
             ->assertSee('Cara Menentukan Kapasitas Genset untuk Event')
+            ->assertSee('Koordinasi Genset dan Sound System untuk Event')
             ->assertSee('<a href="/blog/perencanaan-kebutuhan-daya-event">kebutuhan daya</a>', false)
             ->assertSee('<a href="/sewa-led-screen-processor-jabodetabek">LED screen</a>', false)
             ->assertSee('Pertanyaan tentang genset')
@@ -68,6 +69,13 @@ class CategorySeoOverridesTest extends TestCase
         $this->assertLessThanOrEqual(150, mb_strlen($description));
         $this->assertStringContainsString('sewa led screen jakarta', mb_strtolower($description));
         $this->assertStringContainsString('sewa sound system event jabodetabek', mb_strtolower($description));
+        $bodyCopy = $this->categoryBodyCopy($content);
+        $bodyWords = preg_split('/[^\p{L}\p{N}]+/u', $bodyCopy, -1, PREG_SPLIT_NO_EMPTY);
+        $this->assertGreaterThanOrEqual(250, count($bodyWords));
+        $this->assertSame(3, substr_count(mb_strtolower($bodyCopy), 'sewa sound system event jabodetabek'));
+        $this->assertStringContainsString('Kaizen Kreasi Indonesia', $bodyCopy);
+        $this->assertStringContainsString('Bekasi', $bodyCopy);
+        $this->assertStringContainsString('Jakarta', $bodyCopy);
         $this->assertFaqsMatchVisibleContent($content, [
             'Apakah Kaizen Kreasi melayani sewa genset Jakarta?' =>
                 'Ya. Kami berkantor di Bekasi dan melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk acara di luar Jabodetabek, konsultasikan lokasi dan jadwalnya lewat WhatsApp.',
@@ -95,6 +103,18 @@ class CategorySeoOverridesTest extends TestCase
         app(BlogPostSeeder::class)->run();
 
         return $this->get(route('products.category', ['slug' => $slug]))->assertOk();
+    }
+
+    private function categoryBodyCopy(string $html): string
+    {
+        preg_match('/<section\b[^>]*aria-labelledby="category-body-heading"[^>]*>(.*?)<\/section>/s', $html, $section);
+        $this->assertArrayHasKey(1, $section);
+        preg_match_all('/<p\b[^>]*>(.*?)<\/p>/s', $section[1], $paragraphs);
+
+        return implode(' ', array_map(
+            fn (string $paragraph): string => html_entity_decode(trim(strip_tags($paragraph)), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+            $paragraphs[1],
+        ));
     }
 
     /**

@@ -76,6 +76,12 @@ return [
                 ],
             ],
         ],
+        'body_heading' => 'Koordinasi Genset dan Sound System untuk Event',
+        'body_content' => [
+            'Perencanaan kebutuhan listrik dan audio sebaiknya dimulai dari daftar peralatan yang benar-benar akan digunakan di acara. Catat apakah venue menyediakan sumber listrik, perangkat mana yang menyala bersamaan, serta posisi area panggung, audiens, dan genset. Informasi tersebut membantu tim memahami kebutuhan acara sebelum ketersediaan unit dan kebutuhan pemasangan dikonfirmasi. Dalam persiapan acara di Jakarta, kebutuhan sewa sound system event Jabodetabek dapat dibicarakan bersamaan dengan kebutuhan genset agar susunan perangkat audio dan sumber dayanya dipertimbangkan sebagai satu rencana, bukan diasumsikan cocok tanpa pemeriksaan.',
+            'Kaizen Kreasi Indonesia berkantor di Bekasi dan melayani permintaan acara di Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi. Untuk membuat permintaan lebih jelas, sampaikan tanggal acara, alamat venue, jadwal penggunaan, daftar perangkat yang akan memakai listrik, serta informasi dari pengelola venue mengenai sambungan yang tersedia. Jika sound system disediakan oleh pihak lain, cantumkan spesifikasi yang diberikan vendor; jika Anda juga ingin menanyakan sewa sound system event Jabodetabek dari katalog, sebutkan ruang atau area acara dan kebutuhan audio yang sudah diketahui. Tim dapat memeriksa ketersediaan berdasarkan detail yang disampaikan.',
+            'Kebutuhan tiap acara berbeda, sehingga kapasitas, penempatan, instalasi, dan ketersediaan tidak ditentukan hanya dari nama jenis acaranya. Hindari memilih unit sebelum kebutuhan seluruh perangkat dan kondisi lokasi dibahas. Periksa pula akses menuju area penempatan, aturan venue, dan siapa yang bertanggung jawab atas sambungan peralatan. Dengan informasi yang lengkap, pembicaraan mengenai sewa sound system event Jabodetabek dan genset menjadi lebih terarah; penawaran akhir tetap bergantung pada tanggal, lokasi, kebutuhan teknis, dan ketersediaan. Untuk acara di luar wilayah layanan yang disebutkan, hubungi Kaizen Kreasi Indonesia melalui WhatsApp untuk konsultasi lokasi dan jadwal.',
+        ],
         'faqs' => [
             [
                 'question' => 'Apakah Kaizen Kreasi melayani sewa genset Jakarta?',

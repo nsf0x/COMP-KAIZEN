@@ -95,6 +95,15 @@
     </section>
     @endif
 
+    @if($categorySeo && ! empty($categorySeo['body_content']))
+    <section class="mb-5" aria-labelledby="category-body-heading">
+        <h2 id="category-body-heading" class="h4 fw-700 mb-3">{{ $categorySeo['body_heading'] }}</h2>
+        @foreach($categorySeo['body_content'] as $paragraph)
+        <p class="text-muted">{{ $paragraph }}</p>
+        @endforeach
+    </section>
+    @endif
+
     @if(! $categorySeo && $categoryTopics->isNotEmpty())
     <section class="mb-5" aria-labelledby="category-subtopics-heading">
         <h2 id="category-subtopics-heading" class="h4 fw-700 mb-3">{{ $category->display_name }}: topik perlengkapan</h2>
