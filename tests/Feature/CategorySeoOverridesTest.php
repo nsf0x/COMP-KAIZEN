@@ -52,6 +52,7 @@ class CategorySeoOverridesTest extends TestCase
             ->assertSee('<meta name="robots" content="index,follow">', false)
             ->assertSee('Cara Menentukan Kapasitas Genset untuk Event')
             ->assertSee('<h2 id="category-body-heading" class="h4 fw-700 mb-3">Perencanaan Genset dan sewa sound system event jabodetabek</h2>', false)
+            ->assertSee('<h3 class="h5 fw-700 mb-3">Persiapan kebutuhan sewa led screen jakarta</h3>', false)
             ->assertSee('<a href="/blog/perencanaan-kebutuhan-daya-event">kebutuhan daya</a>', false)
             ->assertSee('<a href="/sewa-led-screen-processor-jabodetabek">LED screen</a>', false)
             ->assertSee('Pertanyaan tentang genset')

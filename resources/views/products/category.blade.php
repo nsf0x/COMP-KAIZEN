@@ -98,6 +98,9 @@
     @if($categorySeo && ! empty($categorySeo['body_content']))
     <section class="mb-5" aria-labelledby="category-body-heading">
         <h2 id="category-body-heading" class="h4 fw-700 mb-3">{{ $categorySeo['body_heading'] }}</h2>
+        @if(! empty($categorySeo['body_subheading']))
+        <h3 class="h5 fw-700 mb-3">{{ $categorySeo['body_subheading'] }}</h3>
+        @endif
         @foreach($categorySeo['body_content'] as $paragraph)
         <p class="text-muted">{{ $paragraph }}</p>
         @endforeach
