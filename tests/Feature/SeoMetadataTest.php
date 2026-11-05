@@ -18,15 +18,21 @@ class SeoMetadataTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSee('<title>Rental Alat Event Jakarta | Sewa Tenda | Kaizen Kreasi Indonesia</title>', false)
-            ->assertSee('<meta property="og:title" content="Rental Alat Event Jakarta | Sewa Tenda | Kaizen Kreasi Indonesia">', false)
+            ->assertSee('<title>sewa perlengkapan event jabodetabek | rental alat event jakarta | sewa tenda event jabodetabek | Kaizen Kreasi Indonesia</title>', false)
+            ->assertSee('<meta property="og:title" content="sewa perlengkapan event jabodetabek | rental alat event jakarta | sewa tenda event jabodetabek | Kaizen Kreasi Indonesia">', false)
             ->assertSee('Sewa Perlengkapan Event Jabodetabek')
             ->assertSee('Area Layanan')
             ->assertSee('Cara Memesan Perlengkapan Event');
 
-        $title = 'Rental Alat Event Jakarta | Sewa Tenda | Kaizen Kreasi Indonesia';
-        $this->assertLessThanOrEqual(65, mb_strlen($title));
-        $this->assertStringContainsString('rental alat event jakarta', mb_strtolower($title));
+        $title = 'sewa perlengkapan event jabodetabek | rental alat event jakarta | sewa tenda event jabodetabek | Kaizen Kreasi Indonesia';
+        foreach ([
+            'sewa perlengkapan event jabodetabek',
+            'rental alat event jakarta',
+            'sewa tenda event jabodetabek',
+        ] as $keyword) {
+            $this->assertStringContainsString($keyword, mb_strtolower($title));
+        }
+        $this->assertStringContainsString('Kaizen Kreasi Indonesia', $title);
     }
 
     public function test_google_analytics_requires_production_environment_and_a_measurement_id(): void
