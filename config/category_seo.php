@@ -48,7 +48,7 @@ return [
     'genset-power' => [
         'title' => 'Sewa Genset Jakarta dan Jabodetabek',
         'h1' => 'Sewa Genset Jakarta dan Jabodetabek',
-        'description' => 'Sewa genset Jakarta dan Jabodetabek untuk kebutuhan daya event. Lihat juga sewa led screen jakarta. Antar-jemput. Minta penawaran via WhatsApp.',
+        'description' => 'Sewa genset Jakarta dan Jabodetabek untuk kebutuhan event. Didukung sewa led screen jakarta dan sewa sound system event jabodetabek. Hubungi kami.',
         'intro' => [
             'Butuh sewa genset Jakarta untuk pameran, konser, pernikahan, atau acara perusahaan di luar ruangan? Kaizen Kreasi Indonesia menyediakan genset dengan kapasitas 5000 watt, 60 KVA, 80 KVA, 100 KVA, dan 150 KVA untuk memenuhi kebutuhan listrik peralatan event seperti LED screen, sound system, lighting, dan pendingin ruangan.',
             'Sebagai penyedia sewa genset Jabodetabek yang berkantor di Bekasi, kami melayani Jakarta, Depok, Bogor, dan Tangerang dengan layanan antar-jemput ke lokasi acara. Untuk event di luar Jabodetabek, konsultasikan lokasi dan jadwalnya melalui WhatsApp. Ketersediaan, kebutuhan instalasi, dan penawaran dikonfirmasi sesuai detail acara.',
