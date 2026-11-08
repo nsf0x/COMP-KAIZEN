@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use Closure;
+
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use Filament\Forms;
@@ -64,6 +66,26 @@ class ProductResource extends Resource
                             ->label('Spesifikasi')
                             ->rows(4)
                             ->columnSpanFull(),
+                        Forms\Components\Toggle::make('bisa_dijual')
+                            ->label('Bisa dijual')
+                            ->default(false)
+                            ->rules([
+                                fn (Get $get): Closure => function (string $attribute, mixed $value, Closure $fail) use ($get): void {
+                                    if (! $value && ! $get('bisa_disewa')) {
+                                        $fail('Produk harus bisa dijual atau disewa.');
+                                    }
+                                },
+                            ]),
+                        Forms\Components\Toggle::make('bisa_disewa')
+                            ->label('Bisa disewa')
+                            ->default(true)
+                            ->rules([
+                                fn (Get $get): Closure => function (string $attribute, mixed $value, Closure $fail) use ($get): void {
+                                    if (! $value && ! $get('bisa_dijual')) {
+                                        $fail('Produk harus bisa dijual atau disewa.');
+                                    }
+                                },
+                            ]),
                         Forms\Components\TextInput::make('meta_description')
                             ->label('Deskripsi SEO')
                             ->maxLength(160)
@@ -135,6 +157,12 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Kategori')
                     ->sortable(),
+                Tables\Columns\IconColumn::make('bisa_dijual')
+                    ->label('Dijual')
+                    ->boolean(),
+                Tables\Columns\IconColumn::make('bisa_disewa')
+                    ->label('Disewa')
+                    ->boolean(),
                 Tables\Columns\IconColumn::make('status')
                     ->label('Tampil')
                     ->boolean(),

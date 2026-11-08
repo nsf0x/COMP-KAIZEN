@@ -9,6 +9,7 @@ class DatabaseSeeder extends Seeder {
             CompanyInfoSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
+            SaleProductSeeder::class,
             ProductAssetSeeder::class,
             PortfolioSeeder::class,
             ClientSeeder::class,

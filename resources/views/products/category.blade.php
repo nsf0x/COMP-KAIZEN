@@ -149,15 +149,18 @@
                     <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                        width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                     @else
-                    <div style="font-size:5rem;" aria-hidden="true">🎁</div>
+                    <img src="{{ asset('images/product-placeholder.svg') }}" alt="Placeholder foto produk: {{ $product->name }}"
+                         width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                     @endif
                 </div>
                 <div class="card-body d-flex flex-column">
+                    @include('products.partials.availability-badge', ['product' => $product])
                     <h2 class="h6 fw-700">{{ $product->name }}</h2>
                     @if($product->description)
                     <p class="text-muted small flex-grow-1">{{ Str::limit($product->description, 110) }}</p>
                     @endif
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary rounded-pill mt-auto">Lihat Detail</a>
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary rounded-pill mb-2 mt-auto">Lihat Detail</a>
+                    @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                 </div>
             </article>
         </div>

@@ -16,6 +16,7 @@ Route::get('/sewa-perlengkapan-event-{slug}', [AreaPageController::class, 'show'
     ->name('areas.show');
 
 Route::get('/produk', [ProductController::class, 'index'])->name('products.index');
+Route::get('/jual', [ProductController::class, 'sales'])->name('products.sales');
 Route::get('/sewa-{slug}-jabodetabek', [ProductController::class, 'categoryBySeoSlug'])
     ->where('slug', '[a-z0-9-]+')
     ->name('products.category');

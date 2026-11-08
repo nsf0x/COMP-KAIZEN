@@ -15,13 +15,19 @@
         default => null,
     };
     $variantHub = $related->firstWhere('slug', $variantHubSlug);
-    $productSeoDescription = $isVariantProduct
-        ? Str::limit($variantSeoTitle . '. ' . strip_tags($product->description ?: '') . ' Tanyakan ketersediaan sesuai tanggal dan lokasi acara.', 160)
-        : Str::limit(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))), 160);
+    $saleSeoTitle = ($product->bisa_disewa ? 'Jual & Sewa ' : 'Jual ') . $product->name . ' Bekasi | Kaizen Kreasi Indonesia';
+    $productSeoTitle = $product->bisa_dijual
+        ? $saleSeoTitle
+        : ($isVariantProduct ? $variantSeoTitle : $product->name . ' | ' . config('company.name'));
+    $productSeoDescription = $product->bisa_dijual
+        ? Str::limit(trim($product->meta_description ?: 'Jual ' . $product->name . ' di Bekasi. Kaizen Kreasi Indonesia melayani Jabodetabek; informasi harga melalui WhatsApp.'), 160)
+        : ($isVariantProduct
+            ? Str::limit($variantSeoTitle . '. ' . strip_tags($product->description ?: '') . ' Tanyakan ketersediaan sesuai tanggal dan lokasi acara.', 160)
+            : Str::limit(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.'))), 160));
 @endphp
 
-@section('title', $isVariantProduct ? $variantSeoTitle : $product->name)
-@section('meta_title', $isVariantProduct ? $variantSeoTitle : $product->name . ' | ' . config('company.name'))
+@section('title', $productSeoTitle)
+@section('meta_title', $productSeoTitle)
 @section('meta_description', $productSeoDescription)
 @section('meta_image', $product->thumbnail ? $product->thumbnail_url : rtrim(config('app.url'), '/') . '/images/kaizen-logo-color.png')
 @section('og_type', 'product')
@@ -30,17 +36,18 @@
 <script type="application/ld+json">
     {!! json_encode(array_filter([
         '@@context' => 'https://schema.org',
-        '@type' => 'Service',
+        '@type' => $product->bisa_dijual ? 'Product' : 'Service',
         'name' => $product->name,
-        'description' => \App\Support\PublicText::normalize(trim($product->meta_description ?: strip_tags($product->description ?: ('Sewa ' . $product->name . ' dari ' . config('company.name') . ' di ' . config('company.city') . '.')))),
+        'description' => \App\Support\PublicText::normalize(trim($productSeoDescription)),
         'image' => $product->thumbnail ? $product->thumbnail_url : null,
-        'serviceType' => $product->category?->name,
-        'provider' => [
+        'category' => $product->category?->name,
+        'serviceType' => $product->bisa_dijual ? null : $product->category?->name,
+        'provider' => $product->bisa_dijual ? null : [
             '@type' => 'LocalBusiness',
             '@id' => rtrim(config('app.url'), '/') . '/#organization',
             'name' => config('company.name'),
         ],
-        'areaServed' => 'Jabodetabek',
+        'areaServed' => $product->bisa_dijual ? null : 'Jabodetabek',
         'url' => rtrim(config('app.url'), '/') . '/' . ltrim(request()->getPathInfo(), '/'),
     ], fn ($value) => $value !== null && $value !== ''), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}
 </script>
@@ -100,7 +107,8 @@
                             <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                                width="900" height="600" loading="eager" style="width:100%;height:100%;object-fit:cover;" />
                             @else
-                            <div style="font-size:8rem;">🎁</div>
+                            <img src="{{ asset('images/product-placeholder.svg') }}" alt="Placeholder foto produk: {{ $product->name }}"
+                                 width="900" height="600" style="width:100%;height:100%;object-fit:cover;" />
                             @endif
                         </div>
                     </div>
@@ -126,7 +134,8 @@
                 <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                    width="900" height="600" loading="eager" style="width:100%;height:100%;object-fit:cover;" />
                 @else
-                <div style="font-size:8rem;">🎁</div>
+                <img src="{{ asset('images/product-placeholder.svg') }}" alt="Placeholder foto produk: {{ $product->name }}"
+                     width="900" height="600" style="width:100%;height:100%;object-fit:cover;" />
                 @endif
             </div>
             @endif
@@ -137,15 +146,22 @@
             @if($product->category)
             <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->display_name }}</span>
             @endif
+            @include('products.partials.availability-badge', ['product' => $product])
             @if($product->is_featured)
             <span class="badge mb-2 ms-1" style="background:var(--primary);">⭐ Produk Unggulan</span>
             @endif
 
-            <h1 class="fw-700 fs-2 mb-2">{{ $isVariantProduct ? $variantSeoTitle : $product->name }}</h1>
+            <h1 class="fw-700 fs-2 mb-2">{{ $isVariantProduct && !$product->bisa_dijual ? $variantSeoTitle : $product->name }}</h1>
 
-            <div class="fw-600 mb-4 text-muted">
-                Informasi lebih lanjut via WhatsApp atau telepon
-            </div>
+            @if($product->bisa_dijual)
+            <p class="fw-600 mb-4 text-muted">Harga hubungi kami via WhatsApp</p>
+            @else
+            <div class="fw-600 mb-4 text-muted">Informasi lebih lanjut via WhatsApp atau telepon</div>
+            @endif
+
+            @if($product->bisa_dijual && $product->bisa_disewa)
+            <p class="small text-muted">Tersedia untuk dibeli maupun disewa</p>
+            @endif
 
             @if($variantHub)
             <p class="mt-4"><a href="{{ route('products.show', $variantHub) }}">Lihat semua pilihan {{ Str::before($product->name, ' ') }} di Jabodetabek</a></p>
@@ -161,15 +177,25 @@
             @if($product->specification)
             <div class="mb-4">
                 <h6 class="fw-700">Spesifikasi</h6>
+                @if($product->bisa_dijual)
+                <table class="table table-sm table-bordered">
+                    <tbody>
+                        @foreach(preg_split('/\r\n|\r|\n/', $product->specification) as $specificationLine)
+                        @if(trim($specificationLine) !== '')
+                        <tr><td class="text-muted">{{ $specificationLine }}</td></tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
                 <div class="text-muted" style="white-space:pre-line;">{{ $product->specification }}</div>
+                @endif
             </div>
             @endif
 
             <!-- CTA Buttons -->
-            <div class="d-flex gap-3 flex-wrap">
-                <a href="{{ $product->whatsapp_url }}" class="btn btn-success btn-lg rounded-pill px-5" target="_blank">
-                    <i class="bi bi-whatsapp me-2"></i>Pesan via WhatsApp
-                </a>
+            <div class="d-flex gap-3 flex-wrap align-items-center">
+                @include('products.partials.whatsapp-actions', ['product' => $product])
                 <a href="tel:{{ preg_replace('/\D+/', '', config('company.phone')) }}" class="btn btn-outline-secondary btn-lg rounded-pill">
                     <i class="bi bi-telephone me-1"></i>Telepon
                 </a>
@@ -226,12 +252,17 @@
                         <x-optimized-image src="{{ $item->thumbnail_url }}" alt="Perlengkapan event: {{ $item->name }}"
                                            width="480" height="320" style="width:100%;height:100%;object-fit:cover;" />
                         @else
-                        <div style="font-size:3rem;">🎁</div>
+                        <img src="{{ asset('images/product-placeholder.svg') }}" alt="Placeholder foto produk: {{ $item->name }}"
+                             width="480" height="320" style="width:100%;height:100%;object-fit:cover;" />
                         @endif
                     </div>
                     <div class="card-body p-3">
                         <h6 class="fw-600 small mb-1">{{ $item->name }}</h6>
+                        @include('products.partials.availability-badge', ['product' => $item])
                         <a href="{{ route('products.show', $item) }}" class="btn btn-sm btn-outline-secondary rounded-pill w-100">Lihat</a>
+                        <div class="mt-2">
+                            @include('products.partials.whatsapp-actions', ['product' => $item, 'compact' => true])
+                        </div>
                     </div>
                 </div>
             </div>

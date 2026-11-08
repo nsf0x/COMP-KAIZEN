@@ -35,6 +35,7 @@ class StaticPageController extends Controller
         $urls = collect([
             ['loc' => $baseUrl.'/', 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['loc' => $baseUrl.'/produk', 'changefreq' => 'daily', 'priority' => '0.9'],
+            ['loc' => $baseUrl.'/jual', 'changefreq' => 'daily', 'priority' => '0.8'],
             ['loc' => $baseUrl.'/portofolio', 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => $baseUrl.'/blog', 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['loc' => $baseUrl.'/tentang-kami', 'changefreq' => 'monthly', 'priority' => '0.6'],

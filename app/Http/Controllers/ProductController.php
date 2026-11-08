@@ -60,6 +60,37 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'selectedCategory', 'infoUmum'));
     }
 
+    public function sales(Request $request)
+    {
+        $validated = $request->validate([
+            'kategori' => ['nullable', 'string', 'in:led-lighting,sound-system'],
+        ]);
+        $selectedCategory = $validated['kategori'] ?? null;
+        $categories = Category::query()
+            ->whereIn('slug', ['led-lighting', 'sound-system'])
+            ->where('is_active', true)
+            ->orderByRaw("CASE slug WHEN 'led-lighting' THEN 0 ELSE 1 END")
+            ->get();
+
+        $query = Product::query()
+            ->where('status', true)
+            ->where('bisa_dijual', true)
+            ->with(['category', 'images']);
+
+        if ($selectedCategory) {
+            $query->whereHas('category', fn ($categoryQuery) => $categoryQuery->where('slug', $selectedCategory));
+        }
+
+        $products = $query->orderBy('order')->paginate(12)->withQueryString();
+        $soundSystemHasProducts = Product::query()
+            ->where('status', true)
+            ->where('bisa_dijual', true)
+            ->whereHas('category', fn ($categoryQuery) => $categoryQuery->where('slug', 'sound-system'))
+            ->exists();
+
+        return view('products.sales', compact('products', 'categories', 'selectedCategory', 'soundSystemHasProducts'));
+    }
+
     public function legacyCategory(string $legacySlug)
     {
         $category = $this->findAvailableCategory($legacySlug);

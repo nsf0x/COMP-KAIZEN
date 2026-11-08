@@ -19,6 +19,14 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $saleProducts = Product::query()
+            ->where('status', true)
+            ->where('bisa_dijual', true)
+            ->with('category')
+            ->orderBy('order')
+            ->take(3)
+            ->get();
+
         $categories = Category::query()
             ->availableForCatalog()
             ->orderBy('order')
@@ -46,6 +54,7 @@ class HomeController extends Controller
 
         return view('home', compact(
             'featuredProducts',
+            'saleProducts',
             'categories',
             'portfolios',
             'testimonials',

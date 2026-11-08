@@ -104,7 +104,8 @@
                             <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                                width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                             @else
-                            <div style="font-size:5rem;">🎁</div>
+                            <img src="{{ asset('images/product-placeholder.svg') }}" alt="Placeholder foto produk: {{ $product->name }}"
+                                 width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
                             @endif
                         </div>
                         @if($product->is_featured)
@@ -113,19 +114,18 @@
                         </div>
                         @endif
                         <div class="card-body d-flex flex-column">
+                            @include('products.partials.availability-badge', ['product' => $product])
                             <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary); width:fit-content;">
                                 {{ $product->category->display_name ?? 'Umum' }}
                             </span>
                             <h6 class="fw-700 mb-1">{{ $product->name }}</h6>
                             <p class="text-muted small mb-2 flex-grow-1">{{ Str::limit($product->description, 70) }}</p>
                             <div class="fw-600 mb-3 text-muted small">
-                                Informasi lebih lanjut
+                                {{ $product->bisa_dijual ? 'Harga hubungi kami via WhatsApp' : 'Informasi lebih lanjut' }}
                             </div>
                             <div class="d-flex gap-2 mt-auto">
                                 <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill flex-fill">Detail</a>
-                                <a href="{{ $product->whatsapp_url }}" class="btn btn-sm btn-success rounded-pill flex-fill" target="_blank">
-                                    <i class="bi bi-whatsapp me-1"></i>Pesan
-                                </a>
+                                @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                             </div>
                         </div>
                     </div>

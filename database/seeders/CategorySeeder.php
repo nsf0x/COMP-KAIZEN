@@ -18,6 +18,7 @@ class CategorySeeder extends Seeder
             ['slug' => 'furniture-seating', 'name' => 'Furniture (Kursi & Meja)', 'icon' => 'chair', 'order' => 6],
             ['slug' => 'booth-branding', 'name' => 'Booth & Branding', 'icon' => 'booth', 'order' => 7],
             ['slug' => 'event-support', 'name' => 'Event Support', 'icon' => 'support', 'order' => 8],
+            ['slug' => 'led-lighting', 'name' => 'LED Lighting', 'icon' => 'lightbulb', 'order' => 9],
         ];
 
         foreach ($categories as $cat) {
