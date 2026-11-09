@@ -33,14 +33,14 @@ class ProductSaleFeatureTest extends TestCase
 
         $this->get(route('products.index'))
             ->assertOk()
-            ->assertSee('Sewa via WhatsApp')
-            ->assertDontSee('Beli via WhatsApp');
+            ->assertSee('aria-label="Sewa Sound System Test via WhatsApp"', false)
+            ->assertDontSee('aria-label="Beli Sound System Test via WhatsApp"', false);
 
         $this->get(route('products.category', ['slug' => 'sound-system']))
             ->assertOk()
             ->assertSee('Sound System Test')
-            ->assertSee('Sewa via WhatsApp')
-            ->assertDontSee('Beli via WhatsApp');
+            ->assertSee('aria-label="Sewa Sound System Test via WhatsApp"', false)
+            ->assertDontSee('aria-label="Beli Sound System Test via WhatsApp"', false);
 
         $detailResponse = $this->get(route('products.show', $product))
             ->assertOk()
@@ -95,7 +95,8 @@ class ProductSaleFeatureTest extends TestCase
             ->assertOk()
             ->assertSee('Kami Juga Menjual LED Lighting &amp; Sound System', false)
             ->assertSee($both->name)
-            ->assertSee('Beli via WhatsApp');
+            ->assertSee('aria-label="Beli Par Redsun via WhatsApp"', false)
+            ->assertSee('aria-label="Sewa Par Redsun via WhatsApp"', false);
     }
 
     public function test_admin_can_create_sale_only_products_but_products_cannot_disable_both_options(): void
@@ -145,6 +146,8 @@ class ProductSaleFeatureTest extends TestCase
             ->assertOk()
             ->assertSee('Jual LED Lighting &amp; Sound System Event', false)
             ->assertSee($saleProduct->name)
+            ->assertSee('aria-label="Beli Beam Redsun 440 BSW via WhatsApp"', false)
+            ->assertSee('aria-label="Sewa Beam Redsun 440 BSW via WhatsApp"', false)
             ->assertSee('Sound System — Segera hadir.')
             ->assertDontSee($rentalOnly->name)
             ->assertSee('<link rel="canonical" href="http://localhost/jual">', false);
@@ -159,6 +162,26 @@ class ProductSaleFeatureTest extends TestCase
             ->assertOk()
             ->assertSee($saleProduct->name)
             ->assertDontSee($rentalOnly->name);
+    }
+
+    public function test_compact_product_actions_are_shared_by_rental_only_sale_only_and_mixed_cards(): void
+    {
+        $category = $this->createCategory('led-lighting', 'LED Lighting');
+        $this->createProduct($category, 'Disewa Saja', 'disewa-saja', false, true);
+        $this->createProduct($category, 'Dijual Saja', 'dijual-saja', true, false);
+        $this->createProduct($category, 'Jual dan Sewa', 'jual-dan-sewa', true, true);
+
+        $this->get(route('products.index'))
+            ->assertOk()
+            ->assertSee('class="product-card-cta__actions"', false)
+            ->assertSee('class="product-card-cta__actions product-card-cta__actions--paired"', false)
+            ->assertSee('aria-label="Sewa Disewa Saja via WhatsApp"', false)
+            ->assertSee('aria-label="Beli Dijual Saja via WhatsApp"', false)
+            ->assertSee('aria-label="Beli Jual dan Sewa via WhatsApp"', false)
+            ->assertSee('aria-label="Sewa Jual dan Sewa via WhatsApp"', false)
+            ->assertSee('aria-label="Lihat detail Disewa Saja"', false)
+            ->assertSee('<span>Beli</span>', false)
+            ->assertSee('<span>Sewa</span>', false);
     }
 
     public function test_sales_seeder_is_idempotent_and_does_not_duplicate_a_matching_product(): void

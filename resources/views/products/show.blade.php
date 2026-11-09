@@ -247,7 +247,7 @@
             @foreach($related as $item)
             <div class="col-6 col-md-3">
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
-                    <div style="height:160px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
+                    <div class="product-card-media">
                         @if($item->thumbnail)
                         <x-optimized-image src="{{ $item->thumbnail_url }}" alt="Perlengkapan event: {{ $item->name }}"
                                            width="480" height="320" style="width:100%;height:100%;object-fit:cover;" />
@@ -256,13 +256,10 @@
                              width="480" height="320" style="width:100%;height:100%;object-fit:cover;" />
                         @endif
                     </div>
-                    <div class="card-body p-3">
-                        <h6 class="fw-600 small mb-1">{{ $item->name }}</h6>
+                    <div class="card-body p-3 d-flex flex-column">
+                        <h6 class="product-card-title fw-600 small mb-1">{{ $item->name }}</h6>
                         @include('products.partials.availability-badge', ['product' => $item])
-                        <a href="{{ route('products.show', $item) }}" class="btn btn-sm btn-outline-secondary rounded-pill w-100">Lihat</a>
-                        <div class="mt-2">
-                            @include('products.partials.whatsapp-actions', ['product' => $item, 'compact' => true])
-                        </div>
+                        @include('products.partials.whatsapp-actions', ['product' => $item, 'compact' => true])
                     </div>
                 </div>
             </div>

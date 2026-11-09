@@ -144,7 +144,7 @@
         @foreach($products as $product)
         <div class="col-sm-6 col-lg-4">
             <article class="card border-0 shadow-sm h-100" data-product-name="{{ $product->name }}" style="border-radius:16px; overflow:hidden;">
-                <div style="height:220px; overflow:hidden; background:#ffeef9; display:flex;align-items:center;justify-content:center;">
+                <div class="product-card-media">
                     @if($product->thumbnail)
                     <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                        width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
@@ -155,11 +155,10 @@
                 </div>
                 <div class="card-body d-flex flex-column">
                     @include('products.partials.availability-badge', ['product' => $product])
-                    <h2 class="h6 fw-700">{{ $product->name }}</h2>
+                    <h2 class="product-card-title h6 fw-700">{{ $product->name }}</h2>
                     @if($product->description)
-                    <p class="text-muted small flex-grow-1">{{ Str::limit($product->description, 110) }}</p>
+                    <p class="product-card-description text-muted small">{{ Str::limit($product->description, 110) }}</p>
                     @endif
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary rounded-pill mb-2 mt-auto">Lihat Detail</a>
                     @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                 </div>
             </article>

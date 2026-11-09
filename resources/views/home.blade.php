@@ -163,7 +163,7 @@
             @foreach($featuredProducts as $product)
             <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
                 <div class="card border-0 shadow-sm h-100" style="border-radius:16px; overflow:hidden;">
-                    <div style="height:200px; overflow:hidden; background:#ffeef9; display:flex; align-items:center; justify-content:center;">
+                    <div class="product-card-media">
                         @if($product->thumbnail)
                         <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                            width="600" height="400" style="width:100%; height:100%; object-fit:cover;" />
@@ -174,16 +174,13 @@
                     </div>
                     <div class="card-body d-flex flex-column">
                         <span class="badge mb-2" style="background:#ffe4f5; color:var(--primary);">{{ $product->category->display_name ?? '' }}</span>
-                        <h5 class="fw-600 mb-1">{{ $product->name }}</h5>
-                        <p class="text-muted small mb-2">{{ Str::limit($product->description, 80) }}</p>
+                        <h5 class="product-card-title fw-600 mb-1">{{ $product->name }}</h5>
+                        <p class="product-card-description text-muted small mb-2">{{ Str::limit($product->description, 80) }}</p>
                         @include('products.partials.availability-badge', ['product' => $product])
                         <div class="fw-600 mb-3 text-muted small">
                             {{ $product->bisa_dijual ? 'Harga hubungi kami via WhatsApp' : 'Informasi lebih lanjut' }}
                         </div>
-                        <div class="d-flex gap-2 mt-auto">
-                            <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary rounded-pill flex-fill">Detail</a>
-                            @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
-                        </div>
+                        @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                     </div>
                 </div>
             </div>
@@ -218,9 +215,8 @@
                         <span class="badge mb-2" style="background:#e8eeff; color:var(--primary); width:fit-content;">
                             {{ $product->category->display_name ?? 'Umum' }}
                         </span>
-                        <h3 class="h5 fw-700">{{ $product->name }}</h3>
+                        <h3 class="product-card-title h5 fw-700">{{ $product->name }}</h3>
                         <p class="text-muted small">Harga hubungi kami via WhatsApp</p>
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary rounded-pill mb-2">Detail Produk</a>
                         @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                     </div>
                 </article>

@@ -65,7 +65,7 @@
         @foreach($products as $product)
         <div class="col-sm-6 col-lg-4">
             <article class="card border-0 shadow-sm h-100" data-product-name="{{ $product->name }}" style="border-radius:16px; overflow:hidden;">
-                <div style="height:220px; overflow:hidden; background:#f1f4ff; display:flex;align-items:center;justify-content:center;">
+                <div class="product-card-media">
                     @if($product->thumbnail)
                     <x-optimized-image src="{{ $product->thumbnail_url }}" alt="Perlengkapan event: {{ $product->name }}"
                                        width="600" height="400" style="width:100%;height:100%;object-fit:cover;" />
@@ -79,12 +79,11 @@
                     <span class="badge mb-2" style="background:#e8eeff; color:var(--primary); width:fit-content;">
                         {{ $product->category->display_name ?? 'Umum' }}
                     </span>
-                    <h2 class="h5 fw-700">{{ $product->name }}</h2>
+                    <h2 class="product-card-title h5 fw-700">{{ $product->name }}</h2>
                     @if($product->description)
-                    <p class="text-muted small flex-grow-1">{{ $product->description }}</p>
+                    <p class="product-card-description text-muted small">{{ $product->description }}</p>
                     @endif
                     <p class="text-muted small mb-3">Harga hubungi kami via WhatsApp</p>
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary rounded-pill mb-2">Detail Produk</a>
                     @include('products.partials.whatsapp-actions', ['product' => $product, 'compact' => true])
                 </div>
             </article>
