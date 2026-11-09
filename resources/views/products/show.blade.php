@@ -151,8 +151,7 @@
                 <path d="M19 12H5"></path>
                 <path d="m12 19-7-7 7-7"></path>
             </svg>
-            <span class="d-sm-none">Kembali</span>
-            <span class="d-none d-sm-inline">{{ $product->category?->is_active ? 'Kembali ke ' . $product->category->display_name : 'Kembali ke Produk' }}</span>
+            <span>Kembali</span>
         </a>
         <nav aria-label="breadcrumb" class="product-detail-breadcrumb">
             <ol class="breadcrumb">

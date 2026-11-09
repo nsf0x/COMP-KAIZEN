@@ -63,7 +63,8 @@ class ProductSaleFeatureTest extends TestCase
             ->assertOk()
             ->assertSee('aria-label="Kembali ke daftar produk"', false)
             ->assertSee('href="'.route('products.index').'"', false)
-            ->assertSee('Kembali ke Produk');
+            ->assertSee('>Kembali</span>', false)
+            ->assertDontSee('Kembali ke Produk');
     }
 
     public function test_sale_rental_flag_migration_can_be_rolled_back_and_reapplied(): void
