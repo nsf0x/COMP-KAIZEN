@@ -67,6 +67,69 @@
 
 @push('styles')
 <style>
+    .product-detail-navigation {
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
+        margin-bottom:24px;
+    }
+    .product-detail-navigation .breadcrumb { margin-bottom:0; }
+    .product-detail-breadcrumb .breadcrumb-item a {
+        color:#535b6b;
+        text-decoration:none;
+        transition:color .18s ease;
+    }
+    .product-detail-breadcrumb .breadcrumb-item a:hover { color:#087443; }
+    .product-detail-breadcrumb .breadcrumb-item a:focus-visible,
+    .product-back-link:focus-visible {
+        outline:3px solid #ffbf47;
+        outline-offset:2px;
+        border-radius:4px;
+    }
+    .product-detail-breadcrumb .breadcrumb-item::before { color:#6b7280; }
+    .product-detail-breadcrumb .breadcrumb-item.active { color:#535b6b; }
+    .product-back-link {
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        min-height:44px;
+        padding:0 12px;
+        border-radius:12px;
+        color:#535b6b;
+        font-size:14px;
+        font-weight:600;
+        line-height:1;
+        text-decoration:none;
+        white-space:nowrap;
+        transition:color .18s ease, background-color .18s ease;
+    }
+    .product-back-link svg {
+        flex:none;
+        width:18px;
+        height:18px;
+        transition:transform .18s ease;
+    }
+    .product-back-link:hover { color:#087443; }
+    .product-back-link:hover svg { transform:translateX(-3px); }
+    html.dark .product-detail-breadcrumb .breadcrumb-item a,
+    html.dark .product-detail-breadcrumb .breadcrumb-item.active { color:#c0c2cc; }
+    html.dark .product-detail-breadcrumb .breadcrumb-item a:hover,
+    html.dark .product-back-link:hover { color:#57d991; }
+    html.dark .product-detail-breadcrumb .breadcrumb-item::before { color:#9a9daa; }
+    html.dark .product-back-link { color:#c0c2cc; }
+    @media (min-width:576px) {
+        .product-detail-navigation {
+            flex-direction:row;
+            align-items:center;
+            gap:12px;
+        }
+    }
+    @media (prefers-reduced-motion:reduce) {
+        .product-detail-breadcrumb .breadcrumb-item a,
+        .product-back-link,
+        .product-back-link svg { transition:none; }
+    }
     .product-detail-copy {
         min-width: 0;
         overflow-wrap: anywhere;
@@ -78,21 +141,34 @@
 @section('content')
 
 <div class="container py-5" data-product-name="{{ $product->name }}">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}" style="color:var(--primary);">Beranda</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('products.index') }}" style="color:var(--primary);">Produk</a></li>
-            @if($product->category?->is_active)
-            <li class="breadcrumb-item">
-                <a href="{{ route('products.category', ['slug' => $product->category->slug]) }}" style="color:var(--primary);">
-                    {{ $product->category->display_name }}
-                </a>
-            </li>
-            @endif
-            <li class="breadcrumb-item active">{{ $product->name }}</li>
-        </ol>
-    </nav>
+    <div class="product-detail-navigation">
+        <a href="{{ $product->category?->is_active ? route('products.category', ['slug' => $product->category->slug]) : route('products.index') }}"
+           class="product-back-link"
+           aria-label="Kembali ke daftar produk"
+           data-product-back-link>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 12H5"></path>
+                <path d="m12 19-7-7 7-7"></path>
+            </svg>
+            <span class="d-sm-none">Kembali</span>
+            <span class="d-none d-sm-inline">{{ $product->category?->is_active ? 'Kembali ke ' . $product->category->display_name : 'Kembali ke Produk' }}</span>
+        </a>
+        <nav aria-label="breadcrumb" class="product-detail-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('products.index') }}">Produk</a></li>
+                @if($product->category?->is_active)
+                <li class="breadcrumb-item">
+                    <a href="{{ route('products.category', ['slug' => $product->category->slug]) }}">
+                        {{ $product->category->display_name }}
+                    </a>
+                </li>
+                @endif
+                <li class="breadcrumb-item active">{{ $product->name }}</li>
+            </ol>
+        </nav>
+    </div>
 
     <div class="row g-5">
         <!-- Images -->
@@ -270,3 +346,23 @@
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    (() => {
+        const backLink = document.querySelector('[data-product-back-link]');
+        if (!backLink || !document.referrer || window.history.length < 2) return;
+
+        const currentHost = window.location.hostname.replace(/^www\./i, '');
+        const referrerHost = new URL(document.referrer).hostname.replace(/^www\./i, '');
+        const isInternalReferrer = referrerHost === currentHost;
+
+        if (isInternalReferrer) {
+            backLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                window.history.back();
+            });
+        }
+    })();
+</script>
+@endpush

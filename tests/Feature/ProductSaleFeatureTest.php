@@ -45,9 +45,25 @@ class ProductSaleFeatureTest extends TestCase
         $detailResponse = $this->get(route('products.show', $product))
             ->assertOk()
             ->assertSee('Sewa via WhatsApp')
-            ->assertDontSee('Beli via WhatsApp');
+            ->assertDontSee('Beli via WhatsApp')
+            ->assertSee('aria-label="Kembali ke daftar produk"', false)
+            ->assertSee('href="'.route('products.category', ['slug' => 'sound-system']).'"', false)
+            ->assertSee('window.history.back()', false);
 
         $detailResponse->assertSee($product->whatsapp_rental_url, false);
+    }
+
+    public function test_product_back_link_falls_back_to_catalog_when_category_is_inactive(): void
+    {
+        $category = $this->createCategory('arsip', 'Kategori Arsip');
+        $category->update(['is_active' => false]);
+        $product = $this->createProduct($category, 'Produk Kategori Arsip', 'produk-kategori-arsip', false, true);
+
+        $this->get(route('products.show', $product))
+            ->assertOk()
+            ->assertSee('aria-label="Kembali ke daftar produk"', false)
+            ->assertSee('href="'.route('products.index').'"', false)
+            ->assertSee('Kembali ke Produk');
     }
 
     public function test_sale_rental_flag_migration_can_be_rolled_back_and_reapplied(): void
